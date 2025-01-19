@@ -28,6 +28,16 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      backgroundImage: {
+        'text-gradient': 'linear-gradient(139deg, var(--white), #fff 11%, #cae7b5 37%, #b0f0d0 56%, #23d67c 73%, #23d67c 87%, #6cce5e 95%, #23d67c)',
+      },
+      fontSize: {
+        '4xl': ['2.25rem', { lineHeight: '2.5rem' }], // Equivalent to text-4xl
+        '7xl': ['4.5rem', { lineHeight: '1.2' }],    // Equivalent to md:text-7xl
+      },
+      fontWeight: {
+        bold: '700', // Equivalent to font-bold
+      },
     },
   },
   plugins: [

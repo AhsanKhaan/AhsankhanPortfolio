@@ -12,6 +12,7 @@ import {
 } from "@tabler/icons-react";
 import { NeonCard } from '@/app/components/ui/NeonCard';
 import Image from 'next/image';
+import { TypewriterEffectSmooth } from '../ui/TypewriterEffect';
 const Hero = () => {
 
 
@@ -74,16 +75,33 @@ const Hero = () => {
 
     <>
       <BackgroundBeams className="text-2xl" />
-      <section className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-12 mt-14 container mx-auto px-6 md:px-12 max-w-screen-lg">
+      <section className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-8 mt-14 container mx-auto px-6 md:px-12 max-w-screen-lg">
         {/* Left Section: Text */}
-        <div className="flex flex-col items-center md:items-start text-center md:text-left">
-          <h1 className="text-4xl md:text-7xl font-bold mb-4">
-            Ahsan Khan
-          </h1>
-          <p className="text-lg md:text-2xl">
-            Software Engineer
-          </p>
+        <div className=" bg-background flex flex-col justify-center px-4">
+          {/* <!-- Left Section: Text --> */}
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+            {/* <!-- 'Hey, I am' Text --> */}
+          
+            <h1 className="text-4xl md:text-5xl font-light  text-white">
+              Hey, I am
+            </h1>
+
+            {/* <!-- 'Ahsan Khan' Text with Gradient --> */}
+            <h2 className="text-4xl md:text-5xl font-bold  bg-text-gradient text-transparent bg-clip-text">
+              Ahsan Khan
+            </h2>
+
+            {/* <!-- 'Full Stack Developer' Text with Green Gradient Theme --> */}
+            
+            <TypewriterEffectSmooth 
+              words={[
+                { text: "Senior Software Engineer" }
+              ]}
+              className="mt-0 text-4xl md:text-4xl font-bold bg-[radial-gradient(circle_farthest-side_at_0_100%,#00ccb1,transparent),radial-gradient(circle_farthest-side_at_100%_0,#7b61ff,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#ffc414,transparent),radial-gradient(circle_farthest-side_at_0_0,#1ca0fb,#141316)]  text-transparent bg-clip-text"
+            />
+          </div>
         </div>
+
 
         {/* Right Section: Neon Card */}
         <div className="flex justify-center md:ml-auto">
