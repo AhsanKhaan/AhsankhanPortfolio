@@ -1,27 +1,19 @@
 'use client'
-import React,{useState,useRef} from 'react'
+import React, { useState } from 'react'
 import { BackgroundBeams } from '@/app/components/ui/BackgroundBeams'
 import { FloatingDock } from '@/app/components/ui/FloatingDock'
-import {
-  IconBrandGithub,
-  IconBrandX,
-  IconExchange,
-  IconHome,
-  IconBulb,
-  IconBriefcase,
-  IconSchool,
-} from "@tabler/icons-react";
+import { IconBrandGithub, IconBrandX, IconExchange, IconHome, IconBulb, IconBriefcase, IconSchool } from "@tabler/icons-react";
 import { NeonCard } from '@/app/components/ui/NeonCard';
 import Image from 'next/image';
 import { TypewriterEffectSmooth } from '../ui/TypewriterEffect';
 import Lottie from "lottie-react";
 import animationData from "@/data/confetti.json";
-import { motion } from "framer-motion";
 import { IconClipboard, IconCheck } from "@tabler/icons-react";
 import MagicButton from '../ui/MagicButton';
 
 const Hero = () => {
-
+  const [copied, setCopied] = useState(false);
+  const email = "hsu@jsmastery.pro";
 
   const links = [
     {
@@ -79,120 +71,96 @@ const Hero = () => {
     },
   ];
 
-
-
-
-
-  const [copied, setCopied] = useState(false);
-
-  const defaultOptions = {
-    loop: copied,
-    autoplay: copied,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
   const handleCopy = () => {
-    const text = "hsu@jsmastery.pro";
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(email);
     setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const handleDownloadResume = () => {
     const link = document.createElement("a");
     link.href = "/resume.pdf";
-    link.download = "Your_Resume.pdf";
+    link.download = "Ahsan_Khan_Resume.pdf";
     link.click();
   };
+
+  const words = [
+    { text: "Full" ,className: "text-blue-400/75 dark:text-blue-400/75" },
+    { text: "Stack",className: "text-blue-400/75 dark:text-blue-400/75" },
+    { text: "Developer", className: "text-emerald-400/25 dark:text-emerald-400/25 bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent shadow-xl" },
+  ];
+
   return (
-
     <>
-      <BackgroundBeams className="text-2xl" />
-      <section className="flex flex-col md:flex-row  items-center gap-8 md:gap-8 mt-14 container mx-auto px-6 md:px-12 max-w-screen-lg">
-        {/* Left Section: Text */}
-        <div className=" bg-background flex flex-col justify-center px-4">
-          {/* <!-- Left Section: Text --> */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            {/* <!-- 'Hey, I am' Text --> */}
+      <BackgroundBeams />
+      <section className="relative flex flex-col md:flex-row items-center justify-between min-h-screen container mx-auto px-4 md:px-8 lg:px-12 xl:max-w-7xl">
+        {/* Content Section */}
+        <div className="z-10 flex-1 md:w-1/2 mt-20 md:mt-0 space-y-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-neutral-200">
+            Hey, I'm
+          </h1>
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+            Ahsan Khan
+          </h2>
+          
+          <TypewriterEffectSmooth 
+            words={words} 
+            className="text-4xl md:text-4xl lg:text-5xl font-semibold"
+          />
 
-            <h1 className="text-4xl md:text-5xl font-light  text-white">
-              Hey, I am
-            </h1>
+          <p className="text-lg md:text-xl text-neutral-400 max-w-2xl">
+            Passionate full-stack developer specializing in modern web technologies. 
+            With 5+ years of experience building scalable applications and digital experiences. 
+            Let's create something amazing together!
+          </p>
 
-            {/* <!-- 'Ahsan Khan' Text with Gradient --> */}
-            <h2 className="text-4xl md:text-5xl font-bold  bg-text-gradient text-transparent bg-clip-text">
-              Ahsan Khan
-            </h2>
-
-            {/* <!-- 'Full Stack Developer' Text with Green Gradient Theme --> */}
-
-            <TypewriterEffectSmooth
-              words={[
-                { text: "Software Engineer" },
-              ]}
-              className="mt-0 text-4xl md:text-4xl font-bold bg-[radial-gradient(circle_farthest-side_at_0_100%,#00ccb1,transparent),radial-gradient(circle_farthest-side_at_100%_0,#7b61ff,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#ffc414,transparent),radial-gradient(circle_farthest-side_at_0_0,#1ca0fb,#141316)]  text-transparent bg-clip-text"
+          <div className="flex flex-col md:flex-row gap-4 mt-8">
+            <MagicButton
+              title="Download CV"
+              icon={<IconBriefcase size={20} />}
+              position="right"
+              handleClick={handleDownloadResume}
+              otherClasses=""
             />
-            <section className="flex flex-col items-center justify-center text-center  px-4">
-              <p className="text-lg max-w-2xl">
-                Hi, I'm a passionate developer crafting amazing digital experiences.
-                Let's collaborate to build something innovative! Feel free to reach out at
-                {/* <span className="text-blue-500 cursor-pointer ml-2" onClick={handleCopyEmail}>
-                  {email}
-                  {emailCopied ? (
-                    <IconCheck size={16} className="inline ml-1 text-green-500" />
-                  ) : (
-                    <IconClipboard size={16} className="inline ml-1" />
-                  )}
-                </span> */}
-              </p>
-              <div className="flex gap-4 mt-6">
-                <div
-                className={`absolute -bottom-5 right-0 ${copied ? "block" : "block"
-                  }`}
-              >
-                {/* <img src="/confetti.gif" alt="confetti" /> */}
-                <Lottie options={defaultOptions} height={200} width={400} />
-              </div>
-
+            
+            <div className="relative">
               <MagicButton
-                title={copied ? "Email is Copied!" : "Copy my email address"}
-                icon={<IconClipboard />}
+                title={copied ? "Email Copied!" : "Copy Email"}
+                icon={copied ? <IconCheck size={20} /> : <IconClipboard size={20} />}
                 position="left"
                 handleClick={handleCopy}
-                otherClasses="!bg-[#161A31]"
               />
-
-              </div>
-            </section>
-
+              {copied && (
+                <Lottie 
+                  animationData={animationData}
+                  loop={false}
+                  className="absolute -bottom-20 right-0 w-48 h-48"
+                />
+              )}
+            </div>
           </div>
         </div>
 
-
-        {/* Right Section: Neon Card */}
-        <div className="flex justify-center md:ml-auto">
-          <NeonCard
-            className="rounded-full"
-            containerClassName="my-4 rounded-full"
-          >
+        {/* Image Section */}
+        <div className="flex-1 md:w-1/2 flex justify-center md:justify-end mt-12 md:mt-0">
+          <NeonCard className="rounded-full p-1" containerClassName="rounded-full">
             <Image
               src="/assets/Profile-v3.png"
-              alt="Ahsan Khan"
-              width={300}
-              height={300}
-              style={{ borderRadius: "50%" }}
-              className="object-cover rounded-full"
+              alt="Ahsan Khan - Full Stack Developer"
+              width={450}
+              height={450}
+              className="rounded-full object-cover "
+              priority
             />
           </NeonCard>
         </div>
-      </section>
-      <FloatingDock
-        items={links}
-        desktopClassName="relative flex justify-center text-2xl align-middle fixed bottom-10 left-1/2 transform -translate-x-1/2"
-      />
 
+        <FloatingDock
+          items={links}
+          desktopClassName="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-black/30 backdrop-blur-lg rounded-full px-4 py-2 shadow-xl"
+          mobileClassName="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-black/30 backdrop-blur-lg rounded-full px-2 py-1"
+        />
+      </section>
     </>
   )
 }
