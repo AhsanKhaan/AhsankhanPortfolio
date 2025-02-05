@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React,{useState,useRef} from 'react'
 import { BackgroundBeams } from '@/app/components/ui/BackgroundBeams'
 import { FloatingDock } from '@/app/components/ui/FloatingDock'
 import {
@@ -13,6 +14,12 @@ import {
 import { NeonCard } from '@/app/components/ui/NeonCard';
 import Image from 'next/image';
 import { TypewriterEffectSmooth } from '../ui/TypewriterEffect';
+import Lottie from "lottie-react";
+import animationData from "@/data/confetti.json";
+import { motion } from "framer-motion";
+import { IconClipboard, IconCheck } from "@tabler/icons-react";
+import MagicButton from '../ui/MagicButton';
+
 const Hero = () => {
 
 
@@ -71,17 +78,45 @@ const Hero = () => {
       rel: "noopener noreferrer",
     },
   ];
+
+
+
+
+
+  const [copied, setCopied] = useState(false);
+
+  const defaultOptions = {
+    loop: copied,
+    autoplay: copied,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
+  const handleCopy = () => {
+    const text = "hsu@jsmastery.pro";
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+  };
+
+  const handleDownloadResume = () => {
+    const link = document.createElement("a");
+    link.href = "/resume.pdf";
+    link.download = "Your_Resume.pdf";
+    link.click();
+  };
   return (
 
     <>
       <BackgroundBeams className="text-2xl" />
-      <section className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-8 mt-14 container mx-auto px-6 md:px-12 max-w-screen-lg">
+      <section className="flex flex-col md:flex-row  items-center gap-8 md:gap-8 mt-14 container mx-auto px-6 md:px-12 max-w-screen-lg">
         {/* Left Section: Text */}
         <div className=" bg-background flex flex-col justify-center px-4">
           {/* <!-- Left Section: Text --> */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             {/* <!-- 'Hey, I am' Text --> */}
-          
+
             <h1 className="text-4xl md:text-5xl font-light  text-white">
               Hey, I am
             </h1>
@@ -92,13 +127,46 @@ const Hero = () => {
             </h2>
 
             {/* <!-- 'Full Stack Developer' Text with Green Gradient Theme --> */}
-            
-            <TypewriterEffectSmooth 
+
+            <TypewriterEffectSmooth
               words={[
-                { text: "Senior Software Engineer" }
+                { text: "Software Engineer" },
               ]}
               className="mt-0 text-4xl md:text-4xl font-bold bg-[radial-gradient(circle_farthest-side_at_0_100%,#00ccb1,transparent),radial-gradient(circle_farthest-side_at_100%_0,#7b61ff,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#ffc414,transparent),radial-gradient(circle_farthest-side_at_0_0,#1ca0fb,#141316)]  text-transparent bg-clip-text"
             />
+            <section className="flex flex-col items-center justify-center text-center  px-4">
+              <p className="text-lg max-w-2xl">
+                Hi, I'm a passionate developer crafting amazing digital experiences.
+                Let's collaborate to build something innovative! Feel free to reach out at
+                {/* <span className="text-blue-500 cursor-pointer ml-2" onClick={handleCopyEmail}>
+                  {email}
+                  {emailCopied ? (
+                    <IconCheck size={16} className="inline ml-1 text-green-500" />
+                  ) : (
+                    <IconClipboard size={16} className="inline ml-1" />
+                  )}
+                </span> */}
+              </p>
+              <div className="flex gap-4 mt-6">
+                <div
+                className={`absolute -bottom-5 right-0 ${copied ? "block" : "block"
+                  }`}
+              >
+                {/* <img src="/confetti.gif" alt="confetti" /> */}
+                <Lottie options={defaultOptions} height={200} width={400} />
+              </div>
+
+              <MagicButton
+                title={copied ? "Email is Copied!" : "Copy my email address"}
+                icon={<IconClipboard />}
+                position="left"
+                handleClick={handleCopy}
+                otherClasses="!bg-[#161A31]"
+              />
+
+              </div>
+            </section>
+
           </div>
         </div>
 
