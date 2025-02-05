@@ -90,6 +90,20 @@ const Hero = () => {
     { text: "Developer", className: "text-emerald-400/25 dark:text-emerald-400/25 bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent shadow-xl" },
   ];
 
+
+  const [isDownloading, setIsDownloading] = useState(false);
+  const handleDownloadCV = () => {
+    setIsDownloading(true);
+
+    // Simulate download process
+    const link = document.createElement("a");
+    link.href = "/data/portfolio.csv"; // Path to your CSV file
+    link.download = "Ahsan_Khan_Portfolio.csv";
+    link.click();
+
+    // Stop animation after 2 seconds
+    setTimeout(() => setIsDownloading(false), 2000);
+  };
   return (
     <>
       <BackgroundBeams />
@@ -119,10 +133,16 @@ const Hero = () => {
               title="Download CV"
               icon={<IconBriefcase size={20} />}
               position="right"
-              handleClick={handleDownloadResume}
-              otherClasses=""
+              handleClick={handleDownloadCV}
+              otherClasses="text-transparent bg-gradient-to-r from-blue-400 to-emerald-400 hover:bg-black dark:hover:bg-blue hover:text-black dark:hover:text-blue-900 dark:hover:font-bold transition-colors duration-300"
             />
-            
+              {isDownloading && (
+                <Lottie 
+                  animationData={animationData}
+                  loop={false}
+                  className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 w-200 h-200"
+                />
+              )}
             <div className="relative">
               <MagicButton
                 title={copied ? "Email Copied!" : "Copy Email"}
