@@ -1,5 +1,5 @@
-'use client'
-import React, { useState } from 'react'
+// 'use client'
+// import React, { useState } from 'react'
 import { BackgroundBeams } from '@/app/components/ui/BackgroundBeams'
 import { FloatingDock } from '@/app/components/ui/FloatingDock'
 import { IconBrandGithub, IconBrandX, IconExchange, IconHome, IconBulb, IconBriefcase, IconSchool } from "@tabler/icons-react";
@@ -10,10 +10,10 @@ import Lottie from "lottie-react";
 import animationData from "@/data/confetti.json";
 import { IconClipboard, IconCheck } from "@tabler/icons-react";
 import MagicButton from '../ui/MagicButton';
+import DownloadCV from '../clientComponents/DownloadCV';
+import CopyButton from '../clientComponents/CopyButton';
 
 const Hero = () => {
-  const [copied, setCopied] = useState(false);
-  const email = "hsu@jsmastery.pro";
 
   const links = [
     {
@@ -71,18 +71,9 @@ const Hero = () => {
     },
   ];
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
-  const handleDownloadResume = () => {
-    const link = document.createElement("a");
-    link.href = "/resume.pdf";
-    link.download = "Ahsan_Khan_Resume.pdf";
-    link.click();
-  };
+
+
 
   const words = [
     { text: "Full" ,className: "text-blue-400/75 dark:text-blue-400/75" },
@@ -91,19 +82,6 @@ const Hero = () => {
   ];
 
 
-  const [isDownloading, setIsDownloading] = useState(false);
-  const handleDownloadCV = () => {
-    setIsDownloading(true);
-
-    // Simulate download process
-    const link = document.createElement("a");
-    link.href = "/data/portfolio.csv"; // Path to your CSV file
-    link.download = "Ahsan_Khan_Portfolio.csv";
-    link.click();
-
-    // Stop animation after 2 seconds
-    setTimeout(() => setIsDownloading(false), 2000);
-  };
   return (
     <>
       <BackgroundBeams />
@@ -129,34 +107,9 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col md:flex-row gap-4 mt-8">
-            <MagicButton
-              title="Download CV"
-              icon={<IconBriefcase size={20} />}
-              position="right"
-              handleClick={handleDownloadCV}
-              otherClasses="text-transparent bg-gradient-to-r from-blue-400 to-emerald-400 hover:bg-black dark:hover:bg-blue hover:text-black dark:hover:text-blue-900 dark:hover:font-bold transition-colors duration-300"
-            />
-              {isDownloading && (
-                <Lottie 
-                  animationData={animationData}
-                  loop={false}
-                  className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 w-200 h-200"
-                />
-              )}
+            <DownloadCV />
             <div className="relative">
-              <MagicButton
-                title={copied ? "Email Copied!" : "Copy Email"}
-                icon={copied ? <IconCheck size={20} /> : <IconClipboard size={20} />}
-                position="left"
-                handleClick={handleCopy}
-              />
-              {copied && (
-                <Lottie 
-                  animationData={animationData}
-                  loop={false}
-                  className="absolute -bottom-20 right-0 w-48 h-48"
-                />
-              )}
+              <CopyButton email="ahsankhan.ubit@gmail.com" />
             </div>
           </div>
         </div>
