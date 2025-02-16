@@ -19,6 +19,7 @@ const CopyButton = ({email}:{email: string}) => {
                     icon={copied ? <IconCheck size={20} /> : <IconClipboard size={20} />}
                     position="left"
                     handleClick={handleCopy}
+                    otherClasses='border-2 border-transparent hover:border-blue-400 dark:hover:border-blue-400 color-black'
                   />
                   {copied && (
                     <Lottie 

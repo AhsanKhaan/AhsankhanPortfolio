@@ -106,7 +106,7 @@ const Hero = () => {
             Let's create something amazing together!
           </p>
 
-          <div className="flex flex-col md:flex-row gap-4 mt-8">
+          <div className="flex flex-col md:flex-row gap-4 mt-4">
             <DownloadCV />
             <div className="relative">
               <CopyButton email="ahsankhan.ubit@gmail.com" />
