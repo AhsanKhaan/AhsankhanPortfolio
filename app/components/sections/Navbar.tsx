@@ -1,18 +1,46 @@
-import React from 'react'
+"use client";
 
-const Navbar = ({items}:{items: { title: string; icon: React.ReactNode; href: string; target?: string | '_self' }[]}) => {
-  return (
-    <div className="fixed z-10 top-0 left-0 w-full flex justify-around items-center p-4 bg-transparent transition-colors duration-300">
-  <div className="text-3xl color-base font-extrabold" >Ahsan Khan</div>
-  <div className="flex space-x-6">
-    {items.map((item) => (
-      <a href={item.href} target={item.target} key={item.title} className="flex items-center">
-        <span>{item.icon}</span>
-      </a>
-    ))}
-  </div>
-</div>
-  )
+import { useEffect, useCallback } from "react";
+import Link from "next/link";
+
+interface NavbarProps {
+  items: { title: string; icon: React.ReactNode; href: string; target?: string }[];
 }
 
-export default Navbar
+const Navbar: React.FC<NavbarProps> = ({ items }) => {
+  const handleScroll = useCallback(() => {
+    if (window.scrollY > 30) {
+      document.documentElement.classList.add("scrolled");
+    } else {
+      document.documentElement.classList.remove("scrolled");
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+  return (
+    <nav className="fixed z-1000 top-0 left-0 w-full flex justify-between items-center px-6 py-4 transition-all duration-300 bg-transparent">
+      {/* Brand Name */}
+      <div className="text-3xl font-extrabold text-gray-900 dark:text-white ">Ahsan Khan</div>
+
+      {/* Navigation Links */}
+      <div className="flex space-x-6">
+        {items.map((item) => (
+          <Link
+            href={item.href}
+            key={item.title}
+            target={item.target || "_self"}
+            className="flex items-center text-gray-700 dark:text-gray-300 hover:text-gray-500 transition-colors"
+          >
+            <span>{item.icon}</span>
+          </Link>
+        ))}
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

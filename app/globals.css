@@ -5,7 +5,18 @@
 :root {
   --background: black;
   --foreground: white;
-  --base: #4985BB;
+  --base: #111112;
+}
+html.scrolled nav {
+  
+  background-color: var(--base);
+  box-shadow: 4px 5px 10px -3px #252424ba;
+  color: var(--foreground);
+  transition: background-color 0.3s;
+}
+
+.z-1000{
+  z-index: 1000;
 }
 
 @media (prefers-color-scheme: dark) {
