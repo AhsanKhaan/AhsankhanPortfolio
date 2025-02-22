@@ -32,7 +32,7 @@ const DownloadCV = () => {
                 <Lottie
                     animationData={animationData}
                     loop={false}
-                    className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 w-200 h-200"
+                    className="absolute bottom-0 right-0 transform -translate-x-1/2 w-200 h-200"
                 />
             )}
         </>
