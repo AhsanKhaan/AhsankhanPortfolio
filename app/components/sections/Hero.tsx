@@ -1,75 +1,14 @@
 // 'use client'
 // import React, { useState } from 'react'
 import { BackgroundBeams } from '@/app/components/ui/BackgroundBeams'
-import { FloatingDock } from '@/app/components/ui/FloatingDock'
-import { IconBrandGithub, IconBrandX, IconExchange, IconHome, IconBulb, IconBriefcase, IconSchool } from "@tabler/icons-react";
 import { NeonCard } from '@/app/components/ui/NeonCard';
 import Image from 'next/image';
 import { TypewriterEffectSmooth } from '../ui/TypewriterEffect';
-import Lottie from "lottie-react";
-import animationData from "@/data/confetti.json";
-import { IconClipboard, IconCheck } from "@tabler/icons-react";
-import MagicButton from '../ui/MagicButton';
 import DownloadCV from '../clientComponents/DownloadCV';
 import CopyButton from '../clientComponents/CopyButton';
 
 const Hero = () => {
 
-  const links = [
-    {
-      title: "Home",
-      icon: (
-        <IconHome className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#",
-    },
-
-    {
-      title: "Experience",
-      icon: (
-        <IconBriefcase className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#",
-    },
-    {
-      title: "Education",
-      icon: (
-        <IconSchool className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#",
-    },
-    {
-      title: "Skills",
-      icon: (
-        <IconBulb className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#",
-    },
-    {
-      title: "Projects",
-      icon: (
-        <IconExchange className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#",
-    },
-
-    {
-      title: "Twitter",
-      icon: (
-        <IconBrandX className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#",
-    },
-    {
-      title: "GitHub",
-      icon: (
-        <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "https://github.com/ahsankhaan",
-      target: "_blank",
-      rel: "noopener noreferrer",
-    },
-  ];
 
 
 
@@ -128,11 +67,6 @@ const Hero = () => {
           </NeonCard>
         </div>
 
-        <FloatingDock
-          items={links}
-          desktopClassName="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-black/30 backdrop-blur-lg rounded-full px-4 py-2 shadow-xl"
-          mobileClassName="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-black/30 backdrop-blur-lg rounded-full px-2 py-1"
-        />
       </section>
     </>
   )
