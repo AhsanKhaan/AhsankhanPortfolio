@@ -36,3 +36,56 @@ body {
   }
 }
 
+/* Extra small devices (phones, 320px and up) */
+@media only screen and (min-width: 320px) {
+  /* Styles for extra small screens */
+}
+
+/* Small devices (phones, 480px and up) */
+@media only screen and (min-width: 480px) {
+  /* Styles for small screens */
+  .width-100{
+    width: 100% !important;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  /* Styles for tablets */
+  .laptop-fs-extra-large{
+    font-size: 2.25rem;
+  }
+
+}
+
+/* Large devices (desktops, 1024px and up) */
+@media only screen and (min-width: 1024px) {
+  /* Styles for small desktops */
+  .laptop-fs-extra-large{
+    font-size: 2.75rem;
+  }
+
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  /* Styles for large desktops */
+}
+
+/* 4K and Ultra-Wide Screens (1600px and up) */
+@media only screen and (min-width: 1600px) {
+  /* Styles for ultra-wide screens */
+}
+
+/* Landscape mode for phones */
+@media only screen and (max-height: 480px) and (orientation: landscape) {
+  /* Styles for landscape mode */
+}
+
+/* High-resolution displays (Retina) */
+@media only screen and (-webkit-min-device-pixel-ratio: 2), 
+       only screen and (min-resolution: 192dpi) {
+  /* Styles for high-resolution screens */
+}
+
+
