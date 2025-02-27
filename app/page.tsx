@@ -1,19 +1,21 @@
 import React from 'react'
 import Hero from './components/sections/Hero'
 import Navbar from './components/sections/Navbar'
+import SmoothScroll from './components/ui/SmoothScroll';
 // import { HeroHighlight } from './components/Hero'
 // import {
 //   IconBrandGithub,
 //   IconMail,
 //   IconBrandLinkedin
 // } from "@tabler/icons-react";
-import { IconBrandGithub,  IconExchange,  IconBriefcase,IconMail, IconBrandLinkedin } from "@tabler/icons-react";
-import {FloatingNav} from '@/app/components/ui/FloatingNav';
+import { IconBrandGithub, IconExchange, IconBriefcase, IconMail, IconBrandLinkedin } from "@tabler/icons-react";
+import { FloatingNav } from '@/app/components/ui/FloatingNav';
+import Experience from './components/sections/Experience';
 const page = () => {
   const fixedIcons = [
 
-  
-    
+
+
     {
       title: "Linkedin",
       icon: (
@@ -57,7 +59,7 @@ const page = () => {
       icon: (
         <IconBriefcase className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      link: "#",
+      link: "#experience",
     },
     // {
     //   name: "Education",
@@ -109,11 +111,15 @@ const page = () => {
   ];
   return (
     <div>
-      <Navbar  items={fixedIcons}/>
+      <Navbar items={fixedIcons} />
       <FloatingNav navItems={links} />
-      <Hero />
-      <div >
-      </div>
+      <SmoothScroll>
+        <Hero />
+      </SmoothScroll>
+      <SmoothScroll>
+        <Experience />
+      </SmoothScroll>
+
     </div>
   )
 }

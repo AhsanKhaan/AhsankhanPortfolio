@@ -14,6 +14,9 @@ html.scrolled nav {
   color: var(--foreground);
   transition: background-color 0.3s;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 .z-1000{
   z-index: 1000;
@@ -23,6 +26,8 @@ html.scrolled nav {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --base: #111112;
+    --gray : #1E2028;
   }
 }
 
@@ -36,6 +41,12 @@ body {
   }
 }
 
+nav,section{
+  height: '100vh';
+  display: 'flex';
+  justify-content: 'center';
+  align-items: 'center'
+}
 /* Extra small devices (phones, 320px and up) */
 @media only screen and (min-width: 320px) {
   /* Styles for extra small screens */
