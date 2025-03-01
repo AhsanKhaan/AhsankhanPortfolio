@@ -23,7 +23,7 @@ const Hero = () => {
   return (
     <>
       <BackgroundBeams />
-      <section className="relative flex flex-col md:flex-row items-center justify-between min-h-screen container mx-auto px-4 md:px-8 lg:px-12 xl:max-w-7xl">
+      <section  id="home" className="relative flex flex-col md:flex-row items-center justify-between h-screen container mx-auto px-4 md:px-8 lg:px-12 xl:max-w-7xl">
         {/* Content Section */}
         <div className="z-10 flex-1 md:w-1/2 mt-20 md:mt-0 space-y-6 order-2 sm:order-1">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-neutral-200">

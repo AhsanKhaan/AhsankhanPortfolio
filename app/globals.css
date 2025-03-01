@@ -3,9 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 :root {
-  --background: black;
-  --foreground: white;
+  --background: #0a0a0a;
+  --foreground: #ededed;
   --base: #111112;
+  --gray : #0A0A0A;
+  --dark-blue:#2a4683;
 }
 html.scrolled nav {
   
@@ -28,6 +30,7 @@ html {
     --foreground: #ededed;
     --base: #111112;
     --gray : #1E2028;
+    --dark-blue:#111827;
   }
 }
 

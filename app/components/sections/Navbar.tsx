@@ -24,7 +24,10 @@ const Navbar: React.FC<NavbarProps> = ({ items }) => {
   return (
     <nav className="fixed z-1000 top-0 left-0 w-full flex justify-between items-center px-6 py-4 transition-all duration-300 bg-transparent">
       {/* Brand Name */}
-      <div className="text-3xl font-extrabold text-gray-900 dark:text-white ">Ahsan Khan</div>
+      <Link href="#home" >
+
+      <div className="text-3xl font-extrabold text-gray-900 dark:bg-gradient-sky bg-clip-text text-transparent ">Ahsan Khan</div>
+      </Link>
 
       {/* Navigation Links */}
       <div className="flex space-x-6">
