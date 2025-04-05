@@ -53,6 +53,9 @@ nav,section{
 /* Extra small devices (phones, 320px and up) */
 @media only screen and (min-width: 320px) {
   /* Styles for extra small screens */
+  .height-60-small{
+    height: 60vh;
+  }
 }
 
 /* Small devices (phones, 480px and up) */
@@ -68,6 +71,11 @@ nav,section{
   /* Styles for tablets */
   .laptop-fs-extra-large{
     font-size: 2.25rem;
+  }
+
+  
+  .height-60-small{
+    height: 100vh;
   }
 
 }
