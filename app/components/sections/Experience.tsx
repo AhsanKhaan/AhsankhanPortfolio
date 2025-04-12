@@ -180,7 +180,7 @@ const Experience = () => {
                     </div>
                 </div> */}
                 
-                    <SparklesHeading heading="Experience" />
+                    <SparklesHeading heading="MY JOURNEY" />
                 
                 <div className="flex flex-col md:flex-row">
                     <div className="w-full md:w-1/3 bg-gray-900 p-6 flex flex-col items-center text-center rounded-lg shadow-lg">
