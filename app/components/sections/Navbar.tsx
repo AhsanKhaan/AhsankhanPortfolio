@@ -5,9 +5,10 @@ import Link from "next/link";
 
 interface NavbarProps {
   items: { title: string; icon: React.ReactNode; href: string; target?: string }[];
+  socialLinks: { icon: React.ReactNode; href: string; title: string; target?: string; rel?: string }[];
 }
 
-const Navbar: React.FC<NavbarProps> = ({ items }) => {
+const Navbar: React.FC<NavbarProps> = ({ items,socialLinks }) => {
   const handleScroll = useCallback(() => {
     if (window.scrollY > 30) {
       document.documentElement.classList.add("scrolled");
@@ -38,10 +39,27 @@ const Navbar: React.FC<NavbarProps> = ({ items }) => {
             target={item.target || "_self"}
             className="flex items-center text-gray-700 dark:text-gray-300 hover:text-gray-500 transition-colors"
           >
-            <span>{item.icon}</span>
+            <span>{item.title}</span>
           </Link>
         ))}
       </div>
+
+            {/* Right - Social Links */}
+      <div className="flex justify-end space-x-4">
+        {socialLinks.map((icon, index) => (
+          <a
+            href={icon.href}
+            key={index}
+            title={icon.title}
+            target={icon.target}
+            rel={icon.rel}
+            className="hover:text-sky-500 transition-colors"
+          >
+            {icon.icon}
+          </a>
+        ))}
+      </div>
+
     </nav>
   );
 };
