@@ -47,72 +47,71 @@ const page = () => {
 
   const links = [
     // {
-    //   name: "Home",
+    //   title: "Home",
     //   icon: (
     //     <IconHome className="h-full w-full text-neutral-500 dark:text-neutral-300" />
     //   ),
-    //   link: "#",
+    //   href: "#",
     // },
 
     {
-      name: "Experience",
+      title: "Experience",
       icon: (
         <IconBriefcase className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      link: "#experience",
+      href: "#experience",
     },
     // {
-    //   name: "Education",
+    //   title: "Education",
     //   icon: (
     //     <IconSchool className="h-full w-full text-neutral-500 dark:text-neutral-300" />
     //   ),
-    //   link: "#",
+    //   href: "#",
     // },
     // {
-    //   name: "Skills",
+    //   title: "Skills",
     //   icon: (
     //     <IconBulb className="h-full w-full text-neutral-500 dark:text-neutral-300" />
     //   ),
-    //   link: "#",
+    //   href: "#",
     // },
     {
-      name: "Projects",
+      title: "Projects",
       icon: (
         <IconExchange className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      link: "#",
+      href: "#",
     },
     // {
-    //   name: "GitHub",
+    //   title: "GitHub",
     //   icon: (
     //     <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />
     //   ),
-    //   link: "https://github.com/ahsankhaan",
+    //   href: "https://github.com/ahsankhaan",
     //   target: "_blank",
     //   rel: "noopener noreferrer",
     // },
     // {
-    //   name: "LinkedIn",
+    //   title: "LinkedIn",
     //   icon: (
     //     <IconBrandLinkedin className="h-full w-full text-neutral-500 dark:text-neutral-300" />
     //   ),
-    //   link: "https://linkedin.com/in/ahsankhaan",
+    //   href: "https://linkedin.com/in/ahsankhaan",
     //   target: "_blank",
     //   rel: "noopener noreferrer",
     // },
     // {
-    //   name:"Email",
+    //   title:"Email",
     //   icon: (
     //     <IconMail className="h-full w-full text-neutral-500 dark:text-neutral-300" />
     //   ),
-    //   link: "mailto:ahsankhan.ubit@gmail.com",
+    //   href: "mailto:ahsankhan.ubit@gmail.com",
     //   target: "_blank",
     // }
   ];
   return (
     <div>
-      <Navbar items={fixedIcons} />
-      <FloatingNav navItems={links} />
+      <Navbar items={links} socialLinks={fixedIcons}/>
       <SmoothScroll>
         <Hero />
       </SmoothScroll>

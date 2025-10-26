@@ -4,7 +4,8 @@ import { NeonCard } from '@/app/components/ui/NeonCard';
 import Image from 'next/image';
 import { TypewriterEffectSmooth } from '../ui/TypewriterEffect';
 import DownloadCV from '../clientComponents/DownloadCV';
-import CopyButton from '../clientComponents/CopyButton';
+import MagicButton from '../ui/MagicButton';
+import { IconMail } from "@tabler/icons-react";
 
 const Hero = () => {
 
@@ -48,7 +49,13 @@ const Hero = () => {
           <div className="flex flex-col md:flex-row gap-4 mt-4">
             <DownloadCV />
             <div className="relative">
-              <CopyButton email="ahsankhan.ubit@gmail.com" />
+              <MagicButton
+                    title={"Get in Touch"}
+                    icon={<IconMail size={20} />}
+                    position="left"
+                    href="mailto:ahsankhan.ubit@gmail.com"
+                    otherClasses='border-2 border-transparent hover:border-blue-400 dark:hover:border-blue-400 color-black'
+                  />
             </div>
           </div>
         </div>
