@@ -2,8 +2,10 @@
 import React,{ useState } from 'react'
 import MagicButton from '../ui/MagicButton';
 import { IconBriefcase } from "@tabler/icons-react";
-import Lottie from "lottie-react";
+import dynamic from "next/dynamic";
 import animationData from "@/data/confetti.json";
+
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false })
 const DownloadCV = () => {
 
     const [isDownloading, setIsDownloading] = useState(false);
@@ -12,8 +14,8 @@ const DownloadCV = () => {
 
         // Simulate download process
         const link = document.createElement("a");
-        link.href = "/data/portfolio.csv"; // Path to your CSV file
-        link.download = "Ahsan_Khan_Portfolio.csv";
+        link.href = "/data/AhsanKhanSrSoftwareEngineer.pdf"; // Path to your CSV file
+        link.download = "AhsanKhanSrSoftwareEngineer.pdf";
         link.click();
 
         // Stop animation after 2 seconds

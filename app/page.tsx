@@ -9,8 +9,8 @@ import SmoothScroll from './components/ui/SmoothScroll';
 //   IconBrandLinkedin
 // } from "@tabler/icons-react";
 import { IconBrandGithub, IconExchange, IconBriefcase, IconMail, IconBrandLinkedin } from "@tabler/icons-react";
-import { FloatingNav } from '@/app/components/ui/FloatingNav';
 import Experience from './components/sections/Experience';
+import Techstack from './components/sections/Techstack';
 const page = () => {
   const fixedIcons = [
 
@@ -117,6 +117,9 @@ const page = () => {
       </SmoothScroll>
       <SmoothScroll>
         <Experience />
+      </SmoothScroll>
+      <SmoothScroll>
+        <Techstack />
       </SmoothScroll>
 
     </div>
