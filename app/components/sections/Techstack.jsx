@@ -98,8 +98,8 @@ const Techstack = () => {
           <SpotlightCard className="custom-spotlight-card h-full" spotlightColor="rgba(50, 109, 194, 0.2)">
             <div className="flex flex-col h-full justify-between">
               <div>
-                <IconCode size={50} />
-                <h3 className="text-2xl font-bold mb-2">Full Stack Development</h3>
+                <div className=" flex items-center justify-center p-2"><IconCode size={50} /></div>
+                <h3 className="text-2xl font-bold mb-2 text-center py-2">Full Stack Development</h3>
                 <p className="text-base text-slate-200">
                   End-to-end web application design, development, and deployment across multiple frameworks.
                 </p>
@@ -112,8 +112,8 @@ const Techstack = () => {
           <SpotlightCard className="custom-spotlight-card h-full" spotlightColor="rgba(50, 109, 194, 0.2)">
             <div className="flex flex-col h-full justify-between">
               <div>
-                <IconDatabase size={50} />
-                <h3 className="text-2xl font-bold mb-2">Database Design</h3>
+                <div className=" flex items-center justify-center p-2"><IconDatabase size={50} /></div>
+                <h3 className="text-2xl font-bold mb-2 text-center py-2">Database Design</h3>
                 <p className="text-base text-slate-200">
                   Expert in relational and NoSQL databases with optimization and migration expertise.
                 </p>
@@ -126,11 +126,11 @@ const Techstack = () => {
           <SpotlightCard className="custom-spotlight-card h-full" spotlightColor="rgba(50, 109, 194, 0.2)">
             <div className="flex flex-col h-full justify-between">
               <div>
-                <IconBrandAws size={50} />
-                <h3 className="text-2xl font-bold mb-2">AWS & linux</h3>
+                <div className=" flex items-center justify-center p-2"><IconBrandAws size={50} /></div>
+                <h3 className="text-2xl font-bold mb-2 text-center py-2">AWS & linux</h3>
                 <p className="text-base text-slate-200">
                   Server setup, configuration, migration, and cloud infrastructure management.
-              </p>
+                </p>
               </div>
             </div>
           </SpotlightCard>
@@ -140,8 +140,9 @@ const Techstack = () => {
           <SpotlightCard className="custom-spotlight-card h-full" spotlightColor="rgba(50, 109, 194, 0.2)">
             <div className="flex flex-col h-full justify-between">
               <div>
-                <IconLockFilled size={50} />
-                <h3 className="text-2xl font-bold mb-2">Security & OWASP</h3>
+                <div className=" flex items-center justify-center p-2"><IconLockFilled size={50} /></div>
+
+                <h3 className="text-2xl font-bold mb-2 text-center align-center py-2">Security & OWASP</h3>
                 <p className="text-base text-slate-200">
                   Implements industry-standard security practices and compliance protocols in applications.
                 </p>
