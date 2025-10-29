@@ -3,7 +3,6 @@ import { SparklesHeading } from '../ui/SparklesHeading'
 import { MeteorsCard } from '../ui/MeteorsCard'
 import { IconBrandGithub, IconMail, IconBrandLinkedin } from "@tabler/icons-react";
 import Link from "next/link";
-import Image from "next/image";
 import Timeline from '../ui/Timeline';
 
 const Experience = () => {

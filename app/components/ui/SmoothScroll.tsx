@@ -1,9 +1,13 @@
 'use client'; // Mark this component as a Client Component
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef,ReactNode } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 
-const SmoothScroll = ({ children }) => {
+interface SmoothScrollProps {
+  children: ReactNode;
+}
+
+const SmoothScroll = ({ children }: SmoothScrollProps) => {
   const controls = useAnimation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });

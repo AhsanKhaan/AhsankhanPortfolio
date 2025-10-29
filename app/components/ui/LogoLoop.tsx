@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils"
 import React, { useEffect, useState } from "react"
+import Image from "next/image"
 
 interface LogoItem {
   node?: React.ReactNode
@@ -40,7 +41,7 @@ export const LogoLoop = ({
 }: LogoLoopProps) => {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const scrollerRef = React.useRef<HTMLDivElement>(null)
-  const [start, setStart] = useState(false)
+  const [, setStart] = useState(false)
 
   useEffect(() => {
     addAnimation()
@@ -150,7 +151,7 @@ export const LogoLoop = ({
                 {logo.node ? (
                   <div className="flex items-center justify-center w-full h-full text-white">{logo.node}</div>
                 ) : logo.src ? (
-                  <img
+                  <Image
                     src={logo.src || "/placeholder.svg"}
                     alt={logo.alt || "Logo"}
                     className="w-full h-full object-contain"
@@ -162,7 +163,7 @@ export const LogoLoop = ({
                 {logo.node ? (
                   <div className="flex items-center justify-center w-full h-full text-white">{logo.node}</div>
                 ) : logo.src ? (
-                  <img
+                  <Image
                     src={logo.src || "/placeholder.svg"}
                     alt={logo.alt || "Logo"}
                     className="w-full h-full object-contain"

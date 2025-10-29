@@ -130,7 +130,7 @@ const Techstack = () => {
                 <h3 className="text-2xl font-bold mb-2">AWS & linux</h3>
                 <p className="text-base text-slate-200">
                   Server setup, configuration, migration, and cloud infrastructure management.
-                </p>
+              </p>
               </div>
             </div>
           </SpotlightCard>

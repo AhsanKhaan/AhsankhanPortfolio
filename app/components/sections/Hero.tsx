@@ -29,7 +29,7 @@ const Hero = () => {
         <div className="z-10 flex-1 md:w-1/2 mt-20 md:mt-0 space-y-6 order-2 sm:order-1">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-neutral-200">
             <Image src="/assets/waving-hand-sign.svg" alt="Hand Wave" width={50} height={50} className="inline mx-2" />
-            Hey, I'm
+            Hey, I&apos;m
           </h1>
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
             Ahsan Khan
@@ -43,7 +43,7 @@ const Hero = () => {
           <p className="text-lg md:text-xl text-neutral-400 max-w-2xl">
             Passionate full-stack developer specializing in modern web technologies. 
             With 5+ years of experience building scalable applications and digital experiences. 
-            Let's create something amazing together!
+            Let&apos;s create something amazing together!
           </p>
 
           <div className="flex flex-col md:flex-row gap-4 mt-4">
