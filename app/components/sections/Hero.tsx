@@ -3,9 +3,8 @@ import { BackgroundBeams } from '@/app/components/ui/BackgroundBeams'
 import { NeonCard } from '@/app/components/ui/NeonCard';
 import Image from 'next/image';
 import { TypewriterEffectSmooth } from '../ui/TypewriterEffect';
-import DownloadCV from '../clientComponents/DownloadCV';
 import MagicButton from '../ui/MagicButton';
-import { IconMail } from "@tabler/icons-react";
+import { IconBriefcase2, IconMail } from "@tabler/icons-react";
 
 const Hero = () => {
 
@@ -47,7 +46,13 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col md:flex-row gap-4 mt-4">
-            <DownloadCV />
+              <MagicButton
+                    title={"View my Work"}
+                    icon={<IconBriefcase2 size={20} />}
+                    position="left"
+                    href="#projects"
+                    otherClasses='text-transparent bg-gradient-to-r from-blue-400 to-emerald-400 hover:bg-black dark:hover:bg-blue hover:text-black dark:hover:text-blue-900 dark:hover:font-bold transition-colors duration-300'
+                  />
             <div className="relative">
               <MagicButton
                     title={"Get in Touch"}

@@ -76,11 +76,11 @@ const page = () => {
     //   href: "#",
     // },
     {
-      title: "Projects",
+      title: "View My Work",
       icon: (
         <IconExchange className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      href: "#",
+      href: "#projects",
     },
     // {
     //   title: "GitHub",

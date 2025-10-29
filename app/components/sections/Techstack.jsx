@@ -52,7 +52,7 @@ const Techstack = () => {
   ];
 
   return (
-    <section id="tech">
+    <section id="projects">
       <div className="dark:color-base min-h-screen flex flex-col justify-center items-center px-4 py-16">
         {/* Title */}
         <div className="text-center mb-8">
