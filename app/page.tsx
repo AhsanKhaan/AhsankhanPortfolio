@@ -11,6 +11,7 @@ import SmoothScroll from './components/ui/SmoothScroll';
 import { IconBrandGithub, IconExchange, IconBriefcase, IconMail, IconBrandLinkedin } from "@tabler/icons-react";
 import Experience from './components/sections/Experience';
 import Techstack from './components/sections/Techstack';
+import FeaturedProjects from './components/sections/FeaturedProjects';
 const page = () => {
   const fixedIcons = [
 
@@ -120,6 +121,9 @@ const page = () => {
       </SmoothScroll>
       <SmoothScroll>
         <Techstack />
+      </SmoothScroll>
+      <SmoothScroll>
+        <FeaturedProjects/>
       </SmoothScroll>
 
     </div>

@@ -93,8 +93,8 @@ const Techstack = () => {
       <h2 className="text-6xl dark:bg-gradient-sky text-transparent bg-clip-text dark:font-bold py-4 justify-center items-center text-center">
         Technical Expertise
       </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
-        <div class="p-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
+        <div className="p-4">
           <SpotlightCard className="custom-spotlight-card h-full" spotlightColor="rgba(50, 109, 194, 0.2)">
             <div className="flex flex-col h-full justify-between">
               <div>
@@ -108,7 +108,7 @@ const Techstack = () => {
           </SpotlightCard>
         </div>
 
-        <div class="p-4">
+        <div className="p-4">
           <SpotlightCard className="custom-spotlight-card h-full" spotlightColor="rgba(50, 109, 194, 0.2)">
             <div className="flex flex-col h-full justify-between">
               <div>
@@ -122,7 +122,7 @@ const Techstack = () => {
           </SpotlightCard>
         </div>
 
-        <div class="p-4">
+        <div className="p-4">
           <SpotlightCard className="custom-spotlight-card h-full" spotlightColor="rgba(50, 109, 194, 0.2)">
             <div className="flex flex-col h-full justify-between">
               <div>
@@ -136,7 +136,7 @@ const Techstack = () => {
           </SpotlightCard>
         </div>
 
-        <div class="p-4">
+        <div className="p-4">
           <SpotlightCard className="custom-spotlight-card h-full" spotlightColor="rgba(50, 109, 194, 0.2)">
             <div className="flex flex-col h-full justify-between">
               <div>

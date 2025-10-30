@@ -1,0 +1,242 @@
+/* Projects Section Scoped Styles */
+
+.projectsContainer {
+  background: oklch(0.145 0 0);
+  color: oklch(0.985 0 0);
+  padding: 3rem 1rem;
+  min-height: 100vh;
+}
+
+.projectsWrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: oklch(0.708 0 0);
+  margin-bottom: 2rem;
+}
+
+.filterSection {
+  margin-bottom: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.filterBadge {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid oklch(0.269 0 0);
+  background: transparent;
+  color: oklch(0.985 0 0);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.filterBadge:hover {
+  border-color: oklch(0.488 0.243 264.376);
+  background: oklch(0.488 0.243 264.376 / 0.1);
+}
+
+.filterBadge.active {
+  background: oklch(0.488 0.243 264.376);
+  border-color: oklch(0.488 0.243 264.376);
+  color: oklch(0.985 0 0);
+  box-shadow: 0 0 20px oklch(0.488 0.243 264.376 / 0.5);
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .projectsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .projectsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.projectCard {
+  background: oklch(0.205 0 0);
+  border: 1px solid oklch(0.269 0 0);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.projectCard:hover {
+  border-color: oklch(0.488 0.243 264.376);
+  box-shadow: 0 20px 40px oklch(0.488 0.243 264.376 / 0.2);
+  transform: translateY(-4px);
+}
+
+.projectImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: oklch(0.269 0 0);
+  position: relative;
+  overflow: hidden;
+}
+
+.projectImage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, oklch(0.488 0.243 264.376 / 0) 0%, oklch(0.488 0.243 264.376 / 0.2) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.projectCard:hover .projectImage::after {
+  opacity: 1;
+}
+
+.hoverOverlay {
+  position: absolute;
+  inset: 0;
+  background: oklch(0 0 0 / 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.projectCard:hover .hoverOverlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.projectContent {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.projectTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: oklch(0.985 0 0);
+}
+
+.projectDescription {
+  font-size: 0.95rem;
+  color: oklch(0.708 0 0);
+  margin-bottom: 1.5rem;
+  flex: 1;
+  line-height: 1.6;
+}
+
+.techStack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.techBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  background: oklch(0.269 0 0);
+  border: 1px solid oklch(0.488 0.243 264.376 / 0.3);
+  border-radius: 0.5rem;
+  color: oklch(0.985 0 0);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.techBadge:hover {
+  background: oklch(0.488 0.243 264.376 / 0.2);
+  border-color: oklch(0.488 0.243 264.376);
+  box-shadow: 0 0 10px oklch(0.488 0.243 264.376 / 0.3);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: oklch(0.708 0 0);
+}
+
+.emptyStateTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: oklch(0.985 0 0);
+}
+
+.emptyStateText {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.resetButton {
+  padding: 0.75rem 1.5rem;
+  background: oklch(0.488 0.243 264.376);
+  color: oklch(0.985 0 0);
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.resetButton:hover {
+  background: oklch(0.488 0.243 264.376 / 0.8);
+  box-shadow: 0 0 20px oklch(0.488 0.243 264.376 / 0.5);
+}
+
+.viewButton {
+  padding: 0.75rem 1.5rem;
+  background: oklch(0.488 0.243 264.376);
+  color: oklch(0.985 0 0);
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.viewButton:hover {
+  background: oklch(0.488 0.243 264.376 / 0.8);
+  box-shadow: 0 0 20px oklch(0.488 0.243 264.376 / 0.5);
+  transform: scale(1.05);
+}
