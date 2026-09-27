@@ -177,16 +177,20 @@ All three templates (`email-signature.html`, `recruiter-email.html`, `cv-deliver
 
 ## 7. Recruiter outreach email
 
+**Positioning: full-stack, not frontend-only.** Research on what tech recruiters at top companies actually screen for (see sources below) is consistent on one point: full-stack candidates get evaluated on whether a **single bullet pairs a frontend fact with a backend fact** — not on two separate skill lists. The body's "who I am" line does exactly that: `React/Next.js on the frontend, [[p.backendStack]] on the backend, same systems end to end.` `[[p.backendStack]]` resolves from `brand/profile.json` (`"Java, Node.js and PHP (Laravel)"`) — update it there, once, if the backend stack changes, and every template picks it up.
+
 **Voice (cold-email skill).** This reads like a peer sharing something relevant, not a pitch. "You" outweighs "I." No "I hope this finds you well," no "leverage/synergy/best-in-class." One proof point beats a wall of stats. One low-friction ask, not a meeting request — "worth a quick look?" beats "are you free for a 15-minute call?" Read the filled-in email aloud before sending; if it sounds like a template with fields swapped in, rewrite it.
 
 **Structure (~110–140 words, tighter than before):**
 1. **Greeting:** `Hi {{ recruiter_name }},`
 2. **Lead with their world:** `{{ custom_line }}` — the real signal (something specific about the role or company, not a compliment) — bridging straight into `{{ role }}` at `{{ company }}`. This opens the email, not "I'm Ahsan…".
-3. **Who, briefly:** one line — title, domain, stack.
-4. **Proof — two metrics, not three.** More than two starts to read as a feature dump; pick whichever two are most relevant to that company's domain (fintech metrics for a fintech company, performance metrics for a consumer app, etc. — swap `p.metrics.1/2` per send if it's not a fintech role).
+3. **Who, briefly:** one line pairing a frontend fact and a backend fact (see Positioning above), not a stack dump.
+4. **Proof — two metrics, not three.** Defaults to `p.metrics.1` (100K+ users) and `p.metrics.3` (80% ops automated) — one reach number, one systems/automation number, so it reads as full-stack impact rather than a frontend-only performance stat. Swap per send if a different pair fits the role better (e.g. `p.metrics.5`, the security-audit count, for a fintech/payments role).
 5. **The link** — case studies, not a generic "portfolio."
 6. **One low-friction ask** — interest-based, not a calendar request.
 7. **Signature,** then `{{ sender_unsubscribe_line }}`.
+
+**Research behind this (2026):** generic outreach is ignored; candidates who reference a specific team challenge, a recent launch, or a role's actual responsibility get read — [Exaltitude](https://exaltitude.substack.com/p/whats-the-secret-of-faang-recruiting), [cs-recruiters.com](https://cs-recruiters.com/resources/job-search/how-to-stand-out-to-recruiters-in-2026/). Recruiter-written one-off emails get a 6.31% reply rate against 4.96% for anything that reads automated — [Pin's 2026 benchmark report](https://www.pin.com/blog/recruiting-outreach-benchmark-report/). Full-stack resumes and outreach are expected to show the same role delivering both ends of the stack, not two disconnected lists — [ResumeWorded](https://resumeworded.com/skills-and-keywords/full-stack-engineer-skills).
 
 **Subject lines — short, low-key, not a pitch.** The cold-email skill's data is explicit: 2–4 words, no punctuation tricks, should look like it came from a colleague, not a candidate blasting recruiters. Exception worth keeping for *this* use case: including the role helps a recruiter's fast triage, so it's not pure noise the way it would be in a sales cold email.
 - `{{ role }} — {{ company }}`
@@ -196,6 +200,8 @@ All three templates (`email-signature.html`, `recruiter-email.html`, `cv-deliver
 Avoid: exclamation points, "opportunity," "excited to apply," anything that reads as a form letter.
 
 **Placeholders.** `{{ … }}` are Jinja2 variables left untouched by the build. The Python sender fills them per recipient: `recruiter_name`, `company`, `role`, `custom_line`, `sender_unsubscribe_line`.
+
+**Sender identity: display name is real, address stays Resend's until a domain is verified.** `from` renders as `Ahsan Khan <onboarding@resend.dev>`, not a generic "Portfolio" — Resend (and every ESP) **rejects sending "from" an address on a domain you haven't verified with them**, so `from: "... <ahsankhan.ubit@gmail.com>"` isn't possible — Gmail's own domain can't be verified by a third party, and Google's SPF/DKIM would flag it as spoofed even if it were accepted. `replyTo` is set to `profile.email` (`ahsankhan.ubit@gmail.com`) on every send instead, so hitting "Reply" in the recipient's inbox goes straight to the real inbox regardless of what the `from` address shows. Same pattern in `/api/cv-request` and the CV delivery email. To send from a real `you@yourdomain.com` later: buy/point a domain, verify it in the Resend dashboard, set `CONTACT_FROM_EMAIL`.
 
 **Sending etiquette (protects your inbox reputation)**
 - Personalize every email. `custom_line` must never be generic — if it could apply to any company, it's not doing its job.

@@ -82,8 +82,13 @@ console.log(`  subject:        ${subject}`);
 
 const resend = new Resend(apiKey);
 const { data, error } = await resend.emails.send({
-  from: process.env.CONTACT_FROM_EMAIL || "Portfolio <onboarding@resend.dev>",
+  // Display name is real; the address stays a Resend-verified domain until
+  // CONTACT_FROM_EMAIL points at a domain you own — Resend rejects sending "from"
+  // a gmail.com address you haven't (and can't) verify with them. replyTo carries
+  // your real inbox instead, so hitting reply on the test reaches you directly.
+  from: process.env.CONTACT_FROM_EMAIL || `${profile.name} <onboarding@resend.dev>`,
   to,
+  replyTo: profile.email,
   subject: `[TEST] ${subject}`,
   html,
 });

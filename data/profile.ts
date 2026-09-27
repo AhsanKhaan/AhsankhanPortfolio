@@ -232,7 +232,7 @@ export const recruiterFaq: { id: string; question: string; answer: string }[] = 
     id: "stack",
     question: "What is Ahsan Khan's tech stack?",
     answer:
-      "React, Next.js, TypeScript and Node.js on the frontend and full-stack layer; Laravel, REST APIs, MongoDB, MySQL and PostgreSQL on the backend; AWS, Docker, Git and CI/CD for deployment. He also implements PCI DSS and OWASP Top 10 security practices, standard requirements for fintech and payments roles.",
+      "React, Next.js and TypeScript on the frontend; Java, Node.js and PHP (Laravel) on the backend, with REST APIs, MongoDB, MySQL and PostgreSQL. AWS, Docker, Git and CI/CD for deployment. He also implements PCI DSS and OWASP Top 10 security practices, standard requirements for fintech and payments roles.",
   },
   {
     id: "fintech",

@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <!-- Recruiter outreach email. Built from brand/tokens.json + brand/profile.json by scripts/build-brand.mjs.
      {{ placeholders }} are Jinja2 variables filled per recipient by the Python sender:
-       recruiter_name, company, role, custom_line (1 sentence — the real signal: what you
-       noticed about this company/role, not a generic compliment), sender_unsubscribe_line
+       recruiter_name, company, role, custom_line, sender_unsubscribe_line
+     custom_line is the whole email's job — research says generic outreach gets ignored,
+     personalized outreach referencing a specific team challenge or company signal gets
+     read. Spend the 15 minutes: one real detail (a launch, a role's specific
+     responsibility, a team's known challenge), never a compliment that could apply to
+     any company ("impressive product!"). If custom_line could be pasted into an email
+     to a different company unchanged, it isn't done yet.
+     Positioning: full-stack, not frontend-only — the body pairs a frontend and backend
+     fact in the same sentence, matching how full-stack roles actually get screened
+     (frontend + backend in one bullet, not two separate skill lists).
      Subject line formulas + voice notes live in brand/brand-guidelines.md §7.
      Voice: cold-email skill — lead with their world, one proof point, one low-friction ask.
      Read it aloud before sending. If it sounds like a template, it needs another pass. -->
@@ -42,7 +50,7 @@
           </tr>
           <tr>
             <td style="padding-bottom:16px;">
-              I'm [[p.name]] — [[p.title]], mostly in fintech, built in React, Next.js, TypeScript and Node.js:
+              I'm [[p.name]] — full-stack, mostly in fintech: React/Next.js on the frontend, [[p.backendStack]] on the backend, same systems end to end.
             </td>
           </tr>
           <tr>
@@ -52,7 +60,7 @@
                   <td width="4" bgcolor="[[t.component.email.bar-start]]" style="background:[[t.component.email.bar-start]];font-size:0;line-height:0;">&nbsp;</td>
                   <td style="padding:2px 0 2px 14px;">
                     <div style="padding:2px 0;"><strong>[[p.metrics.1.value]]</strong> [[p.metrics.1.label]]</div>
-                    <div style="padding:2px 0;"><strong>[[p.metrics.2.value]]</strong> [[p.metrics.2.label]]</div>
+                    <div style="padding:2px 0;"><strong>[[p.metrics.3.value]]</strong> [[p.metrics.3.label]]</div>
                   </td>
                 </tr>
               </table>

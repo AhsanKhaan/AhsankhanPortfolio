@@ -2,7 +2,8 @@
   "name": "Ahsan Khan",
   "initials": "AK",
   "title": "Senior Full Stack & Frontend Engineer",
-  "tagline": "Fintech & food-tech web platforms · React · Next.js · TypeScript · Node.js",
+  "tagline": "Fintech & food-tech platforms · React/Next.js frontends · Java, Node.js & PHP backends",
+  "backendStack": "Java, Node.js and PHP (Laravel)",
   "location": "Karachi, Pakistan",
   "timezone": "PKT (GMT+5)",
   "availability": ["Open to relocate worldwide", "Remote (any timezone)", "Freelance"],
@@ -20,7 +21,7 @@
   },
   "metrics": [
     { "value": "5+", "label": "Years building production web apps" },
-    { "value": "100K+", "label": "Users served by frontends I architected" },
+    { "value": "100K+", "label": "Users served by full-stack systems I've built end-to-end" },
     { "value": "35%", "label": "Faster load (FCP 4.2s → 2.7s)" },
     { "value": "80%", "label": "Manual ops removed (onboarding 5 days → 1)" },
     { "value": "2M+", "label": "Users reached via notification segmentation" },

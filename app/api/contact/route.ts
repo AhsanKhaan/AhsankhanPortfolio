@@ -52,7 +52,7 @@ export async function POST(request: Request) {
 
   try {
     const { error } = await new Resend(apiKey).emails.send({
-      from: process.env.CONTACT_FROM_EMAIL || "Portfolio <onboarding@resend.dev>",
+      from: process.env.CONTACT_FROM_EMAIL || `${profile.name} <onboarding@resend.dev>`,
       to,
       replyTo: email,
       subject: `[Portfolio] ${inquiry}: ${name}${company ? ` (${company})` : ""}`,

@@ -65,8 +65,13 @@ export async function POST(request: Request) {
   try {
     const resend = new Resend(apiKey);
     const { error } = await resend.emails.send({
-      from: process.env.CONTACT_FROM_EMAIL || "Portfolio <onboarding@resend.dev>",
+      // Display name is real; the address stays a Resend-verified domain until
+      // CONTACT_FROM_EMAIL points at a domain you own — Resend rejects sending
+      // "from" a gmail.com address you haven't (and can't) verify with them.
+      // replyTo carries your real inbox instead, so a reply reaches you directly.
+      from: process.env.CONTACT_FROM_EMAIL || `${profile.name} <onboarding@resend.dev>`,
       to: email,
+      replyTo: profile.email,
       // Lead notification: I see who requested the CV. Skipped when someone requests
       // it to my own address, so testing doesn't send a duplicate.
       bcc: email === profile.email ? undefined : profile.email,
