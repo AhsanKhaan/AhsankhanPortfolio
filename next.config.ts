@@ -1,10 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  images: {
-    domains: ['assets.aceternity.com'], // Add the hostname here
-  },
+  // Lets a local preview build run alongside `next dev` without sharing .next
+  distDir: process.env.NEXT_DIST_DIR || ".next",
 };
 
 export default nextConfig;

@@ -1,131 +1,84 @@
 import React from 'react'
-import Hero from './components/sections/Hero'
+import { IconBrandGithub, IconMail, IconBrandLinkedin } from "@tabler/icons-react";
 import Navbar from './components/sections/Navbar'
-import SmoothScroll from './components/ui/SmoothScroll';
-// import { HeroHighlight } from './components/Hero'
-// import {
-//   IconBrandGithub,
-//   IconMail,
-//   IconBrandLinkedin
-// } from "@tabler/icons-react";
-import { IconBrandGithub, IconExchange, IconBriefcase, IconMail, IconBrandLinkedin } from "@tabler/icons-react";
+import Hero from './components/sections/Hero'
+import ImpactStats from './components/sections/ImpactStats';
+import Marquee from './components/sections/Marquee';
+import About from './components/sections/About';
+import DomainFit from './components/sections/DomainFit';
+import Services from './components/sections/Services';
 import Experience from './components/sections/Experience';
 import Techstack from './components/sections/Techstack';
+import CaseStudies from './components/sections/CaseStudies';
 import FeaturedProjects from './components/sections/FeaturedProjects';
+import AILab from './components/sections/AILab';
+import WorkWithMe from './components/sections/WorkWithMe';
+import RecruiterFAQ from './components/sections/RecruiterFAQ';
+import Contact from './components/sections/Contact';
+import Footer from './components/sections/Footer';
+import SmoothScroll from './components/ui/SmoothScroll';
+import { profile } from '@/data/profile';
+
+const iconClass = "h-6 w-6 text-brand-text";
+
 const page = () => {
-  const fixedIcons = [
-
-
-
+  const socialLinks = [
     {
-      title: "Linkedin",
-      icon: (
-        <IconBrandLinkedin className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "https://linkedin.com/in/ahsankhaan",
+      title: "LinkedIn",
+      icon: <IconBrandLinkedin className={iconClass} aria-hidden="true" />,
+      href: profile.links.linkedin,
       target: "_blank",
       rel: "noopener noreferrer",
     },
     {
       title: "GitHub",
-      icon: (
-        <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "https://github.com/ahsankhaan",
+      icon: <IconBrandGithub className={iconClass} aria-hidden="true" />,
+      href: profile.links.github,
       target: "_blank",
       rel: "noopener noreferrer",
     },
     {
-      title: "Contact Me",
-      icon: (
-        <IconMail className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "mailto:ahsankhan.ubit@gmail.com",
-      target: "_blank",
-      rel: "noopener noreferrer",
+      title: "Email",
+      icon: <IconMail className={iconClass} aria-hidden="true" />,
+      href: `mailto:${profile.email}`,
     },
   ];
 
   const links = [
-    // {
-    //   title: "Home",
-    //   icon: (
-    //     <IconHome className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    //   ),
-    //   href: "#",
-    // },
-
-    {
-      title: "Experience",
-      icon: (
-        <IconBriefcase className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#experience",
-    },
-    // {
-    //   title: "Education",
-    //   icon: (
-    //     <IconSchool className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    //   ),
-    //   href: "#",
-    // },
-    // {
-    //   title: "Skills",
-    //   icon: (
-    //     <IconBulb className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    //   ),
-    //   href: "#",
-    // },
-    {
-      title: "View My Work",
-      icon: (
-        <IconExchange className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#projects",
-    },
-    // {
-    //   title: "GitHub",
-    //   icon: (
-    //     <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    //   ),
-    //   href: "https://github.com/ahsankhaan",
-    //   target: "_blank",
-    //   rel: "noopener noreferrer",
-    // },
-    // {
-    //   title: "LinkedIn",
-    //   icon: (
-    //     <IconBrandLinkedin className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    //   ),
-    //   href: "https://linkedin.com/in/ahsankhaan",
-    //   target: "_blank",
-    //   rel: "noopener noreferrer",
-    // },
-    // {
-    //   title:"Email",
-    //   icon: (
-    //     <IconMail className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    //   ),
-    //   href: "mailto:ahsankhan.ubit@gmail.com",
-    //   target: "_blank",
-    // }
+    { title: "About", icon: null, href: "#about" },
+    { title: "Services", icon: null, href: "#services" },
+    { title: "Experience", icon: null, href: "#experience" },
+    { title: "Projects", icon: null, href: "#case-studies" },
+    { title: "FAQ", icon: null, href: "#faq" },
+    { title: "Contact", icon: null, href: "#contact" },
   ];
-  return (
-    <div>
-      <Navbar items={links} socialLinks={fixedIcons}/>
-      <SmoothScroll>
-        <Hero />
-      </SmoothScroll>
-      <SmoothScroll>
-        <Experience />
-      </SmoothScroll>
-      <SmoothScroll>
-        <Techstack />
-      </SmoothScroll>
-      <SmoothScroll>
-        <FeaturedProjects/>
-      </SmoothScroll>
 
+  return (
+    <div className="bg-brand-bg" style={{ overflowX: "clip" }}>
+      <Navbar items={links} socialLinks={socialLinks} />
+      <main>
+        <Hero />
+        <ImpactStats />
+        <Marquee />
+        <About />
+        <DomainFit />
+        <Services />
+        <SmoothScroll>
+          <Experience />
+        </SmoothScroll>
+        <SmoothScroll>
+          <Techstack />
+        </SmoothScroll>
+        <CaseStudies />
+        <SmoothScroll>
+          <FeaturedProjects />
+        </SmoothScroll>
+        <AILab />
+        <WorkWithMe />
+        <RecruiterFAQ />
+        <Contact />
+      </main>
+      <Footer />
     </div>
   )
 }

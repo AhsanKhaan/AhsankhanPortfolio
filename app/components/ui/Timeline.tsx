@@ -138,7 +138,7 @@ const timelineData: TimelineItemData[] = [
     duration: "04.2024—08.2024",
     icon: Code,
     responsibilities: [
-      "Developed and maintained CRM and banking portals for Lendotics, an Australian fintech company, ensuring seamless user experience and secure transactions.",
+      "Developed and maintained CRM and banking portals for Lendotics, a US fintech company, ensuring seamless user experience and secure transactions.",
       "Designed and optimized relational database structures using MySQL, leveraging Eloquent ORM and Repository patterns to enhance scalability and maintainability.",
       "Built and integrated RESTful APIs for mobile and web applications, ensuring efficient data exchange,authentication, and security compliance.",
       "Implemented AWS S3 storage solutions for secure file management and integrated Twilio services for real-time communication and notifications."

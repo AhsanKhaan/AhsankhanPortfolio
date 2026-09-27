@@ -1,0 +1,35 @@
+# Ahsan Khan
+
+> Senior Full Stack & Frontend Developer (React, Next.js, TypeScript, Node.js) based in Karachi, Pakistan, with 5+ years building fintech and food-tech platforms. Open to relocation for a full-time senior engineering role, remote roles across US/EU/GCC/APAC time zones, and freelance or contract projects.
+
+Portfolio: https://ahsankhaan.vercel.app
+
+## Availability
+
+- Full-time, open to relocating internationally (fintech, food-tech, delivery/marketplace platforms)
+- Remote, PKT (GMT+5), prior experience working remotely for a US fintech company
+- Freelance / contract: admin portals, dashboards, Next.js sites, full-stack MVPs
+
+## Core skills
+
+React, Next.js, TypeScript, JavaScript, Node.js, Laravel, REST APIs, MongoDB, MySQL, PostgreSQL, AWS, Docker, Git, CI/CD, PCI DSS, OWASP Top 10.
+
+## Key results
+
+- Architected frontends serving 100K+ users (Nayapay admin, business and public portals)
+- Cut page load time 35% (FCP 4.2s → 2.7s) via virtual scrolling, lazy loading and code-splitting
+- Built a merchant onboarding automation engine, cutting onboarding from 5 days to under 24 hours
+- Notification segmentation system reaching 2M+ users
+- 3 consecutive security audits with zero critical findings (PCI DSS / OWASP Top 10)
+
+## Pages
+
+- [Case studies & full experience](https://ahsankhaan.vercel.app/#case-studies): Nayapay Admin Portal, MerchantArc/Business Portal, Nayapay Website (SSR, +50% organic traffic)
+- [Recruiter FAQ](https://ahsankhaan.vercel.app/#faq): relocation, remote work, tech stack, fintech experience, freelance availability, how to contact
+- [Request CV](https://ahsankhaan.vercel.app/cv): CV delivered by email after a verification check (format, disposable-domain block, MX lookup) — not hosted at a public file URL
+- [LinkedIn](https://linkedin.com/in/ahsankhaan)
+- [GitHub](https://github.com/AhsanKhaan)
+
+## Contact
+
+Contact form: https://ahsankhaan.vercel.app/#contact (specify full-time, remote or freelance inquiry)

@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import brand from "./brand/dist/tokens.resolved.json";
 const svgToDataUri = require("mini-svg-data-uri");
 const {
   default: flattenColorPalette,
@@ -30,11 +31,27 @@ export default {
         base: "var(--base)",
         gray: "var(--gray)",
         darkBlue: "#111827",
+        // Brand tokens (brand/tokens.json → app/brand.css). Use these instead of raw hex.
+        brand: Object.fromEntries(
+          Object.keys(brand.semantic.color).map((k) => [k, `var(--color-${k})`])
+        ),
+      },
+      fontFamily: {
+        display: ["var(--font-kanit)", "sans-serif"],
+        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "monospace"],
+      },
+      borderRadius: {
+        "brand-lg": "var(--radius-lg)",
+        "brand-xl": "var(--radius-xl)",
       },
       backgroundImage: {
         'text-gradient': 'linear-gradient(139deg, var(--white), #fff 11%, #cae7b5 37%, #b0f0d0 56%, #23d67c 73%, #23d67c 87%, #6cce5e 95%, #23d67c)',
         'gradient-indigo': 'linear-gradient(to right, #8B5CF6, #7C3AED, #EC4899)',
         'gradient-sky': 'linear-gradient(to right, #0ea5e9, #0ea5e9, #6366f1)',
+        'brand-accent': 'var(--gradient-accent)',
+        'brand-accent-vertical': 'var(--gradient-accent-vertical)',
+        'brand-secondary': 'var(--gradient-secondary)',
       },
       fontSize: {
         '4xl': ['2.25rem', { lineHeight: '2.5rem' }], // Equivalent to text-4xl

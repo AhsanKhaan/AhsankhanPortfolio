@@ -1,0 +1,29 @@
+{
+  "name": "Ahsan Khan",
+  "initials": "AK",
+  "title": "Senior Full Stack & Frontend Engineer",
+  "tagline": "Fintech & food-tech web platforms · React · Next.js · TypeScript · Node.js",
+  "location": "Karachi, Pakistan",
+  "timezone": "PKT (GMT+5)",
+  "availability": ["Open to relocate worldwide", "Remote (any timezone)", "Freelance"],
+  "email": "ahsankhan.ubit@gmail.com",
+  "phone": "+92 336 1809930",
+  "phoneTel": "+923361809930",
+  "links": {
+    "portfolio": "https://ahsankhaan.vercel.app",
+    "linkedin": "https://linkedin.com/in/ahsankhaan",
+    "github": "https://github.com/AhsanKhaan",
+    "cv": "https://ahsankhaan.vercel.app/cv"
+  },
+  "assets": {
+    "headshot": "https://ahsankhaan.vercel.app/brand/headshot.png"
+  },
+  "metrics": [
+    { "value": "5+", "label": "Years building production web apps" },
+    { "value": "100K+", "label": "Users served by frontends I architected" },
+    { "value": "35%", "label": "Faster load (FCP 4.2s → 2.7s)" },
+    { "value": "80%", "label": "Manual ops removed (onboarding 5 days → 1)" },
+    { "value": "2M+", "label": "Users reached via notification segmentation" },
+    { "value": "3", "label": "Security audits, zero critical findings (PCI DSS / OWASP)" }
+  ]
+}

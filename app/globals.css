@@ -1,113 +1,94 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+/* Brand tokens are generated from brand/tokens.json — see brand/brand-guidelines.md */
+@import "./brand.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: var(--color-bg);
+  --foreground: var(--color-text);
   --base: #111112;
-  --gray : #0A0A0A;
-  --dark-blue:#2a4683;
+  --gray: #1E2028;
+  --dark-blue: var(--color-surface);
 }
-html.scrolled nav {
-  
-  background-color: var(--base);
-  box-shadow: 4px 5px 10px -3px #252424ba;
-  color: var(--foreground);
-  transition: background-color 0.3s;
-}
+
 html {
   scroll-behavior: smooth;
+  background: var(--color-bg);
 }
 
-.z-1000{
-  z-index: 1000;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --base: #111112;
-    --gray : #1E2028;
-    --dark-blue:#111827;
-  }
+html.scrolled nav.site-nav {
+  background-color: color-mix(in srgb, var(--color-surface) 85%, transparent);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 var(--color-border);
+  transition: background-color 0.3s;
 }
 
 body {
-  
-  color: var(--foreground);
-  background: var(--background);
-  font-family: 'Roboto Condensed, Lato, sans-serif';
-  .color-base{
-    color: var(--base);
+  color: var(--color-text);
+  background: var(--color-bg);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.color-base {
+  color: var(--base);
+}
+
+.z-1000 {
+  z-index: 1000;
+}
+
+/* Gradient display text (from the portfolio prompt, recoloured with brand tokens) */
+.hero-heading {
+  background: var(--gradient-accent-vertical);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Visible keyboard focus everywhere (ui-ux-pro-max priority 1) */
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
-nav,section{
-  height: '100vh';
-  display: 'flex';
-  justify-content: 'center';
-  align-items: 'center'
-}
-/* Extra small devices (phones, 320px and up) */
+/* Legacy helpers still used by existing components */
 @media only screen and (min-width: 320px) {
-  /* Styles for extra small screens */
-  .height-60-small{
+  .height-60-small {
     height: 60vh;
   }
 }
 
-/* Small devices (phones, 480px and up) */
 @media only screen and (min-width: 480px) {
-  /* Styles for small screens */
-  .width-100{
+  .width-100 {
     width: 100% !important;
   }
 }
 
-/* Medium devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-  /* Styles for tablets */
-  .laptop-fs-extra-large{
+  .laptop-fs-extra-large {
     font-size: 2.25rem;
   }
-
-  
-  .height-60-small{
+  .height-60-small {
     height: 100vh;
   }
-
 }
 
-/* Large devices (desktops, 1024px and up) */
 @media only screen and (min-width: 1024px) {
-  /* Styles for small desktops */
-  .laptop-fs-extra-large{
+  .laptop-fs-extra-large {
     font-size: 2.75rem;
   }
-
 }
-
-/* Extra large devices (large desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-  /* Styles for large desktops */
-}
-
-/* 4K and Ultra-Wide Screens (1600px and up) */
-@media only screen and (min-width: 1600px) {
-  /* Styles for ultra-wide screens */
-}
-
-/* Landscape mode for phones */
-@media only screen and (max-height: 480px) and (orientation: landscape) {
-  /* Styles for landscape mode */
-}
-
-/* High-resolution displays (Retina) */
-@media only screen and (-webkit-min-device-pixel-ratio: 2), 
-       only screen and (min-resolution: 192dpi) {
-  /* Styles for high-resolution screens */
-}
-
-

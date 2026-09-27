@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!-- Recruiter outreach email. Built from brand/tokens.json + brand/profile.json by scripts/build-brand.mjs.
+     {{ placeholders }} are Jinja2 variables filled per recipient by the Python sender:
+       recruiter_name, company, role, custom_line (1 sentence — the real signal: what you
+       noticed about this company/role, not a generic compliment), sender_unsubscribe_line
+     Subject line formulas + voice notes live in brand/brand-guidelines.md §7.
+     Voice: cold-email skill — lead with their world, one proof point, one low-friction ask.
+     Read it aloud before sending. If it sounds like a template, it needs another pass. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <meta name="supported-color-schemes" content="light" />
+  <title>{{ role }} — [[p.name]]</title>
+  <!--[if mso]>
+  <style type="text/css">table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }</style>
+  <![endif]-->
+  <style>
+    body, table, td { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    @media only screen and (max-width: 600px) {
+      .container { width: 100% !important; padding-left: 20px !important; padding-right: 20px !important; }
+    }
+  </style>
+</head>
+<body style="margin:0;padding:0;background:[[t.component.email.bg]];">
+  <!-- Preheader: shown in inbox preview, hidden on open. Keep under ~110 chars, don't repeat the subject. -->
+  <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;opacity:0;">
+    {{ custom_line }} Two proof points and a link to the case studies — no attachments.
+  </div>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation" style="background:[[t.component.email.bg]];border-collapse:collapse;">
+    <tr>
+      <td align="left" style="padding:24px 16px;">
+        <table class="container" cellpadding="0" cellspacing="0" border="0" role="presentation" style="max-width:600px;width:100%;border-collapse:collapse;font-family:[[t.typography.family.email]];color:[[t.component.email.text]];font-size:15px;line-height:1.6;mso-line-height-rule:exactly;">
+          <tr>
+            <td style="padding-bottom:16px;">Hi {{ recruiter_name }},</td>
+          </tr>
+          <tr>
+            <td style="padding-bottom:16px;">
+              {{ custom_line }} That's what made me reach out about the <strong>{{ role }}</strong> role at <strong>{{ company }}</strong>.
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom:16px;">
+              I'm [[p.name]] — [[p.title]], mostly in fintech, built in React, Next.js, TypeScript and Node.js:
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom:16px;">
+              <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="100%" style="border-collapse:collapse;">
+                <tr>
+                  <td width="4" bgcolor="[[t.component.email.bar-start]]" style="background:[[t.component.email.bar-start]];font-size:0;line-height:0;">&nbsp;</td>
+                  <td style="padding:2px 0 2px 14px;">
+                    <div style="padding:2px 0;"><strong>[[p.metrics.1.value]]</strong> [[p.metrics.1.label]]</div>
+                    <div style="padding:2px 0;"><strong>[[p.metrics.2.value]]</strong> [[p.metrics.2.label]]</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom:16px;">
+              Case studies with the architecture behind those numbers:
+              <a href="[[p.links.portfolio]]" style="color:[[t.component.email.link]];font-weight:bold;">[[p.links.portfolio]]</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom:28px;">
+              Worth a quick look — or if it's easier, just reply and I'll send more detail.
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom:8px;">
+              [[p.name]]
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom:24px;">
+              <!-- signature (kept in sync with email-signature.html) -->
+              <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="max-width:600px;border-collapse:collapse;">
+                <tr>
+                  <td colspan="2" style="padding:0 0 12px 0;">
+                    <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="120" style="border-collapse:collapse;">
+                      <tr>
+                        <td width="60" height="4" bgcolor="[[t.component.email.bar-start]]" style="background:[[t.component.email.bar-start]];font-size:0;line-height:0;">&nbsp;</td>
+                        <td width="60" height="4" bgcolor="[[t.component.email.bar-end]]" style="background:[[t.component.email.bar-end]];font-size:0;line-height:0;">&nbsp;</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign="top" style="padding:0 16px 0 0;">
+                    <img src="[[p.assets.headshot]]" width="64" height="64" alt="[[p.name]]" style="display:block;width:64px;height:64px;border-radius:32px;border:0;" />
+                  </td>
+                  <td valign="top" style="font-size:14px;line-height:1.4;mso-line-height-rule:exactly;">
+                    <div style="font-size:16px;font-weight:bold;">[[p.name]]</div>
+                    <div style="color:[[t.component.email.muted]];">[[p.title]]</div>
+                    <div style="font-size:13px;padding-top:4px;">
+                      <a href="[[p.links.linkedin]]" style="color:[[t.component.email.link]];text-decoration:none;font-weight:bold;">LinkedIn</a>
+                      <span style="color:[[t.component.email.divider]];">&nbsp;|&nbsp;</span>
+                      <a href="[[p.links.github]]" style="color:[[t.component.email.link]];text-decoration:none;font-weight:bold;">GitHub</a>
+                      <span style="color:[[t.component.email.divider]];">&nbsp;|&nbsp;</span>
+                      <a href="[[p.links.cv]]" style="color:[[t.component.email.link]];text-decoration:none;font-weight:bold;">Request CV</a>
+                    </div>
+                    <div style="font-size:12px;color:[[t.component.email.muted]];padding-top:4px;">
+                      <a href="tel:[[p.phoneTel]]" style="color:[[t.component.email.muted]];text-decoration:none;">[[p.phone]]</a>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="border-top:1px solid [[t.component.email.divider]];padding-top:12px;font-size:12px;line-height:1.5;color:[[t.component.email.muted]];">
+              {{ sender_unsubscribe_line }}
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

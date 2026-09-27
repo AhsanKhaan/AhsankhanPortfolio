@@ -1,0 +1,25 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "portfolio-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "portfolio-prod",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "-e",
+        "process.env.NEXT_DIST_DIR='.next-preview';process.argv.splice(1,0,'next','start');require('next/dist/bin/next')"
+      ],
+      "port": 3100,
+      "autoPort": true
+    }
+  ]
+}

@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local preview builds
+/.next-preview/
+!.env.example
+
+# Claude Code skill tooling (installed locally via `npx skills add` / Skill tool) —
+# not portfolio source, same reasoning as ignoring node_modules.
+/.claude/skills/
+/.agents/
+skills-lock.json
+
+# generated from brand/tokens.json + brand/profile.json + brand/templates/ by
+# scripts/build-brand.mjs, which runs automatically before dev/build (predev/prebuild)
+/brand/dist/
+/app/brand.css

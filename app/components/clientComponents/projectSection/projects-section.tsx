@@ -65,7 +65,7 @@ const PROJECTS: Project[] = [
   },
 ]
 
-export function ProjectsSection() {
+export function ProjectsSection({ heading = "Featured Projects" }: { heading?: string }) {
   const [selectedTechs, setSelectedTechs] = useState<string[]>([])
 
   // Get all unique technologies
@@ -96,7 +96,7 @@ export function ProjectsSection() {
       <div className={styles.projectsWrapper}>
         {/* Header */}
         <div className={styles.header}>
-          <h2 className="text-6xl dark:bg-gradient-sky text-transparent bg-clip-text dark:font-bold py-4">Featured Projects</h2>
+          <h2 className="font-display text-5xl md:text-6xl bg-brand-accent text-transparent bg-clip-text font-bold py-4">{heading}</h2>
           <p className={styles.subtitle}>Explore my latest work across different technologies and platforms</p>
         </div>
 

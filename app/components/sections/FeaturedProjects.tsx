@@ -4,7 +4,7 @@ import { ProjectsSection } from '../clientComponents/projectSection/projects-sec
 const FeaturedProjects = () => {
   return (
     <section id="projects">
-        <ProjectsSection/>
+        <ProjectsSection heading="More Projects" />
     </section>
   )
 }

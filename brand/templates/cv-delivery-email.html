@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!-- CV delivery email. Built from brand/tokens.json + brand/profile.json by scripts/build-brand.mjs.
+     Double-square-bracket tokens resolve at build time (npm run brand). Double-curly
+     placeholders are left untouched and filled at request time by app/api/cv-request/route.ts:
+       download_url    — the signed, time-limited link
+       expires_minutes — e.g. "30" -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <meta name="supported-color-schemes" content="light" />
+  <title>Your CV download link</title>
+  <!--[if mso]>
+  <style type="text/css">table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }</style>
+  <![endif]-->
+  <style>
+    body, table, td { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    @media only screen and (max-width: 600px) {
+      .container { width: 100% !important; }
+      .px-32 { padding-left: 20px !important; padding-right: 20px !important; }
+    }
+  </style>
+</head>
+<body style="margin:0;padding:0;background:#F1F5F9;">
+  <!-- Preheader: shown in inbox preview, hidden on open. -->
+  <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;opacity:0;">
+    Your secure download link — valid for {{ expires_minutes }} minutes, issued for this address only.
+  </div>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation" style="background:#F1F5F9;border-collapse:collapse;">
+    <tr>
+      <td align="center" style="padding:32px 16px;">
+        <table class="container" cellpadding="0" cellspacing="0" border="0" role="presentation" width="560" style="max-width:560px;width:100%;background:[[t.component.email.bg]];border-radius:16px;overflow:hidden;font-family:[[t.typography.family.email]];border-collapse:collapse;">
+
+          <!-- Accent bar -->
+          <tr>
+            <td height="6" bgcolor="[[t.component.email.bar-start]]" style="background:linear-gradient(90deg,[[t.component.email.bar-start]],[[t.component.email.bar-end]]);font-size:0;line-height:0;">&nbsp;</td>
+          </tr>
+
+          <!-- Header -->
+          <tr>
+            <td class="px-32" style="padding:32px 32px 0 32px;">
+              <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;">
+                <tr>
+                  <td valign="middle">
+                    <img src="[[p.assets.headshot]]" width="48" height="48" alt="[[p.name]]" style="display:block;width:48px;height:48px;border-radius:24px;border:0;" />
+                  </td>
+                  <td valign="middle" style="padding-left:12px;font-size:16px;font-weight:bold;color:[[t.component.email.text]];">
+                    [[p.name]]
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td class="px-32" style="padding:24px 32px 8px 32px;font-size:22px;line-height:1.3;mso-line-height-rule:exactly;font-weight:bold;color:[[t.component.email.text]];">
+              Here's my CV 👋
+            </td>
+          </tr>
+          <tr>
+            <td class="px-32" style="padding:0 32px 24px 32px;font-size:15px;line-height:1.55;mso-line-height-rule:exactly;color:[[t.component.email.muted]];">
+              Thanks for requesting it — this link is tied to your email address and expires in {{ expires_minutes }} minutes, so grab it while it's warm.
+            </td>
+          </tr>
+
+          <!-- CTA -->
+          <tr>
+            <td align="center" class="px-32" style="padding:0 32px 12px 32px;">
+              <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;">
+                <tr>
+                  <td align="center" bgcolor="[[t.component.email.bar-start]]" style="background:linear-gradient(90deg,[[t.component.email.bar-start]],[[t.component.email.bar-end]]);border-radius:999px;">
+                    <a href="{{ download_url }}" style="display:inline-block;padding:14px 36px;font-size:15px;font-weight:bold;color:#000000;text-decoration:none;">
+                      Download CV (PDF)
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" class="px-32" style="padding:0 32px 28px 32px;font-size:13px;color:[[t.component.email.muted]];">
+              ⏳ Expires in {{ expires_minutes }} minutes &middot; issued for this address only
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td class="px-32" style="padding:0 32px;">
+              <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="100%" style="border-collapse:collapse;">
+                <tr><td height="1" bgcolor="[[t.component.email.divider]]" style="font-size:0;line-height:0;">&nbsp;</td></tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Secondary CTA -->
+          <tr>
+            <td class="px-32" style="padding:24px 32px;font-size:14px;line-height:1.5;mso-line-height-rule:exactly;color:[[t.component.email.muted]];">
+              Want the short version first? <a href="[[p.links.linkedin]]" style="color:[[t.component.email.link]];font-weight:bold;text-decoration:none;">View my LinkedIn profile</a> for the highlights, or reply to this email — it reaches me directly.
+            </td>
+          </tr>
+
+          <!-- Signature -->
+          <tr>
+            <td class="px-32" style="padding:0 32px 24px 32px;">
+              <div style="font-size:14px;line-height:1.4;mso-line-height-rule:exactly;color:[[t.component.email.text]];font-weight:bold;">[[p.name]]</div>
+              <div style="font-size:13px;line-height:1.4;mso-line-height-rule:exactly;color:[[t.component.email.muted]];">[[p.title]]</div>
+              <div style="font-size:13px;line-height:1.4;mso-line-height-rule:exactly;padding-top:4px;">
+                <a href="[[p.links.portfolio]]" style="color:[[t.component.email.link]];text-decoration:none;">[[p.links.portfolio]]</a>
+              </div>
+              <div style="font-size:13px;line-height:1.4;mso-line-height-rule:exactly;color:[[t.component.email.muted]];padding-top:2px;">
+                <a href="tel:[[p.phoneTel]]" style="color:[[t.component.email.muted]];text-decoration:none;">[[p.phone]]</a>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td class="px-32" bgcolor="#F8FAFC" style="padding:16px 32px;font-size:12px;line-height:1.5;mso-line-height-rule:exactly;color:[[t.component.email.muted]];border-top:1px solid [[t.component.email.divider]];">
+              Didn't request this? You can safely ignore it — the link expires shortly and this address only receives what you ask for.
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
