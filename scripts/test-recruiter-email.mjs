@@ -1,8 +1,8 @@
-// Sends ONE real recruiter-outreach email to your own inbox, so you can see it
-// rendered in a real client (Gmail/Outlook), not just the /brand preview route.
-// Local-only on purpose: this is a script you run with `node`, not an API route —
-// it never ships to the deployed app, so there's no endpoint anyone else could hit
-// to send email through your Resend account.
+// Sends ONE real recruiter-outreach email — CV attached — to your own inbox, so you
+// can see it rendered in a real client (Gmail/Outlook), not just the /brand preview
+// route. Local-only on purpose: this is a script you run with `node`, not an API
+// route — it never ships to the deployed app, so there's no endpoint anyone else
+// could hit to send email (or your CV) through your Resend account.
 //
 // Usage:
 //   npm run brand                          # make sure brand/dist/ is current
@@ -66,6 +66,20 @@ if (!existsSync(templatePath)) {
   process.exit(1);
 }
 
+// The CV is attached directly here, and ONLY here — never in a public API route.
+// This script only runs when you personally choose to email a specific, named
+// recruiter; it's never reachable by an anonymous visitor. That's the actual
+// security boundary: the public /cv flow (app/api/cv-request) stays gated behind
+// email verification and a 30-minute signed link, because it's exposed to anyone
+// on the internet. This script isn't — it's local, manual, and 1:1 by design.
+// See brand/brand-guidelines.md §7 for the full reasoning.
+const cvPath = join(root, "private/cv/AhsanKhan_SrSoftwareEngineer.pdf");
+if (!existsSync(cvPath)) {
+  console.error(`CV not found at ${cvPath}.`);
+  process.exit(1);
+}
+const cvBuffer = readFileSync(cvPath);
+
 let html = readFileSync(templatePath, "utf8");
 for (const [key, value] of Object.entries(sample)) {
   html = html.replaceAll(`{{ ${key} }}`, value);
@@ -91,6 +105,7 @@ const { data, error } = await resend.emails.send({
   replyTo: profile.email,
   subject: `[TEST] ${subject}`,
   html,
+  attachments: [{ filename: "Ahsan-Khan-CV.pdf", content: cvBuffer }],
 });
 
 if (error) {
@@ -98,5 +113,5 @@ if (error) {
   process.exit(1);
 }
 
-console.log(`Sent. Resend id: ${data?.id ?? "(no id returned)"}`);
+console.log(`Sent with CV attached. Resend id: ${data?.id ?? "(no id returned)"}`);
 console.log(`Check ${to} — and spam, since onboarding@resend.dev is a shared sending domain.`);
