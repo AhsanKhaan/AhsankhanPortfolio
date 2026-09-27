@@ -114,23 +114,20 @@ Icons: Tabler Icons (SVG), never emoji.
 
 ## 6. Email signature
 
+Deliberately plain, kept in sync with `recruiter-email.html`'s sign-off — same reasoning as §7's "deliberately undesigned" note: a bar, a photo and a row of colored CTA-style links read as a campaign-tool footer, not a person's sign-off.
+
 ```
-┌────────────────────────────────────────────────────────┐
-│ ▬▬▬▬▬▬ (4px bar: blue-400 | emerald-400, 120px wide)    │
-│ ┌──────┐  Ahsan Khan                       18px bold    │
-│ │ 80px │  Senior Full Stack & Frontend Engineer  14px   │
-│ │ photo│  Open to relocate · Remote · Freelance  12px    │
-│ └──────┘  Portfolio | LinkedIn | GitHub | Request CV     │
-│           email · Karachi, Pakistan · PKT (GMT+5)       │
-└────────────────────────────────────────────────────────┘
-max-width 600px · table layout · inline styles only
+┌────────────────────────────────────────┐
+│ Ahsan Khan                    bold      │
+│ Senior Full Stack & Frontend Engineer   │
+│ +92 336 1809930 · linkedin.com/…        │
+└────────────────────────────────────────┘
+table layout · inline styles only · no bar, no photo, no colored links
 ```
 
-- **Headshot:** `public/brand/headshot.png` (160×160 PNG shown at 80px for retina). It must be served from the **live domain**, because email needs absolute image URLs, so it only appears after deployment.
-- **No SVG** (Gmail blocks it), **no CSS variables**, **no web fonts**, **no gradient text**.
+- **No SVG** (Gmail blocks it), **no CSS variables**, **no web fonts**, **no gradient text**, no background/link colors — plain text color, so it reads the same as anything else in the reader's inbox.
 - **Install in Gmail:** deploy, open `https://ahsankhaan.vercel.app/brand/signature`, press Ctrl+A, then Ctrl+C, and paste into Gmail → Settings → General → Signature. For Outlook, paste into File → Options → Mail → Signatures.
-- **Dark mode:** some clients (Outlook, Apple Mail) invert colors. The light palette inverts cleanly, and the photo and color bar stay readable.
-- **"Request CV" links to `/cv`, not a PDF.** See §6a — the signature never links straight to the file.
+- **If a future edit adds the headshot/bar/link-row back**, that's a deliberate design decision, not a "polish" pass — check against §7's reasoning first, since the two signatures are meant to move together.
 
 ---
 

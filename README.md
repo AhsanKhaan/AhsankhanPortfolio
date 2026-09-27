@@ -61,6 +61,8 @@ npm run test:recruiter-email -- --to=you@example.com --company="Acme" --role="Se
 
 This is a standalone `node` script (`scripts/test-recruiter-email.mjs`), not an API route — it only runs when you invoke it locally with your own `RESEND_API_KEY`, so there's no endpoint on the deployed site that could be used to send email through your account.
 
+**CV attachment source:** the script attaches **`private/cv/AhsanKhan_SrSoftwareEngineer.pdf`** directly (read off disk with `readFileSync`, sent via Resend's `attachments` field) — the same file `GET /api/cv/download` streams for the public, gated flow. It's the only place in this codebase that attaches the CV directly rather than gating it, and it's safe specifically because this script is local and manually run for one named recruiter at a time, never a public endpoint. See `brand/brand-guidelines.md` §7 for the full reasoning.
+
 ## Project structure
 
 ```

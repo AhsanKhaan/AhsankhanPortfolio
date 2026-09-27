@@ -1,40 +1,16 @@
 <!-- Ahsan Khan — email signature. Built from brand/tokens.json by scripts/build-brand.mjs.
      Install: open brand/dist/email-signature.html in a browser, select all, copy, paste into Gmail → Settings → Signature.
      No <html>/<head> on purpose: signature editors (Gmail, Outlook) strip them and only
-     keep the pasted fragment — mso-* hints go inline instead of a conditional-comment block. -->
-<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="max-width:600px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;font-family:[[t.typography.family.email]];color:[[t.component.email.text]];">
+     keep the pasted fragment — mso-* hints go inline instead of a conditional-comment block.
+     Kept in sync with recruiter-email.html's plain sign-off (name, title, phone · LinkedIn)
+     — same reasoning there applies here: no accent bar, no photo, no colored "CTA" links,
+     just three plain lines that read as a person, not a campaign tool. -->
+<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;font-family:[[t.typography.family.email]];color:[[t.component.email.text]];font-size:14px;line-height:1.45;mso-line-height-rule:exactly;">
+  <tr><td style="font-weight:bold;">[[p.name]]</td></tr>
+  <tr><td>[[p.title]]</td></tr>
   <tr>
-    <td colspan="2" style="padding:0 0 12px 0;">
-      <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="120" style="border-collapse:collapse;">
-        <tr>
-          <td width="60" height="4" bgcolor="[[t.component.email.bar-start]]" style="background:[[t.component.email.bar-start]];font-size:0;line-height:0;">&nbsp;</td>
-          <td width="60" height="4" bgcolor="[[t.component.email.bar-end]]" style="background:[[t.component.email.bar-end]];font-size:0;line-height:0;">&nbsp;</td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td valign="top" style="padding:0 16px 0 0;">
-      <img src="[[p.assets.headshot]]" width="80" height="80" alt="[[p.name]]" style="display:block;width:80px;height:80px;border-radius:40px;border:0;" />
-    </td>
-    <td valign="top" style="font-size:14px;line-height:1.4;mso-line-height-rule:exactly;">
-      <div style="font-size:18px;line-height:1.3;mso-line-height-rule:exactly;font-weight:bold;color:[[t.component.email.text]];">[[p.name]]</div>
-      <div style="font-size:14px;line-height:1.4;mso-line-height-rule:exactly;color:[[t.component.email.muted]];">[[p.title]]</div>
-      <div style="font-size:12px;line-height:1.4;mso-line-height-rule:exactly;color:[[t.component.email.muted]];padding:2px 0 8px 0;">[[p.availability]]</div>
-      <div style="font-size:13px;line-height:1.5;mso-line-height-rule:exactly;">
-        <a href="[[p.links.portfolio]]" style="color:[[t.component.email.link]];text-decoration:none;font-weight:bold;">Portfolio</a>
-        <span style="color:[[t.component.email.divider]];">&nbsp;|&nbsp;</span>
-        <a href="[[p.links.linkedin]]" style="color:[[t.component.email.link]];text-decoration:none;font-weight:bold;">LinkedIn</a>
-        <span style="color:[[t.component.email.divider]];">&nbsp;|&nbsp;</span>
-        <a href="[[p.links.github]]" style="color:[[t.component.email.link]];text-decoration:none;font-weight:bold;">GitHub</a>
-        <span style="color:[[t.component.email.divider]];">&nbsp;|&nbsp;</span>
-        <a href="[[p.links.cv]]" style="color:[[t.component.email.link]];text-decoration:none;font-weight:bold;">Request CV</a>
-      </div>
-      <div style="font-size:12px;line-height:1.5;mso-line-height-rule:exactly;color:[[t.component.email.muted]];padding-top:4px;">
-        <a href="mailto:[[p.email]]" style="color:[[t.component.email.muted]];text-decoration:none;">[[p.email]]</a>
-        <span>&nbsp;&middot;&nbsp;</span><a href="tel:[[p.phoneTel]]" style="color:[[t.component.email.muted]];text-decoration:none;">[[p.phone]]</a>
-        <span>&nbsp;&middot;&nbsp;</span>[[p.location]]<span>&nbsp;&middot;&nbsp;</span>[[p.timezone]]
-      </div>
+    <td>
+      <a href="tel:[[p.phoneTel]]" style="color:inherit;">[[p.phone]]</a> &middot; <a href="[[p.links.linkedin]]">[[p.links.linkedin]]</a>
     </td>
   </tr>
 </table>
