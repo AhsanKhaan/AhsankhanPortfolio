@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { useReducedMotion } from "framer-motion";
 import { rafThrottle } from "@/lib/rafThrottle";
 
 interface MagnetProps {
@@ -26,10 +25,9 @@ export default function Magnet({
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const reduce = useReducedMotion();
 
   useEffect(() => {
-    if (reduce) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     // rAF-throttled: raw mousemove can fire 100+/sec, and each tick did a layout read
     // (getBoundingClientRect) plus two setStates — unbounded, that was slowing click
@@ -58,7 +56,7 @@ export default function Magnet({
       window.removeEventListener("mousemove", onMove);
       onMove.cancel();
     };
-  }, [padding, strength, reduce]);
+  }, [padding, strength]);
 
   return (
     <div ref={ref} className={className}>

@@ -1,8 +1,9 @@
-"use client";
-import React, { useCallback, useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import type { CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 
+// Rotating words, done entirely in CSS: every word sits in the same grid cell (so the box
+// is always as wide as the longest word and nothing shifts) and runs the same keyframes,
+// staggered by one slot each. No timers, no React re-renders, compositor-only properties.
 export const FlipWords = ({
   words,
   duration = 3000,
@@ -12,91 +13,34 @@ export const FlipWords = ({
   duration?: number;
   className?: string;
 }) => {
-  const [currentWord, setCurrentWord] = useState(words[0]);
-  const [isAnimating, setIsAnimating] = useState<boolean>(false);
-
-  const startAnimation = useCallback(() => {
-    const word = words[words.indexOf(currentWord) + 1] || words[0];
-    setCurrentWord(word);
-    setIsAnimating(true);
-  }, [currentWord, words]);
-
-  useEffect(() => {
-    if (!isAnimating)
-      setTimeout(() => {
-        startAnimation();
-      }, duration);
-  }, [isAnimating, duration, startAnimation]);
+  const n = words.length;
+  const slot = 100 / n;
+  const edge = slot * 0.15;
+  const name = `flip-words-${n}`;
 
   return (
-    <AnimatePresence
-      onExitComplete={() => {
-        setIsAnimating(false);
-      }}
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          type: "spring",
-          stiffness: 150,
-          damping: 15,
-          mass: 0.8,
-        }}
-        exit={{
-          opacity: 0,
-          y: -40,
-          x: 40,
-          scale: 1.8,
-          filter: "blur(6px)",
-          position: "absolute",
-          transition: {
-            opacity: { duration: 0.3 },
-            y: { type: "spring", stiffness: 200, damping: 20 },
-            filter: { duration: 0.2, ease: "easeOut" },
-          },
-        }}
-        className={cn(
-          "z-10 inline-block relative text-left text-neutral-900 dark:text-neutral-100 px-2",
-          className
-        )}
-        key={currentWord}
-      >
-        {currentWord.split(" ").map((word, wordIndex) => (
-          <motion.span
-            key={word + wordIndex}
-            initial={{ opacity: 0, y: 10, filter: "blur(6px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{
-              opacity: { duration: 0.3, delay: wordIndex * 0.2 },
-              y: { type: "spring", stiffness: 120, damping: 12 },
-              filter: { duration: 0.25, ease: "easeOut" },
-            }}
-            className="inline-block whitespace-nowrap"
-          >
-            {word.split("").map((letter, letterIndex) => (
-              <motion.span
-                key={word + letterIndex}
-                initial={{ opacity: 0, y: 10, filter: "blur(6px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{
-                  opacity: {
-                    duration: 0.2,
-                    delay: wordIndex * 0.2 + letterIndex * 0.05,
-                  },
-                  y: { type: "spring", stiffness: 140, damping: 14 },
-                  filter: { duration: 0.2, ease: "easeOut" },
-                }}
-                className="inline-block"
-              >
-                {letter}
-              </motion.span>
-            ))}
-            <span className="inline-block">&nbsp;</span>
-          </motion.span>
-        ))}
-      </motion.div>
-    </AnimatePresence>
+    <span className={cn("relative inline-grid px-2 text-left", className)}>
+      <style>{`
+        @keyframes ${name} {
+          0% { opacity: 0; transform: translateY(0.5em); }
+          ${edge}% { opacity: 1; transform: none; }
+          ${slot}% { opacity: 1; transform: none; }
+          ${slot + edge}%, 100% { opacity: 0; transform: translateY(-0.5em); }
+        }
+      `}</style>
+      <span className="sr-only">{words.join(", ")}</span>
+      {words.map((word, i) => (
+        <span
+          key={word}
+          aria-hidden="true"
+          data-first={i === 0 || undefined}
+          className="flip-word col-start-1 row-start-1 whitespace-nowrap"
+          style={{ animation: `${name} ${n * duration}ms ease-out ${i * duration}ms infinite both` } as CSSProperties}
+        >
+          {word}
+        </span>
+      ))}
+    </span>
   );
 };
 

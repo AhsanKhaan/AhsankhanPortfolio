@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Kanit } from "next/font/google";
+import { Geist, Kanit } from "next/font/google";
 import "./globals.css";
 import brand from "@/brand/dist/tokens.resolved.json";
 import { profile } from "@/data/profile";
@@ -9,15 +9,10 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 const kanit = Kanit({
   variable: "--font-kanit",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "700", "900"],
+  weight: ["400", "500", "700", "900"],
 });
 
 const title = `${profile.name} — React Developer, Frontend & Full Stack Developer`;
@@ -173,7 +168,10 @@ export default function RootLayout({
     // ColorZilla's cz-shortcut-listen) onto <html>/<body> before React hydrates. It
     // does not hide a real hydration mismatch anywhere else in the tree.
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${kanit.variable} antialiased`} suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${kanit.variable} antialiased`} suppressHydrationWarning>
+        {/* Runs before the body paints: lets CSS hide scroll-reveal content only when JS
+            is available to reveal it again (see .js rules in globals.css). */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify([personJsonLd, websiteJsonLd]) }}

@@ -38,21 +38,21 @@ const Techstack = () => {
     { node: <IconBrandReact size={40} />, title: "React", href: "https://react.dev" },
     { node: <IconBrandNodejs size={40} />, title: "Node.js", href: "https://nodejs.org" },
     { node: <IconBrandTypescript size={40} />, title: "TypeScript", href: "https://www.typescriptlang.org" },
-    { node: <IconBrandJavascript size={40} />, title: "JavaScript", href: "#" },
+    { node: <IconBrandJavascript size={40} />, title: "JavaScript" },
     { node: <IconBrandPhp size={40} />, title: "PHP", href: "https://www.php.net/" },
     { node: <IconBrandPython size={40} />, title: "Python", href: "https://www.python.org/" },
     { node: <IconBrandNextjs size={40} />, title: "Next.js", href: "https://nextjs.org/" },
     { node: <IconBrandWordpress size={40} />, title: "WordPress", href: "https://wordpress.org/" },
     { node: <IconBrandTailwind size={40} />, title: "Tailwind", href: "https://tailwindcss.com/" },
     { node: <IconBrandFigma size={40} />, title: "Figma", href: "https://figma.com/" },
-    { node: <IconBrandHtml5 size={40} />, title: "HTML5", href: "#" },
-    { node: <IconBrandCss3 size={40} />, title: "CSS3", href: "#" },
+    { node: <IconBrandHtml5 size={40} />, title: "HTML5" },
+    { node: <IconBrandCss3 size={40} />, title: "CSS3" },
     { node: <IconBrandAws size={40} />, title: "AWS", href: "https://aws.amazon.com" },
     { node: <IconBrandWebflow size={40} />, title: "Webflow", href: "https://webflow.com" },
   ];
 
   return (
-    <section id="projects">
+    <section id="tech-stack">
       <div className="dark:color-base min-h-screen flex flex-col justify-center items-center px-4 py-16">
         {/* Title */}
         <div className="text-center mb-8">
@@ -64,13 +64,11 @@ const Techstack = () => {
         {/* Subtitle with FlipWords */}
         <div className="text-xl sm:text-2xl md:text-3xl font-semibold flex flex-wrap justify-center items-center gap-2 mb-10 text-slate-200">
           <span>The Tech Behind the</span>
-          <span className="inline-block min-w-[120px] sm:min-w-[160px] text-center">
-            <FlipWords
-              words={["Build", "App", "Design", "Development"]}
-              duration={2000}
-              className="dark:text-blue-600 inline-block"
-            />
-          </span>
+          <FlipWords
+            words={["Build", "App", "Design", "Development"]}
+            duration={2000}
+            className="text-brand-accent-start"
+          />
         </div>
 
         {/* Logo Loop Container */}
@@ -85,7 +83,7 @@ const Techstack = () => {
             scaleOnHover
             fadeOut
             fadeOutColor="#0f172a"
-            ariaLabel="Technology partners"
+            ariaLabel="Technologies I work with"
             className="max-w-full"
           />
         </div>

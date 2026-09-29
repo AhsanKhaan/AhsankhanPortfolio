@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import type { ReactNode } from "react";
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 
 interface FadeInProps {
   children: ReactNode;
@@ -12,19 +11,42 @@ interface FadeInProps {
   y?: number;
 }
 
-const EASE = [0.25, 0.1, 0.25, 1] as const;
+// One observer for every FadeIn on the page; the animation itself is the .fade-in CSS
+// transition in globals.css, so no per-element animation runtime runs on the main thread.
+let observer: IntersectionObserver | null = null;
+
+function observe(el: Element) {
+  observer ??= new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.setAttribute("data-inview", "");
+        observer?.unobserve(entry.target);
+      }
+    },
+    { rootMargin: "50px" },
+  );
+  observer.observe(el);
+  return () => observer?.unobserve(el);
+}
 
 export default function FadeIn({ children, className, delay = 0, duration = 0.7, x = 0, y = 30 }: FadeInProps) {
-  const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (ref.current) return observe(ref.current);
+  }, []);
+
+  const style = {
+    "--fade-x": `${x}px`,
+    "--fade-y": `${y}px`,
+    "--fade-delay": `${delay}s`,
+    "--fade-duration": `${duration}s`,
+  } as CSSProperties;
+
   return (
-    <motion.div
-      className={className}
-      initial={reduce ? false : { opacity: 0, x, y }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: "50px", amount: 0 }}
-      transition={{ delay, duration, ease: EASE }}
-    >
+    <div ref={ref} className={className ? `fade-in ${className}` : "fade-in"} style={style}>
       {children}
-    </motion.div>
+    </div>
   );
 }

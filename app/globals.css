@@ -46,6 +46,76 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+/* Scroll reveal (FadeIn). Pure CSS transition; a shared IntersectionObserver only flips
+   data-inview. Gated on .js (set by an inline script in layout.tsx) so content is never
+   hidden for visitors without JavaScript. */
+.fade-in {
+  transition:
+    opacity var(--fade-duration, 0.7s) cubic-bezier(0.25, 0.1, 0.25, 1) var(--fade-delay, 0s),
+    transform var(--fade-duration, 0.7s) cubic-bezier(0.25, 0.1, 0.25, 1) var(--fade-delay, 0s);
+}
+.js .fade-in:not([data-inview]) {
+  opacity: 0;
+  transform: translate3d(var(--fade-x, 0px), var(--fade-y, 30px), 0);
+}
+
+/* Mobile nav overlay. Stays mounted; `visibility` (delayed on close so the fade can play)
+   keeps the closed menu out of the tab order and the accessibility tree. */
+.mobile-menu {
+  opacity: 0;
+  transform: translateY(-20px);
+  visibility: hidden;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0s linear 0.25s;
+}
+.mobile-menu[data-open] {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+/* Below-the-fold sections skip style, layout and paint until they near the viewport.
+   Heights are per-section estimates (--h-sm mobile, --h-lg tablet/desktop) so in-page links
+   land correctly before a section has rendered; `auto` then remembers the real height. */
+.defer-render {
+  content-visibility: auto;
+  contain-intrinsic-size: auto var(--h-sm, 1000px);
+}
+@media (min-width: 768px) {
+  .defer-render {
+    contain-intrinsic-size: auto var(--h-lg, 1000px);
+  }
+}
+
+/* Hero entrance: keyframes run as soon as CSS loads, no hydration needed. The LCP heading
+   only moves (never starts at opacity 0), so it counts as painted from the first frame. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--rise-y, 30px), 0);
+  }
+}
+@keyframes rise-in-place {
+  from {
+    transform: translate3d(0, var(--rise-y, 30px), 0);
+  }
+}
+.rise {
+  animation: rise 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) var(--rise-delay, 0s) both;
+}
+.rise-lcp {
+  animation-name: rise-in-place;
+}
+
+/* AnimatedText: one scroll handler writes --reveal (0..1) on the paragraph; each word derives
+   its own opacity. The dim state stays at 0.55 so unrevealed words still pass WCAG AA. */
+.js .reveal-word {
+  opacity: clamp(0.55, calc(0.55 + (var(--reveal, 0) * var(--words) - var(--i)) * 0.45), 1);
+}
+
 /* Visible keyboard focus everywhere (ui-ux-pro-max priority 1) */
 :focus-visible {
   outline: 2px solid var(--color-focus-ring);
@@ -55,6 +125,23 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .js .fade-in:not([data-inview]) {
+    opacity: 1;
+    transform: none;
+  }
+  .rise {
+    animation: none;
+  }
+  .js .reveal-word {
+    opacity: 1;
+  }
+  .flip-word {
+    animation: none !important;
+    opacity: 0;
+  }
+  .flip-word[data-first] {
+    opacity: 1;
   }
   *,
   *::before,
