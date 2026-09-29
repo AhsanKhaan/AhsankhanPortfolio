@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import { getMailer } from "@/lib/mailer";
 import { issueCvToken } from "@/lib/cvToken";
 import { isRateLimited } from "@/lib/rateLimit";
 import { checkEmail } from "@/lib/emailValidation";
@@ -42,10 +42,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: emailCheck.reason }, { status: 422 });
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
+  const mailer = getMailer();
   const secret = process.env.CV_ACCESS_SECRET;
-  if (!apiKey || !secret) {
-    console.error("CV request: RESEND_API_KEY or CV_ACCESS_SECRET is not configured.");
+  if (!mailer || !secret) {
+    console.error("CV request: GMAIL_USER/GMAIL_APP_PASSWORD or CV_ACCESS_SECRET is not configured.");
     return NextResponse.json({ error: "CV requests aren't configured yet." }, { status: 500 });
   }
 
@@ -63,22 +63,19 @@ export async function POST(request: Request) {
   }
 
   try {
-    const resend = new Resend(apiKey);
-    const { error } = await resend.emails.send({
-      // Display name is real; the address stays a Resend-verified domain until
-      // CONTACT_FROM_EMAIL points at a domain you own — Resend rejects sending
-      // "from" a gmail.com address you haven't (and can't) verify with them.
-      // replyTo carries your real inbox instead, so a reply reaches you directly.
-      from: process.env.CONTACT_FROM_EMAIL || `${profile.name} <onboarding@resend.dev>`,
+    // Sent via Gmail SMTP as the real account — "from" is genuinely ahsankhan.ubit@
+    // gmail.com (authenticated directly with Google), so it can reach ANY recipient,
+    // unlike a third-party ESP's unverified-domain sandbox, which only delivers to
+    // the account owner. See lib/mailer.ts.
+    await mailer.sendMail({
+      from: `${profile.name} <${process.env.GMAIL_USER}>`,
       to: email,
-      replyTo: profile.email,
       // Lead notification: I see who requested the CV. Skipped when someone requests
       // it to my own address, so testing doesn't send a duplicate.
       bcc: email === profile.email ? undefined : profile.email,
       subject: `${profile.name} — your CV download link (expires in ${EXPIRES_MINUTES} minutes)`,
       html,
     });
-    if (error) throw new Error(error.message);
   } catch (err) {
     console.error("CV request send failed:", err);
     return NextResponse.json({ error: "Couldn't send that right now. Please try again shortly." }, { status: 502 });

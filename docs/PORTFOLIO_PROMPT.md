@@ -93,7 +93,7 @@ This is a reusable prompt for rebuilding or extending this portfolio with Claude
 >
 > Each CTA links to `#contact-<type>`, which preselects the inquiry type in the form.
 >
-> **14. Contact:** a form that posts to `/api/contact` (Resend).
+> **14. Contact:** a form that posts to `/api/contact`, sent via Gmail SMTP as the real account (`lib/mailer.ts`) — no domain needed, and `from` is genuinely the account's own address.
 > - Fields: Name, Email, Inquiry type, Company (optional), Budget (Freelance only), Message.
 > - Visible labels, inline errors with `aria-describedby`, focus moves to the first error.
 > - Loading, success and error states. Hidden honeypot field.

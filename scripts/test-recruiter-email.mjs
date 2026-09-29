@@ -1,21 +1,20 @@
-// Sends ONE real recruiter-outreach email — CV attached — to your own inbox, so you
-// can see it rendered in a real client (Gmail/Outlook), not just the /brand preview
-// route. Local-only on purpose: this is a script you run with `node`, not an API
-// route — it never ships to the deployed app, so there's no endpoint anyone else
-// could hit to send email (or your CV) through your Resend account.
+// Sends ONE real recruiter-outreach email — CV attached — via Gmail SMTP, authenticated
+// as your real account. Local-only on purpose: this is a script you run with `node`,
+// not an API route — it never ships to the deployed app, so there's no endpoint
+// anyone else could hit to send email (or your CV) through your account.
 //
 // Usage:
 //   npm run brand                          # make sure brand/dist/ is current
-//   npm run test:recruiter-email
-//   npm run test:recruiter-email -- --to=you@example.com --company="Acme" --role="Senior Frontend Engineer"
+//   npm run test:recruiter-email                                    # sends to yourself
+//   npm run test:recruiter-email -- --to=recruiter@company.com --company="Acme" --role="Senior Frontend Engineer"
 //
-// Requires RESEND_API_KEY in .env.local (same key the site's contact form and CV
-// delivery use). Reads .env.local itself — this script runs outside Next.js, which
-// is the only thing that loads .env.local automatically.
+// Requires GMAIL_USER + GMAIL_APP_PASSWORD in .env.local (same as the site's contact
+// form and CV delivery — see lib/mailer.ts for setup). Reads .env.local itself — this
+// script runs outside Next.js, which is the only thing that loads .env.local automatically.
 import { readFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -54,9 +53,10 @@ const sample = {
 
 const to = arg("to", profile.email);
 
-const apiKey = process.env.RESEND_API_KEY;
-if (!apiKey) {
-  console.error("Missing RESEND_API_KEY. Add it to .env.local first (see .env.example).");
+const gmailUser = process.env.GMAIL_USER;
+const gmailPass = process.env.GMAIL_APP_PASSWORD;
+if (!gmailUser || !gmailPass) {
+  console.error("Missing GMAIL_USER / GMAIL_APP_PASSWORD. Add them to .env.local first (see .env.example).");
   process.exit(1);
 }
 
@@ -94,24 +94,19 @@ console.log(`  role:           ${sample.role}`);
 console.log(`  custom_line:    ${sample.custom_line}`);
 console.log(`  subject:        ${subject}`);
 
-const resend = new Resend(apiKey);
-const { data, error } = await resend.emails.send({
-  // Display name is real; the address stays a Resend-verified domain until
-  // CONTACT_FROM_EMAIL points at a domain you own — Resend rejects sending "from"
-  // a gmail.com address you haven't (and can't) verify with them. replyTo carries
-  // your real inbox instead, so hitting reply on the test reaches you directly.
-  from: process.env.CONTACT_FROM_EMAIL || `${profile.name} <onboarding@resend.dev>`,
-  to,
-  replyTo: profile.email,
-  subject: `[TEST] ${subject}`,
-  html,
-  attachments: [{ filename: "Ahsan-Khan-CV.pdf", content: cvBuffer }],
-});
+const transporter = nodemailer.createTransport({ service: "gmail", auth: { user: gmailUser, pass: gmailPass } });
 
-if (error) {
-  console.error("Send failed:", error.message);
+try {
+  const info = await transporter.sendMail({
+    from: `${profile.name} <${gmailUser}>`,
+    to,
+    subject: `[TEST] ${subject}`,
+    html,
+    attachments: [{ filename: "Ahsan-Khan-CV.pdf", content: cvBuffer }],
+  });
+  console.log(`Sent with CV attached. Message id: ${info.messageId}`);
+  console.log(`Check ${to}.`);
+} catch (err) {
+  console.error("Send failed:", err.message);
   process.exit(1);
 }
-
-console.log(`Sent with CV attached. Resend id: ${data?.id ?? "(no id returned)"}`);
-console.log(`Check ${to} — and spam, since onboarding@resend.dev is a shared sending domain.`);

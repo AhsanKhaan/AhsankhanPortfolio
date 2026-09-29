@@ -25,7 +25,7 @@ A personal portfolio built to do real work for a job search — not just a stati
 
 - **One brand token file** (`brand/tokens.json`) that drives the website, transactional emails and LinkedIn post images, so a single color change propagates everywhere.
 - **A gated CV-delivery system** — the CV is never at a public URL. Requesting it goes through email format + disposable-domain + MX-record checks, then a signed, time-limited download link, not a direct file.
-- **A working, validated contact form** wired to Resend, with per-inquiry-type routing (full-time / remote / freelance).
+- **A working, validated contact form** sent via Gmail SMTP as the real account, with per-inquiry-type routing (full-time / remote / freelance).
 - **AI-search-optimized recruiter content** — a structured FAQ (`FAQPage` schema), an `llms.txt`, and four persona-specific pages (`/for/tech-recruiters`, `/for/remote-hiring`, `/for/relocation-sponsorship`, `/for/talent-acquisition`) using the programmatic-SEO "persona" pattern: genuinely different content per audience, not template variables swapped.
 - **Pixel-hardened HTML email templates** (signature, CV delivery, recruiter outreach) built for Outlook/Gmail rendering quirks, not just browser preview.
 
@@ -43,10 +43,10 @@ npm run dev
 
 | Variable | Required | Purpose |
 |---|---|---|
-| `RESEND_API_KEY` | Yes | Sends the contact form, CV delivery and recruiter-email test script. Free tier at [resend.com](https://resend.com) — `onboarding@resend.dev` works with no domain verification to start. |
+| `GMAIL_USER` | Yes | The Gmail address emails are sent from — sends via Gmail's own SMTP, authenticated as this account, so `from` is genuinely this address and can reach anyone. |
+| `GMAIL_APP_PASSWORD` | Yes | An [App Password](https://myaccount.google.com/apppasswords) for that account (needs 2-Step Verification enabled first) — not the account's normal login password. |
 | `CV_ACCESS_SECRET` | Yes (for CV requests) | Signs the time-limited CV download links. Generate with `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`. |
 | `CONTACT_TO_EMAIL` | No | Where contact-form and CV-request notifications land. Defaults to the email in `brand/profile.json`. |
-| `CONTACT_FROM_EMAIL` | No | Verified sender address, e.g. `Portfolio <hello@yourdomain.com>`. Defaults to `onboarding@resend.dev`. |
 
 ### Testing the recruiter email locally
 
@@ -59,9 +59,9 @@ npm run test:recruiter-email
 npm run test:recruiter-email -- --to=you@example.com --company="Acme" --role="Senior Frontend Engineer" --recruiter="Jamie" --line="Saw your Series B — congrats."
 ```
 
-This is a standalone `node` script (`scripts/test-recruiter-email.mjs`), not an API route — it only runs when you invoke it locally with your own `RESEND_API_KEY`, so there's no endpoint on the deployed site that could be used to send email through your account.
+This is a standalone `node` script (`scripts/test-recruiter-email.mjs`), not an API route — it only runs when you invoke it locally with your own `GMAIL_USER`/`GMAIL_APP_PASSWORD`, so there's no endpoint on the deployed site that could be used to send email through your account. Unlike a third-party email service's sandbox mode, it can send to any `--to` address, not just your own — because it's authenticated directly with Google as your real account.
 
-**CV attachment source:** the script attaches **`private/cv/AhsanKhan_SrSoftwareEngineer.pdf`** directly (read off disk with `readFileSync`, sent via Resend's `attachments` field) — the same file `GET /api/cv/download` streams for the public, gated flow. It's the only place in this codebase that attaches the CV directly rather than gating it, and it's safe specifically because this script is local and manually run for one named recruiter at a time, never a public endpoint. See `brand/brand-guidelines.md` §7 for the full reasoning.
+**CV attachment source:** the script attaches **`private/cv/AhsanKhan_SrSoftwareEngineer.pdf`** directly (read off disk with `readFileSync`, sent via Nodemailer's `attachments` field) — the same file `GET /api/cv/download` streams for the public, gated flow. It's the only place in this codebase that attaches the CV directly rather than gating it, and it's safe specifically because this script is local and manually run for one named recruiter at a time, never a public endpoint. See `brand/brand-guidelines.md` §7 for the full reasoning.
 
 ## Project structure
 

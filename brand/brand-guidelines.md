@@ -150,7 +150,7 @@ The CV is **never at a public URL**. The file lives at `private/cv/AhsanKhan_SrS
 
 **Trade-off:** tokens expire but aren't tracked as single-use across requests (that needs persistent storage this project doesn't have yet — e.g. Vercel KV or Upstash Redis). The 30-minute expiry plus the email-validity checks above are the main defenses; add a store later for a true single-use link if that matters more than the current setup.
 
-**Required env:** `RESEND_API_KEY` and `CV_ACCESS_SECRET` (generate with `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`, keep it secret — anyone with it can mint their own valid links). See `.env.example`.
+**Required env:** `GMAIL_USER`, `GMAIL_APP_PASSWORD` (see §7's "Sender identity" for setup) and `CV_ACCESS_SECRET` (generate with `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`, keep it secret — anyone with it can mint their own valid links). See `.env.example`.
 
 ---
 
@@ -206,7 +206,9 @@ Avoid: exclamation points, "opportunity," "excited to apply," anything that read
 
 **Placeholders.** `{{ … }}` are Jinja2 variables left untouched by the build. The Python sender fills them per recipient: `recruiter_name`, `company`, `role`, `custom_line`, `sender_unsubscribe_line`.
 
-**Sender identity: display name is real, address stays Resend's until a domain is verified.** `from` renders as `Ahsan Khan <onboarding@resend.dev>`, not a generic "Portfolio" — Resend (and every ESP) **rejects sending "from" an address on a domain you haven't verified with them**, so `from: "... <ahsankhan.ubit@gmail.com>"` isn't possible — Gmail's own domain can't be verified by a third party, and Google's SPF/DKIM would flag it as spoofed even if it were accepted. `replyTo` is set to `profile.email` (`ahsankhan.ubit@gmail.com`) on every send instead, so hitting "Reply" in the recipient's inbox goes straight to the real inbox regardless of what the `from` address shows. Same pattern in `/api/cv-request` and the CV delivery email. To send from a real `you@yourdomain.com` later: buy/point a domain, verify it in the Resend dashboard, set `CONTACT_FROM_EMAIL`.
+**Sender identity: `from` is genuinely `ahsankhan.ubit@gmail.com`, sent via Gmail SMTP.** No domain needed. Earlier this sent through Resend, a third-party ESP — those reject sending "from" any address on a domain you haven't verified with them, so a real Gmail address was never possible that way, and Resend's own sandbox mode additionally only delivers to the account owner until a domain is verified (the actual bug that first surfaced this: CV requests worked in testing, then failed for every real recipient once live). `lib/mailer.ts` fixes both by sending through Gmail's SMTP server, authenticated directly with Google as the real account (an App Password, not the login password) — not a third party claiming to be you.
+
+**Setup:** enable 2-Step Verification on the Google account (`myaccount.google.com/security`), create an App Password for "Mail" at `myaccount.google.com/apppasswords`, set `GMAIL_USER` and `GMAIL_APP_PASSWORD` in `.env.local` (local) and in the Vercel project's env vars (production — **the project that actually serves the live domain**, confirmed via `get_project`/`filter_project_envs`, not a duplicate project pointing at an unused `*.vercel.app` subdomain). Gmail's own send limit (~500/day on a personal account) is far above what a portfolio's contact form and CV requests need.
 
 **Sending etiquette (protects your inbox reputation)**
 - Personalize every email. `custom_line` must never be generic — if it could apply to any company, it's not doing its job.

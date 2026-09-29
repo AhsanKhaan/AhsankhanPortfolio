@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import { getMailer } from "@/lib/mailer";
 import { profile } from "@/data/profile";
 
 const INQUIRY_LABELS: Record<string, string> = {
@@ -34,11 +34,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Please fill in your name, a valid email and a message." }, { status: 422 });
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  // Defaults to Ahsan's own inbox (brand/profile.json) so only RESEND_API_KEY needs to be set.
+  const mailer = getMailer();
+  // Defaults to Ahsan's own inbox (brand/profile.json) so only GMAIL_USER/GMAIL_APP_PASSWORD need to be set.
   const to = process.env.CONTACT_TO_EMAIL || profile.email;
-  if (!apiKey || !to) {
-    console.error("Contact form: RESEND_API_KEY is not configured.");
+  if (!mailer || !to) {
+    console.error("Contact form: GMAIL_USER/GMAIL_APP_PASSWORD are not configured.");
     return NextResponse.json({ error: "The contact form isn't configured yet." }, { status: 500 });
   }
 
@@ -51,8 +51,8 @@ export async function POST(request: Request) {
   ];
 
   try {
-    const { error } = await new Resend(apiKey).emails.send({
-      from: process.env.CONTACT_FROM_EMAIL || `${profile.name} <onboarding@resend.dev>`,
+    await mailer.sendMail({
+      from: `${profile.name} <${process.env.GMAIL_USER}>`,
       to,
       replyTo: email,
       subject: `[Portfolio] ${inquiry}: ${name}${company ? ` (${company})` : ""}`,
@@ -60,7 +60,6 @@ export async function POST(request: Request) {
         .map(([k, v]) => `<tr><td><strong>${k}</strong></td><td>${escapeHtml(v)}</td></tr>`)
         .join("")}</table><p style="font-family:Arial,sans-serif;font-size:14px;white-space:pre-wrap">${escapeHtml(message)}</p>`,
     });
-    if (error) throw new Error(error.message);
   } catch (err) {
     console.error("Contact form send failed:", err);
     return NextResponse.json({ error: "Your message couldn't be sent right now." }, { status: 502 });
