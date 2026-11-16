@@ -20,7 +20,7 @@
     "headshot": "https://ahsankhaan.vercel.app/brand/headshot.png"
   },
   "metrics": [
-    { "value": "5+", "label": "Years building production web apps" },
+    { "value": "6+", "label": "Years building production web apps" },
     { "value": "100K+", "label": "Users served by full-stack systems I've built end-to-end" },
     { "value": "35%", "label": "Faster load (FCP 4.2s → 2.7s)" },
     { "value": "80%", "label": "Manual ops removed (onboarding 5 days → 1)" },

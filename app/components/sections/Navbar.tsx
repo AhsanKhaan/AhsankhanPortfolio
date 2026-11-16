@@ -39,11 +39,11 @@ const Navbar: React.FC<NavbarProps> = ({ items, socialLinks }) => {
         {/* Brand Name */}
         <Link href="#home" >
 
-          <div className="font-display text-2xl md:text-3xl font-extrabold bg-brand-accent bg-clip-text text-transparent">Ahsan Khan</div>
+          <div className="whitespace-nowrap font-display text-2xl md:text-3xl font-extrabold bg-brand-accent bg-clip-text text-transparent">Ahsan Khan</div>
         </Link>
 
         {/* Navigation Links */}
-        <div className="hidden lg:flex gap-8">
+        <div className="hidden lg:flex gap-5 xl:gap-8">
           {items.map((item) => (
             <Link
               href={item.href}
@@ -75,7 +75,7 @@ const Navbar: React.FC<NavbarProps> = ({ items, socialLinks }) => {
             href={profile.links.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-full border-2 border-brand-text px-5 text-xs font-medium uppercase tracking-widest text-brand-text hover:bg-white/10 transition-colors"
+            className="hidden xl:inline-flex min-h-[44px] items-center gap-2 rounded-full border-2 border-brand-text px-5 text-xs font-medium uppercase tracking-widest text-brand-text hover:bg-white/10 transition-colors"
           >
             <IconBrandLinkedin size={16} aria-hidden="true" /> LinkedIn
           </a>

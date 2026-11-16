@@ -12,7 +12,7 @@ const Footer = () => {
             {profile.title} · {profile.location}
           </p>
         </div>
-        <nav aria-label="Social links" className="flex gap-6">
+        <nav aria-label="Footer" className="flex flex-wrap justify-center gap-x-6 gap-y-1">
           {socialLinks.map((l) => (
             <a
               key={l.title}
@@ -24,6 +24,12 @@ const Footer = () => {
               {l.title}
             </a>
           ))}
+          <Link href="/agency" className="inline-flex min-h-[44px] items-center text-sm uppercase tracking-wider text-brand-text hover:opacity-70">
+            Agency
+          </Link>
+          <Link href="/contributions" className="inline-flex min-h-[44px] items-center text-sm uppercase tracking-wider text-brand-text hover:opacity-70">
+            Contributions
+          </Link>
           <a href="/cv" className="inline-flex min-h-[44px] items-center text-sm uppercase tracking-wider text-brand-text hover:opacity-70">
             Get CV
           </a>
@@ -31,7 +37,7 @@ const Footer = () => {
             Hiring? Start Here
           </Link>
         </nav>
-        <a href="#home" className="inline-flex min-h-[44px] items-center gap-2 text-sm uppercase tracking-wider text-brand-muted hover:text-brand-text">
+        <a href="#top" className="inline-flex min-h-[44px] items-center gap-2 text-sm uppercase tracking-wider text-brand-muted hover:text-brand-text">
           Back to top <IconArrowUp size={16} aria-hidden="true" />
         </a>
       </div>

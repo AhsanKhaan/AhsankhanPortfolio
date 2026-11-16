@@ -18,7 +18,7 @@ const kanit = Kanit({
 const title = `${profile.name} — React Developer, Frontend & Full Stack Developer`;
 // 155 chars — inside Google's ~155-160 SERP display limit (was 225, got truncated).
 const description =
-  "Senior React, Next.js & Full Stack Developer with 5+ yrs in fintech and food-tech. 100K+ users served. Open to relocation, remote roles and freelance work.";
+  "Senior React, Next.js & Full Stack Developer with 6+ yrs in fintech and food-tech. 100K+ users served. Open to relocation, remote roles and freelance work.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.links.portfolio),
@@ -65,6 +65,9 @@ export const metadata: Metadata = {
     "Senior Developer for Hire",
     "React Developer Available Now",
     "Talent Acquisition React Developer",
+    "Agentic AI Developer",
+    "Claude Code Developer",
+    "Agentic SEO",
     "Ahsan Khan",
     "Ahsan Khan Developer",
   ],
@@ -127,7 +130,10 @@ const personJsonLd = {
     "Laravel",
     "REST APIs",
     "AWS",
-    "Docker",
+    "Agentic AI",
+    "Claude Code",
+    "BullMQ",
+    "Cloudflare",
     "CI/CD",
     "MongoDB",
     "MySQL",

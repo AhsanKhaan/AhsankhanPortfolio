@@ -11,7 +11,7 @@ import Experience from './components/sections/Experience';
 import Techstack from './components/sections/Techstack';
 import CaseStudies from './components/sections/CaseStudies';
 import FeaturedProjects from './components/sections/FeaturedProjects';
-import AILab from './components/sections/AILab';
+import AgenticAI from './components/sections/AgenticAI';
 import WorkWithMe from './components/sections/WorkWithMe';
 import RecruiterFAQ from './components/sections/RecruiterFAQ';
 import Contact from './components/sections/Contact';
@@ -57,7 +57,8 @@ const page = () => {
     { title: "Services", icon: null, href: "#services" },
     { title: "Experience", icon: null, href: "#experience" },
     { title: "Projects", icon: null, href: "#case-studies" },
-    { title: "FAQ", icon: null, href: "#faq" },
+    { title: "Agency", icon: null, href: "/agency" },
+    { title: "GitHub", icon: null, href: "/contributions" },
     { title: "Contact", icon: null, href: "#contact" },
   ];
 
@@ -99,8 +100,8 @@ const page = () => {
             <FeaturedProjects />
           </FadeIn>
         </Deferred>
-        <Deferred sm={1462} lg={981}>
-          <AILab />
+        <Deferred sm={2910} lg={1598}>
+          <AgenticAI />
         </Deferred>
         <Deferred sm={1498} lg={932}>
           <WorkWithMe />

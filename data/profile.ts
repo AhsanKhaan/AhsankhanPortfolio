@@ -142,36 +142,6 @@ export const caseStudies: CaseStudy[] = [
   },
 ];
 
-export type LearningStatus = "Learning" | "Building" | "Applied";
-
-export const aiLab: { name: string; detail: string; status: LearningStatus }[] = [
-  {
-    name: "LLM API integration",
-    detail: "Calling Claude and OpenAI SDKs from Next.js route handlers: streaming, tool use, error handling.",
-    status: "Building",
-  },
-  {
-    name: "Prompt engineering & structured output",
-    detail: "Reliable JSON outputs, evaluation prompts and guardrails for product features.",
-    status: "Building",
-  },
-  {
-    name: "RAG fundamentals",
-    detail: "Embeddings, vector search and chunking strategies for document Q&A.",
-    status: "Learning",
-  },
-  {
-    name: "Python for AI workflows",
-    detail: "Automation scripts and data preparation alongside my TypeScript stack.",
-    status: "Learning",
-  },
-  {
-    name: "AI-assisted development",
-    detail: "Using AI coding tools in daily work for reviews, refactors and test generation.",
-    status: "Applied",
-  },
-];
-
 export const workModes: {
   inquiry: InquiryType;
   title: string;
@@ -203,7 +173,7 @@ export const workModes: {
     title: "Freelance · Projects",
     points: [
       "Admin portals and dashboards",
-      "Next.js marketing sites with SEO",
+      "Next.js and Astro marketing sites with agentic SEO",
       "Full-stack MVPs and performance audits",
     ],
     cta: "Start a project",
@@ -220,7 +190,7 @@ export const recruiterFaq: { id: string; question: string; answer: string }[] = 
     id: "relocation",
     question: "Is Ahsan Khan open to relocation?",
     answer:
-      "Yes. Ahsan is based in Karachi, Pakistan, and is open to relocating internationally for a senior full-time engineering role, including fintech, food-tech and delivery-platform companies. He has 5+ years of experience and can discuss sponsorship and onboarding timelines directly through the contact form.",
+      "Yes. Ahsan is based in Karachi, Pakistan, and is open to relocating internationally for a senior full-time engineering role, including fintech, food-tech and delivery-platform companies. He has 6+ years of experience and can discuss sponsorship and onboarding timelines directly through the contact form.",
   },
   {
     id: "remote",
@@ -232,7 +202,7 @@ export const recruiterFaq: { id: string; question: string; answer: string }[] = 
     id: "stack",
     question: "What is Ahsan Khan's tech stack?",
     answer:
-      "React, Next.js and TypeScript on the frontend; Java, Node.js and PHP (Laravel) on the backend, with REST APIs, MongoDB, MySQL and PostgreSQL. AWS, Docker, Git and CI/CD for deployment. He also implements PCI DSS and OWASP Top 10 security practices, standard requirements for fintech and payments roles.",
+      "React, Next.js and TypeScript on the frontend; Java, Node.js and PHP (Laravel) on the backend, with REST APIs, MongoDB, MySQL and PostgreSQL. AWS, Cloudflare, Git and CI/CD for deployment. He also implements PCI DSS and OWASP Top 10 security practices, standard requirements for fintech and payments roles.",
   },
   {
     id: "fintech",

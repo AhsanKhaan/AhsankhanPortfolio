@@ -4,8 +4,7 @@ import FlipWords from "../ui/FlipWords";
 import { LogoLoop } from "../ui/LogoLoop";
 import SpotlightCard from "../clientComponents/SpotlightCard/SpotlightCard";
 import {
-  IconBrandGithub,
-  IconBrandDocker,
+  IconBrandGithub,
   IconBrandLaravel,
   IconBrandMongodb,
   IconBrandMysql,
@@ -30,8 +29,7 @@ import {
 
 const Techstack = () => {
   const techLogos = [
-    { node: <IconBrandGithub size={40} />, title: "GitHub", href: "https://github.com" },
-    { node: <IconBrandDocker size={40} />, title: "Docker", href: "https://docker.com" },
+    { node: <IconBrandGithub size={40} />, title: "GitHub", href: "https://github.com" },
     { node: <IconBrandMongodb size={40} />, title: "MongoDB", href: "https://www.mongodb.com" },
     { node: <IconBrandMysql size={40} />, title: "MySQL", href: "https://www.mysql.com/" },
     { node: <IconBrandLaravel size={40} />, title: "Laravel", href: "https://laravel.com/" },

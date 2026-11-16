@@ -128,7 +128,7 @@ const timelineData: TimelineItemData[] = [
       "Automate Consumer,Fraud and Transactional email systems using third-party services and in-house solutions.",
       "Increase producitivity by building Portals for internal teams to manage various aspects of the business.",
     ],
-    skills: ["React", "Material UI","Jest","Yup","Formik","Redux","TypeScript", "Next.js","Node.js","Tailwind" , "Laravel", "Webflow", "Linux","Javascript","Docker","Git","CI/CD","shadcn","Figma" ],
+    skills: ["React", "Material UI","Jest","Yup","Formik","Redux","TypeScript", "Next.js","Node.js","Tailwind" , "Laravel", "Webflow", "Linux","Javascript","Git","CI/CD","shadcn","Figma" ],
   },
   {
     id: "prof-exp-2",
