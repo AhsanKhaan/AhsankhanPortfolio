@@ -1,0 +1,55 @@
+{
+  "targets": {
+    "titleInclude": ["full stack", "full-stack", "fullstack", "frontend", "front-end", "front end", "react", "next.js", "nextjs", "software engineer", "software developer", "web developer", "web engineer", "javascript", "typescript", "node", "laravel", "php", "product engineer", "ui engineer"],
+    "titleExclude": ["intern", "internship", "junior", "graduate", "trainee", "principal", "director", "vp", "vice president", "head of", "manager", "ios", "android", "flutter", "data scientist", "data engineer", "machine learning", "devops", "sre", "site reliability", "qa", "test", "quality", "sales", "marketing", "designer", "recruiter", "support", "embedded", "firmware", "salesforce", "sap", ".net", "c#", "ruby", "rails", "scala", "rust", "unity", "game", "react native", "evaluator", "ai training", "trainer", "annotator", "tutor"],
+    "skills": ["react", "next.js", "typescript", "javascript", "node.js", "express", "laravel", "php", "java", "redux", "tailwind", "rest api", "graphql", "mongodb", "mysql", "postgresql", "aws", "docker", "storybook", "jest", "fintech", "payments", "micro-frontend"],
+    "minSkillHits": 2,
+    "onsiteLocations": ["riyadh", "jeddah", "khobar", "dammam", "saudi", "ksa", "dubai", "abu dhabi", "uae", "united arab emirates", "doha", "qatar", "karachi"],
+    "remoteAllow": ["worldwide", "anywhere", "global", "asia", "apac", "pakistan", "middle east", "mena", "gcc", "saudi arabia", "united arab emirates", "uae", "qatar", "emea"]
+  },
+  "discovery": {
+    "sources": ["remotive", "arbeitnow", "jobicy", "himalayas", "remoteok", "ats-watchlist", "targets", "gmaps", "places"],
+    "remoteSearches": ["react", "full stack", "next.js", "node", "typescript", "laravel"],
+    "maps": {
+      "queries": ["software company in Riyadh", "fintech company in Riyadh", "software development company in Jeddah", "software company in Dubai", "fintech company in Dubai", "software house in Doha", "software house in Karachi"],
+      "maxQueriesPerRun": 3,
+      "depth": 1
+    },
+    "osm": { "areas": ["Riyadh", "Jeddah", "Dubai"] },
+    "atsWatchlist": [
+      { "company": "Careem", "ats": "greenhouse", "token": "careem", "domain": "careem.com" },
+      { "company": "Delivery Hero", "ats": "smartrecruiters", "token": "DeliveryHero", "domain": "deliveryhero.com" }
+    ],
+    "targetCompanies": [
+      { "company": "HungerStation", "domain": "hungerstation.com" },
+      { "company": "Tabby", "domain": "tabby.ai" },
+      { "company": "Tamara", "domain": "tamara.co" },
+      { "company": "Salla", "domain": "salla.com" },
+      { "company": "Zid", "domain": "zid.sa" },
+      { "company": "Foodics", "domain": "foodics.com" },
+      { "company": "Lean Technologies", "domain": "leantech.me" },
+      { "company": "Unifonic", "domain": "unifonic.com" },
+      { "company": "Noon", "domain": "noon.com" },
+      { "company": "Kitopi", "domain": "kitopi.com" },
+      { "company": "Property Finder", "domain": "propertyfinder.ae" },
+      { "company": "Rewaa", "domain": "rewaatech.com" }
+    ]
+  },
+  "limits": {
+    "maxCompaniesToCrawlPerRun": 25,
+    "maxPagesPerSite": 5,
+    "requestTimeoutMs": 12000,
+    "politeDelayMs": 1500,
+    "maxJobsToScorePerRun": 15,
+    "maxDraftsPerRun": 10,
+    "minMatchScore": 70,
+    "dailySendCap": 10,
+    "companyCooldownDays": 30,
+    "followUpAfterDays": 7,
+    "maxJobAgeDays": 45
+  },
+  "outreach": {
+    "optOutLine": "Not hiring for this right now? Just reply \"no\" and I won't follow up.",
+    "cvFilename": "Ahsan-Khan-CV.pdf"
+  }
+}
