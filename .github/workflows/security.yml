@@ -43,12 +43,11 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
-      # Critical advisories in production dependencies fail the build. High ones are printed:
-      # the remaining high (postcss bundled inside Next 15) needs the Next 16 upgrade.
-      - name: npm audit (critical fails, all printed)
+      # High and critical advisories in production dependencies fail the build; all are printed.
+      - name: npm audit (high fails, all printed)
         run: |
           npm audit --omit=dev || true
-          npm audit --omit=dev --audit-level=critical
+          npm audit --omit=dev --audit-level=high
 
   dependency-review:
     name: Dependency review

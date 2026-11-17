@@ -1,6 +1,13 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
+// Deterministic 0..1 value per meteor and channel. This is a server component, so the
+// values were already fixed at build time; a seeded hash keeps render pure (react-hooks/purity).
+const rand = (idx: number, channel: number) => {
+  const x = Math.sin(idx * 12.9898 + channel * 78.233) * 43758.5453;
+  return x - Math.floor(x);
+};
+
 export const Meteors = ({
   number,
   className,
@@ -21,9 +28,9 @@ export const Meteors = ({
           )}
           style={{
             top: 0,
-            left: Math.floor(Math.random() * (400 - -400) + -400) + "px",
-            animationDelay: Math.random() * (0.8 - 0.2) + 0.2 + "s",
-            animationDuration: Math.floor(Math.random() * (10 - 2) + 2) + "s",
+            left: Math.floor(rand(idx, 1) * (400 - -400) + -400) + "px",
+            animationDelay: rand(idx, 2) * (0.8 - 0.2) + 0.2 + "s",
+            animationDuration: Math.floor(rand(idx, 3) * (10 - 2) + 2) + "s",
           }}
         ></span>
       ))}
