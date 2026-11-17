@@ -10,6 +10,7 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  { ignores: ["vendor/**", "job-agent/data/**", ".next*/**"] },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
 ];
 

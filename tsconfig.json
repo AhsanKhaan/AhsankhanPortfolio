@@ -36,6 +36,7 @@
     ".next-preview/types/**/*.ts"
   ],
   "exclude": [
+    "vendor",
     "node_modules"
   ]
 }

@@ -1,6 +1,6 @@
 # Ahsan Khan
 
-> Senior Full Stack & Frontend Developer (React, Next.js, TypeScript, Node.js) based in Karachi, Pakistan, with 5+ years building fintech and food-tech platforms. Open to relocation for a full-time senior engineering role, remote roles across US/EU/GCC/APAC time zones, and freelance or contract projects.
+> Senior Full Stack & Frontend Developer (React, Next.js, TypeScript, Node.js) based in Karachi, Pakistan, with 6+ years building fintech and food-tech platforms, and agentic AI pipelines with Claude Code. Open to relocation for a full-time senior engineering role, remote roles across US/EU/GCC/APAC time zones, and freelance or contract projects.
 
 Portfolio: https://ahsankhaan.vercel.app
 
@@ -8,11 +8,11 @@ Portfolio: https://ahsankhaan.vercel.app
 
 - Full-time, open to relocating internationally (fintech, food-tech, delivery/marketplace platforms)
 - Remote, PKT (GMT+5), prior experience working remotely for a US fintech company
-- Freelance / contract: admin portals, dashboards, Next.js sites, full-stack MVPs
+- Freelance / agency: AI agents and Claude Code pipelines, n8n workflow automation, agentic SEO, marketing content strategy, Next.js and Astro websites, programmatic SEO tool sites, admin portals, full-stack MVPs and backend architecture
 
 ## Core skills
 
-React, Next.js, TypeScript, JavaScript, Node.js, Laravel, REST APIs, MongoDB, MySQL, PostgreSQL, AWS, Docker, Git, CI/CD, PCI DSS, OWASP Top 10.
+React, Next.js, TypeScript, JavaScript, Node.js, Laravel, REST APIs, MongoDB, MySQL, PostgreSQL, AWS, Cloudflare, Hetzner VPS, BullMQ, Redis, Git, GitHub Actions CI/CD, PCI DSS, OWASP Top 10. Agentic AI: Claude Code agents, skills and hooks; OpenAI Codex and Gemini CLI agent definitions.
 
 ## Key results
 
@@ -22,8 +22,17 @@ React, Next.js, TypeScript, JavaScript, Node.js, Laravel, REST APIs, MongoDB, My
 - Notification segmentation system reaching 2M+ users
 - 3 consecutive security audits with zero critical findings (PCI DSS / OWASP Top 10)
 
+## Agentic AI and open-source work
+
+- AK Site Kit: a 21-agent Claude Code pipeline that takes a content site from keyword research to a gated Cloudflare launch, with automated code review, CodeQL, gitleaks, Lighthouse CI and OWASP ZAP in GitHub Actions
+- Calculator Porch (https://calculatorporch.com): a programmatic SEO calculator site on a config-driven engine, Next.js 16 static export on Cloudflare Pages
+- CIP-2026 (https://github.com/AhsanKhaan/cip-2026): commodity and currency rates platform with BullMQ workers on a Hetzner VPS, Redis caching and MongoDB time-series data
+- AK Client Kit: an Astro-based client website pipeline with vendor-neutral agents (in progress)
+
 ## Pages
 
+- [Agency: services and pricing](https://ahsankhaan.vercel.app/agency): agentic SEO, content strategy, websites, web apps, backend architecture; custom quotes via LinkedIn
+- [GitHub contributions](https://ahsankhaan.vercel.app/contributions): top repositories, commit activity, GitHub achievements and agentic AI experience
 - [Case studies & full experience](https://ahsankhaan.vercel.app/#case-studies): Nayapay Admin Portal, MerchantArc/Business Portal, Nayapay Website (SSR, +50% organic traffic)
 - [Recruiter FAQ](https://ahsankhaan.vercel.app/#faq): relocation, remote work, tech stack, fintech experience, freelance availability, how to contact
 - [Request CV](https://ahsankhaan.vercel.app/cv): CV delivered by email after a verification check (format, disposable-domain block, MX lookup) — not hosted at a public file URL

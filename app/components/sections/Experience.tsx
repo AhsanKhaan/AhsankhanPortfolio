@@ -46,7 +46,7 @@ const Experience = () => {
                         <MeteorsCard number={12}>
                             {/* <h1 className="font-bold text-4xl  mb-2 m-auto dark:bg-gradient-sky bg-clip-text text-transparent">Ahsan Khan</h1> */}
                             <p className="font-normal text-base text-slate-200 mb-4">
-                                A passionate Software Engineer having 5+ Years Expereince in web development. I am a tech enthusiast who loves crafting scalable applications and exploring new technologies.
+                                A passionate Software Engineer having 6+ Years Experience in web development. I am a tech enthusiast who loves crafting scalable applications and exploring new technologies.
                             </p>
                             <div className="w-full flex flex-col items-start mt-4 space-y-3">
                                 <div className="flex items-center gap-3">

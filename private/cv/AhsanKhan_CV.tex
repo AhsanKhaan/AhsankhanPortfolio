@@ -1,0 +1,141 @@
+%-------------------------------------------------------------------------------
+% Ahsan Khan - ATS-friendly CV
+% Single column, standard section names, real text only (no tables, columns,
+% icons or images), so applicant tracking systems parse it top to bottom.
+% Build: pdflatex AhsanKhan_CV.tex   (or paste into Overleaf)
+%-------------------------------------------------------------------------------
+\documentclass[10.5pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+
+% Machine-readable text: correct glyph-to-unicode mapping and PDF metadata
+\input{glyphtounicode}
+\pdfgentounicode=1
+\hypersetup{
+  pdftitle={Ahsan Khan - Senior Full Stack and Frontend Engineer},
+  pdfauthor={Ahsan Khan},
+  pdfkeywords={React, Next.js, TypeScript, Node.js, Agentic AI, Claude Code, SEO, Fintech}
+}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlist[itemize]{leftmargin=1.2em, itemsep=1pt, topsep=2pt, parsep=0pt}
+
+\titleformat{\section}{\large\bfseries\uppercase}{}{0pt}{}[\titlerule]
+\titlespacing*{\section}{0pt}{9pt}{5pt}
+
+% Role heading: title, dates on the right, then company and location
+\newcommand{\role}[4]{%
+  \vspace{4pt}\textbf{#1}\hfill #2\\
+  \textit{#3}\hfill \textit{#4}\par\vspace{1pt}}
+
+% Project heading: name, then stack
+\newcommand{\project}[2]{\vspace{4pt}\textbf{#1} | \textit{#2}\par}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Ahsan Khan}\\[3pt]
+  Senior Full Stack \& Frontend Engineer\\[3pt]
+  Karachi, Pakistan | +92-336-1809930 | \href{mailto:ahsankhan.ubit@gmail.com}{ahsankhan.ubit@gmail.com}\\
+  \href{https://linkedin.com/in/ahsankhaan}{linkedin.com/in/ahsankhaan} |
+  \href{https://github.com/AhsanKhaan}{github.com/AhsanKhaan} |
+  \href{https://ahsankhaan.vercel.app}{ahsankhaan.vercel.app}
+\end{center}
+
+\section{Professional Summary}
+Senior Full Stack and Frontend Engineer with 6+ years of experience building fintech and marketplace
+platforms in React, Next.js, TypeScript and Node.js. Led frontend architecture for products serving 100K+
+users, cut load times by 35\% and automated workflows that removed 80\% of manual operations, to PCI DSS and
+OWASP Top 10 standards. Builds agentic AI pipelines with Claude Code: multi-agent workflows, automated code
+review and gated CI/CD for SEO-driven websites. Open to relocation, remote roles and freelance projects.
+
+\section{Technical Skills}
+\textbf{Frontend:} JavaScript (ES6+), TypeScript, React.js, Next.js, Astro, Redux Toolkit, React Query (TanStack Query), HTML5, CSS3\\
+\textbf{UI:} Material UI, Tailwind CSS, shadcn/ui, Storybook, design systems, accessibility (WCAG)\\
+\textbf{Backend:} Node.js, Express, PHP, Laravel, REST APIs, BullMQ, Redis, MongoDB, MySQL, PostgreSQL\\
+\textbf{Agentic AI:} Claude Code (agents, skills, hooks, MCP), OpenAI Codex, multi-agent pipelines, prompt engineering, AI-assisted code review\\
+\textbf{SEO:} Technical SEO, programmatic SEO, keyword mapping, structured data (JSON-LD), Core Web Vitals, AI search optimisation (AEO, GEO)\\
+\textbf{Cloud and CI/CD:} AWS, Cloudflare Pages and Workers, Vercel, Hetzner VPS, GitHub Actions, Lighthouse CI, CodeQL\\
+\textbf{Testing:} Jest, React Testing Library, Vitest, Playwright\\
+\textbf{Security:} OWASP Top 10, PCI DSS, XSS, CSRF and SQL injection mitigation, secret scanning, OWASP ZAP
+
+\section{Professional Experience}
+
+\role{Senior Software Engineer (Assistant Manager)}{Aug 2021 -- Present}{Nayapay (Lakson Business Group)}{Karachi, Pakistan}
+\begin{itemize}
+  \item Led frontend architecture for the admin, business and public portals using React, TypeScript, Material UI and Redux Toolkit, serving 100K+ users.
+  \item Reduced page load time by 35\% (FCP 4.2s to 2.7s) with virtual scrolling, lazy loading and code splitting.
+  \item Designed the merchant onboarding automation engine, cutting onboarding from 5 days to under 24 hours and improving operational throughput by 80\%.
+  \item Built a notification segmentation system with recursive UI rendering that reaches 2M+ users without developer involvement per campaign.
+  \item Built a reusable component library adopted by 4 product teams, with unit tests in Jest and React Testing Library.
+  \item Delivered PCI DSS and OWASP Top 10 compliant applications through 3 consecutive security audits with zero critical findings.
+  \item Rebuilt the public website for SEO with server-side rendering and structured data, growing organic traffic by 50\% in 4 months.
+\end{itemize}
+
+\role{Senior Software Engineer (Part-time, Remote)}{Apr 2024 -- Aug 2024}{Carpe Diem}{Karachi, Pakistan}
+\begin{itemize}
+  \item Developed CRM and banking portals for Lendotics, a US lending fintech, in React and TypeScript with a focus on UI performance.
+  \item Integrated AWS S3 and secure REST APIs, working asynchronously with a distributed team.
+\end{itemize}
+
+\role{Software Engineer}{Mar 2021 -- Aug 2021}{Legend Desk}{Karachi, Pakistan}
+\begin{itemize}
+  \item Built full-stack analytics dashboards and business-critical REST APIs with React and Laravel.
+  \item Led dashboard UI development with a modular architecture and reusable components.
+\end{itemize}
+
+\role{Junior Frontend Developer}{Jan 2020 -- Feb 2021}{BMSAS Technologies}{Karachi, Pakistan}
+\begin{itemize}
+  \item Built a multi-vendor e-commerce system with custom UI components, plugins and secure payment integrations.
+  \item Developed client web platforms in PHP and JavaScript with a focus on performance and user experience.
+\end{itemize}
+
+\section{Open Source and Independent Contributions}
+
+\project{AK Site Kit}{Claude Code, Next.js, TypeScript, GitHub Actions, Cloudflare}
+\begin{itemize}
+  \item Built an agentic SEO pipeline of 21 Claude Code agents that takes a content website from keyword research to launch, with a deterministic gate after every stage and owner approval before each deploy.
+  \item Added automated code review on every change and 9 GitHub Actions workflows covering CodeQL, secret scanning, Lighthouse CI, OWASP ZAP and gated Cloudflare Pages and Workers deploys.
+\end{itemize}
+
+\project{Calculator Porch (\href{https://calculatorporch.com}{calculatorporch.com})}{Next.js 16, React 19, TypeScript, Tailwind CSS, Zod, Vitest, Playwright}
+\begin{itemize}
+  \item Built a programmatic SEO calculator site on a config-driven engine, with keyword clustering and build-enforced rules against duplicate and competing pages.
+  \item Covered the platform with 120+ unit tests, 25 end-to-end tests and a WCAG 2.2 accessibility audit before each release.
+\end{itemize}
+
+\project{CIP-2026, Commodity Intelligence Platform (\href{https://github.com/AhsanKhaan/cip-2026}{github.com/AhsanKhaan/cip-2026})}{Next.js 16, BullMQ, Redis, MongoDB, Hetzner VPS, Cloudflare}
+\begin{itemize}
+  \item Architected a real-time gold, silver, crypto and currency rates platform for 1 million monthly users on about 25 USD a month of infrastructure.
+  \item Designed BullMQ workers on a Hetzner VPS that ingest prices every 60 seconds, with Redis caching and MongoDB time-series data so the public site never calls the price API directly.
+\end{itemize}
+
+\project{career-ai (\href{https://github.com/AhsanKhaan/career-ai}{github.com/AhsanKhaan/career-ai})}{Python, Typer, Pydantic, Playwright, Claude CLI}
+\begin{itemize}
+  \item Built a command-line pipeline that discovers roles from job-board APIs, scores them against a profile and prepares tailored applications for human review before submission.
+\end{itemize}
+
+\project{AK Client Kit (in progress)}{Astro, Node.js, Claude Code, OpenAI Codex}
+\begin{itemize}
+  \item Building a client website pipeline on Astro with agent rules written once and generated for Claude Code, OpenAI Codex and Gemini CLI.
+\end{itemize}
+
+\section{Key Projects}
+\textbf{Nayapay Admin Portal} | \textit{React, Redux Toolkit, TypeScript, Material UI, MongoDB, AWS}: operations, compliance and reporting portal for a fintech wallet.\\
+\textbf{MerchantArc} | \textit{React, TypeScript, Redux Toolkit, Material UI}: end-to-end merchant onboarding and management system.\\
+\textbf{Lendotics CRM} | \textit{React, TypeScript, REST API, AWS, MySQL}: CRM for a US lending fintech.\\
+\textbf{E-commerce API} | \textit{Node.js, Express, MySQL, MongoDB}: multi-vendor e-commerce backend for stores and transactions.
+
+\section{Education}
+\textbf{Bachelor of Science in Computer Science (BSCS)}\hfill 2016 -- 2019\\
+University of Karachi
+
+\end{document}

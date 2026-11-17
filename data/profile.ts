@@ -82,6 +82,16 @@ export const services = [
       "Core Web Vitals, code-splitting, virtual scrolling, SSR and structured data. One public site gained 50% organic traffic in 4 months.",
   },
   {
+    name: "AI Agents & Claude Code",
+    description:
+      "Multi-agent pipelines in Claude Code with skills, hooks and MCP servers: agents that research, write, test and review, with a gate after every step and a human approving what ships.",
+  },
+  {
+    name: "n8n Workflow Automation",
+    description:
+      "n8n workflows that connect forms, CRMs, email, Slack and LLM steps, so lead handling, content publishing and reporting run without manual copy-paste.",
+  },
+  {
     name: "Admin Portals & Dashboards",
     description:
       "Role-based operations dashboards with real-time data, reporting and workflow automation for internal teams.",
@@ -91,8 +101,9 @@ export const services = [
 export interface CaseStudy {
   category: string;
   title: string;
-  image: string;
+  image?: string;
   link?: string;
+  linkLabel?: string;
   problem: string;
   role: string;
   impact: string[];
@@ -140,35 +151,35 @@ export const caseStudies: CaseStudy[] = [
     ],
     stack: ["Next.js", "React", "Tailwind", "Node.js", "SEO"],
   },
-];
-
-export type LearningStatus = "Learning" | "Building" | "Applied";
-
-export const aiLab: { name: string; detail: string; status: LearningStatus }[] = [
   {
-    name: "LLM API integration",
-    detail: "Calling Claude and OpenAI SDKs from Next.js route handlers: streaming, tool use, error handling.",
-    status: "Building",
+    category: "Programmatic SEO",
+    title: "Calculator Porch",
+    link: "https://calculatorporch.com",
+    linkLabel: "Visit site",
+    problem:
+      "A calculator site has to grow to hundreds of pages without thin, duplicate or competing pages that search engines ignore.",
+    role: "Owner and engineer: designed the config-driven calculator engine, the taxonomy and link graph, the SEO rules and the release gates.",
+    impact: [
+      "One engine powers every calculator: a new tool is a validated config, not a new page of code",
+      "Every page within 2 clicks of home, with keyword clusters and cannibalization rules enforced at build",
+      "122 unit tests, 25 end-to-end tests and an axe WCAG 2.2 audit before each release",
+    ],
+    stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind 4", "Zod", "Vitest", "Playwright", "Cloudflare Pages"],
   },
   {
-    name: "Prompt engineering & structured output",
-    detail: "Reliable JSON outputs, evaluation prompts and guardrails for product features.",
-    status: "Building",
-  },
-  {
-    name: "RAG fundamentals",
-    detail: "Embeddings, vector search and chunking strategies for document Q&A.",
-    status: "Learning",
-  },
-  {
-    name: "Python for AI workflows",
-    detail: "Automation scripts and data preparation alongside my TypeScript stack.",
-    status: "Learning",
-  },
-  {
-    name: "AI-assisted development",
-    detail: "Using AI coding tools in daily work for reviews, refactors and test generation.",
-    status: "Applied",
+    category: "Backend Architecture",
+    title: "CIP-2026",
+    link: "https://github.com/AhsanKhaan/cip-2026",
+    linkLabel: "View repo",
+    problem:
+      "Gold, silver, crypto and currency prices must refresh every 60 seconds for up to 1M monthly users without calling a paid price API on every page view.",
+    role: "Architected the platform: the ingest worker, job queues, cache layers, MongoDB time-series model and the MFA-protected CMS.",
+    impact: [
+      "BullMQ workers on a Hetzner VPS ingest metals every 60s and crypto over a Binance WebSocket, with a fallback provider",
+      "Read path never touches the price API: Cloudflare CDN, Next.js ISR, Upstash Redis (30s TTL), then MongoDB",
+      "About $25 a month of infrastructure at launch for a 1M MAU design target",
+    ],
+    stack: ["Next.js 16", "TypeScript", "BullMQ", "Redis", "MongoDB", "Hetzner VPS", "Cloudflare", "Clerk MFA"],
   },
 ];
 
@@ -203,7 +214,7 @@ export const workModes: {
     title: "Freelance · Projects",
     points: [
       "Admin portals and dashboards",
-      "Next.js marketing sites with SEO",
+      "Next.js and Astro marketing sites with agentic SEO",
       "Full-stack MVPs and performance audits",
     ],
     cta: "Start a project",
@@ -220,7 +231,7 @@ export const recruiterFaq: { id: string; question: string; answer: string }[] = 
     id: "relocation",
     question: "Is Ahsan Khan open to relocation?",
     answer:
-      "Yes. Ahsan is based in Karachi, Pakistan, and is open to relocating internationally for a senior full-time engineering role, including fintech, food-tech and delivery-platform companies. He has 5+ years of experience and can discuss sponsorship and onboarding timelines directly through the contact form.",
+      "Yes. Ahsan is based in Karachi, Pakistan, and is open to relocating internationally for a senior full-time engineering role, including fintech, food-tech and delivery-platform companies. He has 6+ years of experience and can discuss sponsorship and onboarding timelines directly through the contact form.",
   },
   {
     id: "remote",
@@ -232,7 +243,7 @@ export const recruiterFaq: { id: string; question: string; answer: string }[] = 
     id: "stack",
     question: "What is Ahsan Khan's tech stack?",
     answer:
-      "React, Next.js and TypeScript on the frontend; Java, Node.js and PHP (Laravel) on the backend, with REST APIs, MongoDB, MySQL and PostgreSQL. AWS, Docker, Git and CI/CD for deployment. He also implements PCI DSS and OWASP Top 10 security practices, standard requirements for fintech and payments roles.",
+      "React, Next.js and TypeScript on the frontend; Java, Node.js and PHP (Laravel) on the backend, with REST APIs, MongoDB, MySQL and PostgreSQL. AWS, Cloudflare, Git and CI/CD for deployment. He also implements PCI DSS and OWASP Top 10 security practices, standard requirements for fintech and payments roles.",
   },
   {
     id: "fintech",

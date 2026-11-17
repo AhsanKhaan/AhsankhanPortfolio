@@ -46,11 +46,19 @@ next-env.d.ts
 
 # Claude Code skill tooling (installed locally via `npx skills add` / Skill tool) —
 # not portfolio source, same reasoning as ignoring node_modules.
-/.claude/skills/
+/.claude/skills/*
+!/.claude/skills/job-hunt/
 /.agents/
+
+# job agent: discovered companies, HR contacts, drafts and the application tracker are
+# personal data — never committed
+/job-agent/data/
+# third-party google-maps-scraper binary (58MB), downloaded by `npm run jobs -- setup`
+/job-agent/bin/
 skills-lock.json
 
 # generated from brand/tokens.json + brand/profile.json + brand/templates/ by
 # scripts/build-brand.mjs, which runs automatically before dev/build (predev/prebuild)
 /brand/dist/
 /app/brand.css
+/reports/

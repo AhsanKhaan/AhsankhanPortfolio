@@ -2,8 +2,12 @@
 
 import { useEffect, useCallback, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { IconMenu2, IconX, IconBrandLinkedin } from "@tabler/icons-react";
-import CvRequestModal from "../ui/CvRequestModal";
+import dynamic from "next/dynamic";
+
+// Loaded on first open only, so the form never hydrates on pages where nobody asks for the CV.
+const CvRequestModal = dynamic(() => import("../ui/CvRequestModal"), { ssr: false });
 import { rafThrottle } from "@/lib/rafThrottle";
 import { profile } from "@/data/profile";
 
@@ -26,6 +30,8 @@ const Navbar: React.FC<NavbarProps> = ({ items, socialLinks }) => {
     };
   }, [handleScroll]);
 
+  const pathname = usePathname();
+  const isCurrent = (href: string) => href.startsWith("/") && !href.startsWith("/#") && pathname === href;
   const [menuOpen, setMenuOpen] = useState(false);
   // Owned here, not inside the mobile overlay below, so closing the menu doesn't fade
   // the CV dialog out along with it.
@@ -37,19 +43,22 @@ const Navbar: React.FC<NavbarProps> = ({ items, socialLinks }) => {
     <>
       <nav className="site-nav fixed z-1000 top-0 left-0 w-full flex justify-between items-center px-6 py-4 transition-all duration-300 bg-transparent">
         {/* Brand Name */}
-        <Link href="#home" >
+        <Link href="/" aria-label="Ahsan Khan, home">
 
-          <div className="font-display text-2xl md:text-3xl font-extrabold bg-brand-accent bg-clip-text text-transparent">Ahsan Khan</div>
+          <div className="whitespace-nowrap font-display text-2xl md:text-3xl font-extrabold bg-brand-accent bg-clip-text text-transparent">Ahsan Khan</div>
         </Link>
 
         {/* Navigation Links */}
-        <div className="hidden lg:flex gap-8">
+        <div className="hidden lg:flex gap-5 xl:gap-8">
           {items.map((item) => (
             <Link
               href={item.href}
               key={item.title}
               target={item.target || "_self"}
-              className="flex min-h-[44px] items-center text-sm font-medium uppercase tracking-wider text-brand-text hover:opacity-70 transition-opacity duration-200"
+              aria-current={isCurrent(item.href) ? "page" : undefined}
+              className={`flex min-h-[44px] items-center whitespace-nowrap text-sm font-medium uppercase tracking-wider hover:opacity-70 transition-opacity duration-200 ${
+                isCurrent(item.href) ? "text-brand-accent-end" : "text-brand-text"
+              }`}
             >
               <span>{item.title}</span>
             </Link>
@@ -75,7 +84,7 @@ const Navbar: React.FC<NavbarProps> = ({ items, socialLinks }) => {
             href={profile.links.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-full border-2 border-brand-text px-5 text-xs font-medium uppercase tracking-widest text-brand-text hover:bg-white/10 transition-colors"
+            className="hidden xl:inline-flex min-h-[44px] items-center gap-2 rounded-full border-2 border-brand-text px-5 text-xs font-medium uppercase tracking-widest text-brand-text hover:bg-white/10 transition-colors"
           >
             <IconBrandLinkedin size={16} aria-hidden="true" /> LinkedIn
           </a>
@@ -154,7 +163,7 @@ const Navbar: React.FC<NavbarProps> = ({ items, socialLinks }) => {
         </div>
       </div>
 
-      <CvRequestModal open={cvOpen} onOpenChange={setCvOpen} />
+      {cvOpen && <CvRequestModal open={cvOpen} onOpenChange={setCvOpen} />}
     </>
   );
 };

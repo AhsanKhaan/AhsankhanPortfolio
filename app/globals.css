@@ -46,17 +46,23 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* Scroll reveal (FadeIn). Pure CSS transition; a shared IntersectionObserver only flips
-   data-inview. Gated on .js (set by an inline script in layout.tsx) so content is never
-   hidden for visitors without JavaScript. */
-.fade-in {
-  transition:
-    opacity var(--fade-duration, 0.7s) cubic-bezier(0.25, 0.1, 0.25, 1) var(--fade-delay, 0s),
-    transform var(--fade-duration, 0.7s) cubic-bezier(0.25, 0.1, 0.25, 1) var(--fade-delay, 0s);
+/* Scroll reveal (FadeIn): a CSS scroll-driven animation, no JavaScript. Only where the
+   browser supports scroll timelines and the visitor allows motion; otherwise content is
+   simply visible. --fade-delay (0..n) starts a sibling's reveal a little later. */
+@keyframes fade-reveal {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--fade-x, 0px), var(--fade-y, 30px), 0);
+  }
 }
-.js .fade-in:not([data-inview]) {
-  opacity: 0;
-  transform: translate3d(var(--fade-x, 0px), var(--fade-y, 30px), 0);
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-in {
+      animation: fade-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry calc(var(--fade-delay, 0) * 20%) entry calc(55% + var(--fade-delay, 0) * 20%);
+    }
+  }
 }
 
 /* Mobile nav overlay. Stays mounted; `visibility` (delayed on close so the fade can play)
@@ -88,6 +94,19 @@ body {
   .defer-render {
     contain-intrinsic-size: auto var(--h-lg, 1000px);
   }
+}
+
+/* Below-the-fold sections on /agency and /contributions: same idea as .defer-render,
+   with a generic size estimate (InPageNav renders them for real before an anchor jump). */
+.defer-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1200px;
+}
+
+/* Set by InPageNav before an in-page jump, so anchors land on real positions. */
+html.render-all .defer-render,
+html.render-all .defer-section {
+  content-visibility: visible;
 }
 
 /* Hero entrance: keyframes run as soon as CSS loads, no hydration needed. The LCP heading
@@ -125,10 +144,6 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  .js .fade-in:not([data-inview]) {
-    opacity: 1;
-    transform: none;
   }
   .rise {
     animation: none;
@@ -178,4 +193,98 @@ body {
   .laptop-fs-extra-large {
     font-size: 2.75rem;
   }
+}
+
+/* ── Agency, contributions and agentic-AI visuals ─────────────────────────────── */
+/* Performance rules (Lighthouse 100): decorative motion animates only transform and
+   opacity, and starts only after html.motion-ready, which layout.tsx sets once the page
+   has loaded and gone idle. Before that, and under reduced motion, everything is static. */
+.grid-backdrop {
+  background-image:
+    linear-gradient(var(--color-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 20%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 50% 0%, black 20%, transparent 70%);
+}
+.aurora {
+  background:
+    radial-gradient(40% 50% at 25% 20%, color-mix(in srgb, var(--color-accent-start) 16%, transparent), transparent 75%),
+    radial-gradient(35% 45% at 78% 30%, color-mix(in srgb, var(--color-accent-end) 13%, transparent), transparent 75%);
+}
+.glow-card {
+  position: relative;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 88%, transparent), var(--color-bg));
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.glow-card:hover {
+  border-color: color-mix(in srgb, var(--color-accent-start) 55%, transparent);
+  transform: translateY(-3px);
+}
+.glow-card[data-featured] {
+  border-color: color-mix(in srgb, var(--color-accent-end) 60%, transparent);
+}
+
+/* Agent core: each orbit ring is its own HTML layer, so rotation runs on the compositor. */
+.orbit-layer { position: absolute; inset: 0; }
+@keyframes orbit { to { transform: rotate(360deg); } }
+@keyframes bot-blink { 0%, 90%, 100% { transform: scaleY(1); } 94% { transform: scaleY(0.1); } }
+@keyframes bot-scan {
+  0% { transform: translateY(0); opacity: 0; }
+  12%, 88% { opacity: 0.9; }
+  100% { transform: translateY(104px); opacity: 0; }
+}
+@keyframes bot-eq { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
+@keyframes bot-pulse { 0% { transform: scale(0.6); opacity: 0.9; } 100% { transform: scale(2.4); opacity: 0; } }
+@keyframes bot-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes stage-glow { 0%, 9% { opacity: 1; } 14%, 100% { opacity: 0; } }
+@keyframes log-line {
+  0% { opacity: 0; transform: translateY(6px); }
+  4%, 52% { opacity: 1; transform: none; }
+  60%, 100% { opacity: 0; transform: none; }
+}
+@keyframes caret { 50% { opacity: 0; } }
+
+.bot-eye, .bot-eq, .bot-pulse { transform-box: fill-box; transform-origin: center; }
+.bot-scan { opacity: 0; }
+
+/* Pipeline chip: the highlight is an overlay whose opacity animates. */
+.stage-chip { position: relative; }
+.stage-chip::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid var(--color-accent-end);
+  box-shadow: 0 0 22px -6px var(--color-accent-end);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.motion-ready .orbit-layer { animation: orbit 26s linear infinite; will-change: transform; }
+.motion-ready .orbit-layer[data-reverse] { animation-duration: 38s; animation-direction: reverse; }
+.motion-ready .orbit-layer[data-slow] { animation-duration: 52s; }
+.motion-ready .bot-float { animation: bot-float 6s ease-in-out infinite; will-change: transform; }
+.motion-ready .bot-eye { animation: bot-blink 4.5s infinite; }
+.motion-ready .bot-eq { animation: bot-eq 1.1s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 0.14s); }
+.motion-ready .bot-pulse { animation: bot-pulse 2.2s ease-out infinite; }
+.motion-ready .bot-scan { animation: bot-scan 3.2s ease-in-out infinite; }
+.motion-ready .stage-chip::after { animation: stage-glow 9s linear infinite; animation-delay: calc(var(--i, 0) * 1s); animation-duration: var(--cycle, 9s); }
+.motion-ready .log-line { animation: log-line 12s linear infinite; animation-delay: calc(var(--i, 0) * 1s); }
+.motion-ready .caret { animation: caret 1s steps(1) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-ready .orbit-layer, .motion-ready .bot-float, .motion-ready .bot-eye, .motion-ready .bot-eq,
+  .motion-ready .bot-pulse, .motion-ready .bot-scan, .motion-ready .stage-chip::after,
+  .motion-ready .log-line, .motion-ready .caret {
+    animation: none !important;
+  }
+  .glow-card:hover { transform: none; }
+}
+
+/* Keep anchored sections clear of the fixed header */
+section[id] {
+  scroll-margin-top: 72px;
 }
