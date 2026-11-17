@@ -8,8 +8,12 @@ updates:
     cooldown:
       default-days: 7
     groups:
-      npm-all:
+      # Minor and patch updates arrive together. Each major version gets its own PR, because
+      # majors usually need code changes (Tailwind 4, TypeScript 7, lottie-react 3...) and a
+      # grouped major bump that merges unmigrated breaks the master build and the deploy.
+      npm-minor-patch:
         patterns: ["*"]
+        update-types: ["minor", "patch"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
