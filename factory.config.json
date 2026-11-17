@@ -1,0 +1,62 @@
+{
+  "project": {
+    "name": "Ahsan Khan Portfolio",
+    "domain": "ahsankhaan.vercel.app",
+    "brand": "Ahsan Khan",
+    "locale": "en",
+    "markets": [
+      "US",
+      "GB",
+      "SA",
+      "AE",
+      "PK"
+    ],
+    "audience": "Hiring managers, tech recruiters and freelance clients evaluating a senior full-stack, frontend and agentic AI engineer",
+    "contentSource": "Experience, not keyword research: brand/profile.json, data/*.ts and the CV. Keyword research arrives later in research/inputs/."
+  },
+  "hosting": {
+    "target": "vercel",
+    "productionBranch": "master",
+    "rule": "Pushing to master deploys production. The owner approves every push."
+  },
+  "build": {
+    "framework": "nextjs",
+    "outputDir": ".next",
+    "staticOutput": false,
+    "commands": {
+      "build": "next build",
+      "dev": "next dev"
+    }
+  },
+  "research": {
+    "status": "pending",
+    "inputs": "research/inputs/ (Keyword Planner CSVs and competitor list, supplied by the owner)",
+    "maxSecondaryKeywordsPerPage": 10
+  },
+  "bots": {
+    "search": "allow",
+    "aiSearch": "allow",
+    "aiTraining": "ask"
+  },
+  "budgets": {
+    "lighthouse": {
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "agenticBrowsing": 100,
+      "performanceDesktop": 95,
+      "performanceMobileFloor": 70,
+      "performanceTarget": 100,
+      "rule": "Accessibility, Best Practices, SEO and Agentic Browsing must be 100 on mobile. Performance: desktop below 95 fails the gate; mobile below 70 fails, 70-99 is reported against the 100 target."
+    },
+    "coreWebVitals": {
+      "lcpMs": 2500,
+      "inpMs": 200,
+      "cls": 0.1
+    }
+  },
+  "paidTools": {
+    "allowed": false,
+    "rule": "Never use a paid tool or API. If a step needs one, stop and ask the owner."
+  }
+}

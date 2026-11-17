@@ -61,3 +61,4 @@ skills-lock.json
 # scripts/build-brand.mjs, which runs automatically before dev/build (predev/prebuild)
 /brand/dist/
 /app/brand.css
+/reports/
