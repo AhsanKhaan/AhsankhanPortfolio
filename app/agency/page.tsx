@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { IconArrowRight, IconArrowUpRight, IconBrandLinkedin, IconCheck } from "@tabler/icons-react";
-import SiteHeader from "../components/ui/SiteHeader";
+import SiteNav from "../components/sections/SiteNav";
 import AgentCore from "../components/ui/AgentCore";
 import FadeIn from "../components/ui/FadeIn";
 import Footer from "../components/sections/Footer";
+import AgentTeam from "../components/sections/AgentTeam";
 import { profile } from "@/data/profile";
 import {
   agencyIntro,
@@ -18,7 +19,7 @@ import {
   quoteNote,
 } from "@/data/agency";
 
-const title = "Freelance Next.js Developer & Agentic SEO Services";
+const title = "Agentic SEO & Next.js Freelance Services";
 const description =
   "Hire Ahsan Khan for agentic SEO, marketing content strategy, Next.js and Astro websites, programmatic SEO tool sites, web apps and backend architecture.";
 
@@ -83,10 +84,10 @@ export default function AgencyPage() {
   return (
     <div className="min-h-screen bg-brand-bg" style={{ overflowX: "clip" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <SiteHeader current="/agency" />
+      <SiteNav />
       <main>
         {/* Hero */}
-        <section className="relative overflow-hidden px-5 pb-20 pt-16 sm:px-8 sm:pt-24 md:px-10">
+        <section className="relative overflow-hidden px-5 pb-20 pt-28 sm:px-8 sm:pt-36 md:px-10">
           <div className="grid-backdrop pointer-events-none absolute inset-0" aria-hidden="true" />
           <div className="aurora pointer-events-none absolute inset-x-0 top-0 h-[560px]" aria-hidden="true" />
           <div className="relative mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.25fr_1fr]">
@@ -145,8 +146,10 @@ export default function AgencyPage() {
           </div>
         </section>
 
+        <AgentTeam />
+
         {/* Work */}
-        <section id="work" className="rounded-t-[40px] bg-brand-surface px-5 py-20 sm:px-8 md:rounded-t-[60px] md:px-10 md:py-28">
+        <section id="work" className="defer-section rounded-t-[40px] bg-brand-surface px-5 py-20 sm:px-8 md:rounded-t-[60px] md:px-10 md:py-28">
           <div className="mx-auto max-w-6xl">
             <FadeIn>
               <h2 className={sectionHeading} style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}>
@@ -210,7 +213,7 @@ export default function AgencyPage() {
         </section>
 
         {/* Process */}
-        <section id="process" className="bg-brand-surface px-5 pb-20 sm:px-8 md:px-10 md:pb-28">
+        <section id="process" className="defer-section bg-brand-surface px-5 pb-20 sm:px-8 md:px-10 md:pb-28">
           <div className="mx-auto max-w-6xl">
             <FadeIn>
               <h2 className={sectionHeading} style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}>
@@ -236,7 +239,7 @@ export default function AgencyPage() {
         </section>
 
         {/* Pricing */}
-        <section id="pricing" className="relative overflow-hidden px-5 py-20 sm:px-8 md:px-10 md:py-28">
+        <section id="pricing" className="defer-section relative overflow-hidden px-5 py-20 sm:px-8 md:px-10 md:py-28">
           <div className="mx-auto max-w-6xl">
             <FadeIn>
               <h2 className={sectionHeading} style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}>
@@ -285,7 +288,7 @@ export default function AgencyPage() {
         </section>
 
         {/* Freelance profiles */}
-        <section id="profiles" className="px-5 pb-24 sm:px-8 md:px-10">
+        <section id="profiles" className="defer-section px-5 pb-24 sm:px-8 md:px-10">
           <div className="mx-auto max-w-6xl">
             <FadeIn>
               <h2 className={sectionHeading} style={{ fontSize: "clamp(1.8rem, 4.5vw, 3rem)" }}>

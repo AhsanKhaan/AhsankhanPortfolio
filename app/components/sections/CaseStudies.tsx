@@ -4,6 +4,7 @@ import { useEffect, useRef, type Ref } from "react";
 import Image from "next/image";
 import { IconExternalLink } from "@tabler/icons-react";
 import FadeIn from "../ui/FadeIn";
+import ProjectCover from "../ui/ProjectCover";
 import { GhostButton } from "../ui/BrandButtons";
 import { rafThrottle } from "@/lib/rafThrottle";
 import { caseStudies, type CaseStudy } from "@/data/profile";
@@ -100,7 +101,7 @@ function Card({ study, index, ref }: { study: CaseStudy; index: number; ref: Ref
           </div>
           {study.link && (
             <GhostButton href={study.link} external className="ml-auto">
-              Live project <IconExternalLink size={16} aria-hidden="true" />
+              {study.linkLabel ?? "Live project"} <IconExternalLink size={16} aria-hidden="true" />
             </GhostButton>
           )}
         </header>
@@ -136,7 +137,11 @@ function Card({ study, index, ref }: { study: CaseStudy; index: number; ref: Ref
             </ul>
           </div>
           <div className="relative min-h-[220px] overflow-hidden rounded-[24px] border border-brand-border bg-brand-surface sm:min-h-[320px] md:rounded-[40px]">
-            <Image src={study.image} alt={`${study.title} screenshot`} fill sizes="(min-width: 768px) 60vw, 100vw" className="object-cover object-top" />
+            {study.image ? (
+              <Image src={study.image} alt={`${study.title} screenshot`} fill sizes="(min-width: 768px) 60vw, 100vw" className="object-cover object-top" />
+            ) : (
+              <ProjectCover title={study.title} kicker={study.category} className="absolute inset-0" />
+            )}
           </div>
         </div>
       </article>

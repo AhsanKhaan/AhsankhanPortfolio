@@ -9,12 +9,44 @@ export interface Project {
   id: string
   title: string
   description: string
-  image: string
+  image?: string
+  kicker?: string
   technologies: string[]
   link?: string
 }
 
 const PROJECTS: Project[] = [
+  {
+    id: "ak-site-kit",
+    title: "AK Site Kit",
+    kicker: "Agentic SEO pipeline",
+    description: "21 Claude Code agents take a content site from keyword research to a gated Cloudflare launch: automated code review, CodeQL, Lighthouse CI and OWASP ZAP in 9 GitHub Actions workflows. Private repository.",
+    technologies: ["Claude Code", "Next.js", "TypeScript", "GitHub Actions", "Cloudflare"],
+  },
+  {
+    id: "calculator-porch",
+    title: "Calculator Porch",
+    kicker: "Programmatic SEO",
+    description: "Free online calculators on a config-driven engine, with demand-gated page families, keyword clustering and a release gate that requires two sources per calculator.",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind", "Vitest", "Playwright", "Cloudflare"],
+    link: "https://calculatorporch.com",
+  },
+  {
+    id: "cip-2026",
+    title: "CIP-2026",
+    kicker: "Backend architecture",
+    description: "Live commodity, crypto and currency rates: BullMQ workers on a Hetzner VPS, Redis caching and MongoDB time-series data behind Next.js ISR.",
+    technologies: ["Next.js", "TypeScript", "BullMQ", "Redis", "MongoDB", "Hetzner"],
+    link: "https://github.com/AhsanKhaan/cip-2026",
+  },
+  {
+    id: "career-ai",
+    title: "career-ai",
+    kicker: "Agentic automation",
+    description: "Python CLI that discovers roles from Greenhouse, Lever and Ashby APIs, scores them with the Claude CLI and prepares tailored applications for human review.",
+    technologies: ["Python", "Claude Code", "Playwright"],
+    link: "https://github.com/AhsanKhaan/career-ai",
+  },
   {
     id: "1",
     title: "Admin Portal Nucleus",

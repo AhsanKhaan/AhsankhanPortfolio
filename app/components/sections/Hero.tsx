@@ -30,7 +30,7 @@ const Hero = () => {
           {/* Glass halo */}
           <div
             aria-hidden="true"
-            className="absolute inset-[-6%] rounded-full bg-gradient-to-b from-white/15 via-white/5 to-transparent shadow-[0_20px_60px_rgba(0,0,0,0.45)] ring-1 ring-white/15 backdrop-blur-2xl"
+            className="absolute inset-[-6%] rounded-full bg-gradient-to-b from-white/15 via-white/5 to-transparent shadow-[0_20px_60px_rgba(0,0,0,0.45)] ring-1 ring-white/15"
           />
           <Magnet padding={150} strength={3} className="pointer-events-auto relative">
             <Image

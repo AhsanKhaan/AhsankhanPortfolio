@@ -362,9 +362,9 @@ export default function TimelinePage2() {
     <div className="transition-colors duration-300">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <header className="mb-12 flex flex-col items-start ml-3">
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 mb-3">
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 mb-3">
             Professional Experience
-          </h1>
+          </h2>
           <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
             A comprehensive overview of my career journey and professional
             achievements.

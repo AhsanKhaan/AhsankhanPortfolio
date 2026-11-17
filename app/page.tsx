@@ -1,6 +1,5 @@
-import React from 'react'
-import { IconBrandGithub, IconMail, IconBrandLinkedin } from "@tabler/icons-react";
-import Navbar from './components/sections/Navbar'
+import React, { Suspense } from 'react'
+import SiteNav from './components/sections/SiteNav'
 import Hero from './components/sections/Hero'
 import ImpactStats from './components/sections/ImpactStats';
 import Marquee from './components/sections/Marquee';
@@ -17,54 +16,21 @@ import RecruiterFAQ from './components/sections/RecruiterFAQ';
 import Contact from './components/sections/Contact';
 import Footer from './components/sections/Footer';
 import FadeIn from './components/ui/FadeIn';
-import { profile } from '@/data/profile';
-
-const iconClass = "h-6 w-6 text-brand-text";
 
 // Skips rendering work for a section until it nears the viewport (see .defer-render).
 // sm/lg are the section's measured heights on mobile and on tablet/desktop.
 const Deferred = ({ sm, lg, children }: { sm: number; lg: number; children: React.ReactNode }) => (
   <div className="defer-render" style={{ "--h-sm": `${sm}px`, "--h-lg": `${lg}px` } as React.CSSProperties}>
-    {children}
+    {/* Its own Suspense boundary, so React hydrates each section in a separate task
+        instead of one long task for the whole page. */}
+    <Suspense>{children}</Suspense>
   </div>
 );
 
 const page = () => {
-  const socialLinks = [
-    {
-      title: "LinkedIn",
-      icon: <IconBrandLinkedin className={iconClass} aria-hidden="true" />,
-      href: profile.links.linkedin,
-      target: "_blank",
-      rel: "noopener noreferrer",
-    },
-    {
-      title: "GitHub",
-      icon: <IconBrandGithub className={iconClass} aria-hidden="true" />,
-      href: profile.links.github,
-      target: "_blank",
-      rel: "noopener noreferrer",
-    },
-    {
-      title: "Email",
-      icon: <IconMail className={iconClass} aria-hidden="true" />,
-      href: `mailto:${profile.email}`,
-    },
-  ];
-
-  const links = [
-    { title: "About", icon: null, href: "#about" },
-    { title: "Services", icon: null, href: "#services" },
-    { title: "Experience", icon: null, href: "#experience" },
-    { title: "Projects", icon: null, href: "#case-studies" },
-    { title: "Agency", icon: null, href: "/agency" },
-    { title: "GitHub", icon: null, href: "/contributions" },
-    { title: "Contact", icon: null, href: "#contact" },
-  ];
-
   return (
     <div className="bg-brand-bg" style={{ overflowX: "clip" }}>
-      <Navbar items={links} socialLinks={socialLinks} />
+      <SiteNav onHome />
       <main>
         <Hero />
         <Deferred sm={641} lg={412}>

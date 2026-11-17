@@ -13,6 +13,18 @@ export const agencyServices = [
     tags: ["Keyword mapping", "Technical SEO", "AEO and GEO"],
   },
   {
+    name: "AI agents and Claude Code",
+    description:
+      "Custom Claude Code agents, skills, hooks and MCP servers for your team: content, SEO, testing and code-review pipelines where agents propose, scripts decide and a person approves.",
+    tags: ["Claude Code", "MCP", "Multi-agent"],
+  },
+  {
+    name: "n8n automations",
+    description:
+      "n8n workflows that move leads from forms to your CRM, draft and schedule content with LLM steps, and send the reports your team now builds by hand.",
+    tags: ["n8n", "Webhooks", "LLM steps"],
+  },
+  {
     name: "Marketing content strategy",
     description:
       "A content plan with topic hubs and a brief for every page: the reader's question, the outline, the sources to check and the voice. Each draft gets an editing pass before it ships.",
@@ -155,3 +167,27 @@ export const freelanceProfiles: { platform: string; href: string; note: string }
   { platform: "Fiverr", href: "", note: "Fixed-scope packages" },
   { platform: "Freelancer", href: "", note: "Project bids" },
 ];
+
+// The agent team behind every project. Each entry must match a file in .claude/agents/
+// (tests/unit/content.test.ts enforces this), so the page never lists an agent that doesn't exist.
+export type AgentGroup = "Strategy" | "Content" | "Build" | "Quality";
+
+export const agentTeam: { id: string; name: string; group: AgentGroup; job: string; skills: string[] }[] = [
+  { id: "content-strategist", name: "Content strategist", group: "Strategy", job: "Plans pages and writes a brief for each one", skills: ["content-strategy", "seo-content-brief", "jobs-to-be-done"] },
+  { id: "keyword-researcher", name: "Keyword researcher", group: "Strategy", job: "Turns Keyword Planner data into one keyword per page", skills: ["keyword-research", "seo-cluster", "serp-analysis"] },
+  { id: "marketing-strategist", name: "Marketing strategist", group: "Strategy", job: "Positioning, offers and one clear call to action per page", skills: ["marketing-ideas", "cro", "marketing-council"] },
+  { id: "growth-strategist", name: "Growth strategist", group: "Strategy", job: "A 90-day plan: one growth task a day", skills: ["marketing-loops", "analytics"] },
+  { id: "content-writer", name: "Content writer", group: "Content", job: "Writes copy from real facts, never invented ones", skills: ["copywriting", "ai-seo", "seo-geo"] },
+  { id: "humanizer", name: "Humanizer", group: "Content", job: "Removes AI-writing patterns and tightens every line", skills: ["humanizer", "copy-editing"] },
+  { id: "designer", name: "Designer", group: "Build", job: "Owns DESIGN.md: tokens, type, motion and contrast", skills: ["frontend-design", "ui-ux-pro-max", "web-design-guidelines"] },
+  { id: "coder", name: "Coder", group: "Build", job: "Builds pages and components from the briefs and DESIGN.md", skills: ["react-best-practices", "composition-patterns"] },
+  { id: "harness", name: "Test generator", group: "Build", job: "Writes Vitest unit tests that fail when behaviour breaks", skills: ["test-driven-development", "verification-before-completion"] },
+  { id: "code-reviewer", name: "Code reviewer", group: "Quality", job: "Reviews every diff and gives a PASS or FAIL verdict", skills: ["pr-review-toolkit", "differential-review"] },
+  { id: "secops-reviewer", name: "SecOps reviewer", group: "Quality", job: "Secrets, dependencies, workflows and headers", skills: ["security-review", "semgrep", "github-actions-hardening"] },
+  { id: "seo-auditor", name: "SEO auditor", group: "Quality", job: "Titles, canonicals, schema, sitemap and robots", skills: ["seo-audit", "seo-technical", "schema"] },
+  { id: "ai-search-auditor", name: "AI search auditor", group: "Quality", job: "Makes pages quotable by ChatGPT, Claude and Perplexity", skills: ["ai-seo", "seo-geo"] },
+  { id: "performance-auditor", name: "Performance auditor", group: "Quality", job: "Lighthouse 100 budgets and Core Web Vitals", skills: ["core-web-vitals", "web-perf", "accessibility"] },
+  { id: "responsive-checker", name: "Responsive checker", group: "Quality", job: "Every page from 320 to 1280 px, nothing cut off", skills: ["web-interface-guidelines"] },
+];
+
+export const agentPipeline = ["Brief", "Strategy", "Write", "Humanize", "Design", "Build", "Test", "Review", "Audit", "Your GO"];

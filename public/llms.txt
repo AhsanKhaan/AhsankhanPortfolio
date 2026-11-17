@@ -8,7 +8,7 @@ Portfolio: https://ahsankhaan.vercel.app
 
 - Full-time, open to relocating internationally (fintech, food-tech, delivery/marketplace platforms)
 - Remote, PKT (GMT+5), prior experience working remotely for a US fintech company
-- Freelance / agency: agentic SEO, marketing content strategy, Next.js and Astro websites, programmatic SEO tool sites, admin portals, full-stack MVPs and backend architecture
+- Freelance / agency: AI agents and Claude Code pipelines, n8n workflow automation, agentic SEO, marketing content strategy, Next.js and Astro websites, programmatic SEO tool sites, admin portals, full-stack MVPs and backend architecture
 
 ## Core skills
 

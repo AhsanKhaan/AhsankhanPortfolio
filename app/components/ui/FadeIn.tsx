@@ -1,6 +1,4 @@
-"use client";
-
-import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 interface FadeInProps {
   children: ReactNode;
@@ -11,41 +9,21 @@ interface FadeInProps {
   y?: number;
 }
 
-// One observer for every FadeIn on the page; the animation itself is the .fade-in CSS
-// transition in globals.css, so no per-element animation runtime runs on the main thread.
-let observer: IntersectionObserver | null = null;
-
-function observe(el: Element) {
-  observer ??= new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.setAttribute("data-inview", "");
-        observer?.unobserve(entry.target);
-      }
-    },
-    { rootMargin: "50px" },
-  );
-  observer.observe(el);
-  return () => observer?.unobserve(el);
-}
-
-export default function FadeIn({ children, className, delay = 0, duration = 0.7, x = 0, y = 30 }: FadeInProps) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (ref.current) return observe(ref.current);
-  }, []);
-
+// Scroll reveal with zero JavaScript: a CSS scroll-driven animation (animation-timeline:
+// view(), see .fade-in in globals.css). Nothing hydrates, so pages no longer pay for ~50
+// client islands and an IntersectionObserver. Browsers without scroll timelines, and
+// visitors who prefer reduced motion, simply see the content.
+// `delay` staggers siblings by starting their reveal slightly later in the scroll range;
+// `duration` is kept for API compatibility (the scroll position drives timing).
+export default function FadeIn({ children, className, delay = 0, x = 0, y = 30 }: FadeInProps) {
   const style = {
     "--fade-x": `${x}px`,
     "--fade-y": `${y}px`,
-    "--fade-delay": `${delay}s`,
-    "--fade-duration": `${duration}s`,
+    "--fade-delay": delay,
   } as CSSProperties;
 
   return (
-    <div ref={ref} className={className ? `fade-in ${className}` : "fade-in"} style={style}>
+    <div className={className ? `fade-in ${className}` : "fade-in"} style={style}>
       {children}
     </div>
   );

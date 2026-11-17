@@ -3,6 +3,7 @@ import { Geist, Kanit } from "next/font/google";
 import "./globals.css";
 import brand from "@/brand/dist/tokens.resolved.json";
 import { profile } from "@/data/profile";
+import InPageNav from "./components/clientComponents/InPageNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -173,15 +174,18 @@ export default function RootLayout({
     // cause by injecting attributes (e.g. Bitdefender's bis_skin_checked/bis_register,
     // ColorZilla's cz-shortcut-listen) onto <html>/<body> before React hydrates. It
     // does not hide a real hydration mismatch anywhere else in the tree.
-    <html lang="en" className="dark" suppressHydrationWarning>
+    // data-scroll-behavior lets Next turn smooth scrolling off during route changes, so
+    // moving between pages jumps to the top instead of animating through the old page.
+    <html lang="en" className="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${kanit.variable} antialiased`} suppressHydrationWarning>
-        {/* Runs before the body paints: lets CSS hide scroll-reveal content only when JS
-            is available to reveal it again (see .js rules in globals.css). */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {/* Runs before the body paints: marks JS as available, then turns decorative
+            motion on (html.motion-ready) once the page has loaded and gone idle. */}
+        <script dangerouslySetInnerHTML={{ __html: "var d=document.documentElement;d.classList.add('js');addEventListener('load',function(){var go=function(){d.classList.add('motion-ready')};setTimeout(function(){window.requestIdleCallback?requestIdleCallback(go,{timeout:2000}):go()},1500)})" }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify([personJsonLd, websiteJsonLd]) }}
         />
+        <InPageNav />
         {children}
       </body>
     </html>

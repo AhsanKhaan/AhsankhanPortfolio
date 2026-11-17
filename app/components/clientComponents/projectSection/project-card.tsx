@@ -3,6 +3,7 @@ import type { Project } from "./projects-section"
 import { TechBadge } from "./tech-badge"
 import styles from "./projects-section.module.css"
 import Img from "next/image"
+import ProjectCover from "../../ui/ProjectCover"
 
 interface ProjectCardProps {
   project: Project
@@ -15,7 +16,11 @@ export function ProjectCard({ project, selectedTechs, onTechClick }: ProjectCard
     <div className={styles.projectCard} style={{ position: "relative" }}>
       {/* Image Container */}
       <div className={styles.projectImage}>
-        <Img src={project.image || "/placeholder.svg"} alt={project.title}  width={100}  height={100} className="w-full h-full object-cover" />
+        {project.image ? (
+          <Img src={project.image} alt={project.title} width={640} height={400} sizes="(min-width: 1024px) 380px, 100vw" className="w-full h-full object-cover" />
+        ) : (
+          <ProjectCover title={project.title} kicker={project.kicker} />
+        )}
       </div>
 
       {/* Content */}

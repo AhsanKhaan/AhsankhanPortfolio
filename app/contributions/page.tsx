@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { IconArrowRight, IconArrowUpRight, IconBrandGithub, IconLock, IconTrophy } from "@tabler/icons-react";
-import SiteHeader from "../components/ui/SiteHeader";
+import SiteNav from "../components/sections/SiteNav";
 import FadeIn from "../components/ui/FadeIn";
 import AgenticAI from "../components/sections/AgenticAI";
 import Footer from "../components/sections/Footer";
@@ -81,10 +81,10 @@ export default function ContributionsPage() {
   return (
     <div className="min-h-screen bg-brand-bg" style={{ overflowX: "clip" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <SiteHeader current="/contributions" />
+      <SiteNav />
       <main>
         {/* Hero */}
-        <section className="relative overflow-hidden px-5 pb-16 pt-16 sm:px-8 sm:pt-24 md:px-10">
+        <section className="relative overflow-hidden px-5 pb-16 pt-28 sm:px-8 sm:pt-36 md:px-10">
           <div className="grid-backdrop pointer-events-none absolute inset-0" aria-hidden="true" />
           <div className="aurora pointer-events-none absolute inset-x-0 top-0 h-[520px]" aria-hidden="true" />
           <div className="relative mx-auto max-w-6xl">
@@ -181,7 +181,7 @@ export default function ContributionsPage() {
         </section>
 
         {/* Repositories */}
-        <section id="repositories" className="rounded-t-[40px] bg-brand-surface px-5 py-20 sm:px-8 md:rounded-t-[60px] md:px-10 md:py-28">
+        <section id="repositories" className="defer-section rounded-t-[40px] bg-brand-surface px-5 py-20 sm:px-8 md:rounded-t-[60px] md:px-10 md:py-28">
           <div className="mx-auto max-w-6xl">
             <FadeIn>
               <h2 className={sectionHeading} style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}>
@@ -255,7 +255,7 @@ export default function ContributionsPage() {
         <AgenticAI showLink={false} />
 
         {/* Earlier work */}
-        <section className="px-5 pb-20 sm:px-8 md:px-10">
+        <section className="defer-section px-5 pb-20 sm:px-8 md:px-10">
           <div className="mx-auto max-w-6xl">
             <FadeIn>
               <h2 className={sectionHeading} style={{ fontSize: "clamp(1.8rem, 4.5vw, 3rem)" }}>

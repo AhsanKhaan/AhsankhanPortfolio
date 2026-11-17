@@ -42,6 +42,7 @@ export function verifyCvToken(token: string, secret: string): CvTokenResult {
   } catch {
     return { ok: false, reason: "malformed" };
   }
+  if (!payload || typeof payload !== "object") return { ok: false, reason: "malformed" };
   if (typeof payload.exp !== "number" || Date.now() > payload.exp) return { ok: false, reason: "expired" };
   if (typeof payload.email !== "string" || !payload.email) return { ok: false, reason: "malformed" };
 

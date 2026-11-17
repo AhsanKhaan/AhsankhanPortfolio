@@ -5,7 +5,8 @@ import CvRequestForm from "../components/ui/CvRequestForm";
 import { profile } from "@/data/profile";
 
 export const metadata: Metadata = {
-  title: "Get my CV",
+  title: "Request Ahsan Khan's CV by Email",
+  alternates: { canonical: "/cv" },
   description: `Request ${profile.name}'s CV by email — a secure, time-limited download link, kept off public search results.`,
 };
 
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 // never at a public URL. See brand/brand-guidelines.md §CV security.
 export default function CvPage() {
   return (
-    <div className="mx-auto flex min-h-screen max-w-lg flex-col justify-center px-5 py-24 sm:px-8">
+    <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center px-5 py-24 sm:px-8">
       <h1 className="hero-heading font-display mb-3 text-4xl font-black uppercase leading-none sm:text-5xl">Get my CV</h1>
       <p className="mb-8 text-brand-muted">
         I email my CV directly to verified addresses instead of hosting it at a public link, so my phone number and
@@ -42,6 +43,6 @@ export default function CvPage() {
       <Link href="/" className="mt-10 inline-flex min-h-[44px] w-fit items-center text-sm text-brand-muted hover:text-brand-text">
         ← Back to portfolio
       </Link>
-    </div>
+    </main>
   );
 }

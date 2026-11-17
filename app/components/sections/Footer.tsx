@@ -1,47 +1,81 @@
 import Link from "next/link";
 import { IconArrowUp } from "@tabler/icons-react";
-import { profile, socialLinks } from "@/data/profile";
+import { profile } from "@/data/profile";
+
+const linkClass =
+  "inline-flex min-h-[40px] items-center text-sm text-brand-muted transition-colors hover:text-brand-text";
+
+const columns = [
+  {
+    title: "Work",
+    links: [
+      { title: "Agency & pricing", href: "/agency" },
+      { title: "GitHub contributions", href: "/contributions" },
+      { title: "Case studies", href: "/#case-studies" },
+      { title: "Hiring? Start here", href: "/for" },
+    ],
+  },
+  {
+    title: "Connect",
+    links: [
+      { title: "LinkedIn", href: profile.links.linkedin },
+      { title: "GitHub", href: profile.links.github },
+      { title: "Email", href: `mailto:${profile.email}` },
+      { title: "Get my CV", href: "/cv" },
+    ],
+  },
+];
 
 const Footer = () => {
   return (
-    <footer className="border-t border-brand-border bg-brand-bg px-5 py-10 sm:px-8 md:px-10">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 md:flex-row">
-        <div className="text-center md:text-left">
-          <p className="font-display text-xl font-bold bg-brand-accent bg-clip-text text-transparent">{profile.name}</p>
+    <footer className="border-t border-brand-border bg-brand-bg px-5 pb-8 pt-14 sm:px-8 md:px-10">
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-10 md:grid-cols-[1.6fr_1fr_1fr]">
+        <div className="col-span-2 md:col-span-1">
+          <Link href="/" className="font-display text-2xl font-bold bg-brand-accent bg-clip-text text-transparent">
+            {profile.name}
+          </Link>
+          <p className="mt-2 text-sm text-brand-muted">{profile.title}</p>
           <p className="text-sm text-brand-muted">
-            {profile.title} · {profile.location}
+            {profile.location} · {profile.timezone}
           </p>
         </div>
-        <nav aria-label="Footer" className="flex flex-wrap justify-center gap-x-6 gap-y-1">
-          {socialLinks.map((l) => (
-            <a
-              key={l.title}
-              href={l.href}
-              target={l.href.startsWith("http") ? "_blank" : undefined}
-              rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="inline-flex min-h-[44px] items-center text-sm uppercase tracking-wider text-brand-text hover:opacity-70"
-            >
-              {l.title}
-            </a>
-          ))}
-          <Link href="/agency" className="inline-flex min-h-[44px] items-center text-sm uppercase tracking-wider text-brand-text hover:opacity-70">
-            Agency
-          </Link>
-          <Link href="/contributions" className="inline-flex min-h-[44px] items-center text-sm uppercase tracking-wider text-brand-text hover:opacity-70">
-            Contributions
-          </Link>
-          <a href="/cv" className="inline-flex min-h-[44px] items-center text-sm uppercase tracking-wider text-brand-text hover:opacity-70">
-            Get CV
-          </a>
-          <Link href="/for" className="inline-flex min-h-[44px] items-center text-sm uppercase tracking-wider text-brand-text hover:opacity-70">
-            Hiring? Start Here
-          </Link>
-        </nav>
-        <a href="#top" className="inline-flex min-h-[44px] items-center gap-2 text-sm uppercase tracking-wider text-brand-muted hover:text-brand-text">
-          Back to top <IconArrowUp size={16} aria-hidden="true" />
+        {columns.map((col) => (
+          <nav key={col.title} aria-label={col.title}>
+            <p className="mb-2 text-xs font-medium uppercase tracking-widest text-brand-text">{col.title}</p>
+            <ul>
+              {col.links.map((l) => {
+                const external = l.href.startsWith("http");
+                return (
+                  <li key={l.title}>
+                    {l.href.startsWith("/") ? (
+                      <Link href={l.href} className={linkClass}>
+                        {l.title}
+                      </Link>
+                    ) : (
+                      <a
+                        href={l.href}
+                        target={external ? "_blank" : undefined}
+                        rel={external ? "noopener noreferrer" : undefined}
+                        className={linkClass}
+                      >
+                        {l.title}
+                      </a>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        ))}
+      </div>
+      <div className="mx-auto mt-10 flex max-w-6xl items-center justify-between gap-4 border-t border-brand-border pt-6">
+        <p className="text-xs text-brand-muted">
+          © {new Date().getFullYear()} {profile.name}
+        </p>
+        <a href="#top" className="inline-flex min-h-[40px] items-center gap-2 whitespace-nowrap text-xs uppercase tracking-wider text-brand-muted hover:text-brand-text">
+          Back to top <IconArrowUp size={14} aria-hidden="true" />
         </a>
       </div>
-      <p className="mt-8 text-center text-xs text-brand-muted">© {new Date().getFullYear()} {profile.name}</p>
     </footer>
   );
 };

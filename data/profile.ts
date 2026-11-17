@@ -82,6 +82,16 @@ export const services = [
       "Core Web Vitals, code-splitting, virtual scrolling, SSR and structured data. One public site gained 50% organic traffic in 4 months.",
   },
   {
+    name: "AI Agents & Claude Code",
+    description:
+      "Multi-agent pipelines in Claude Code with skills, hooks and MCP servers: agents that research, write, test and review, with a gate after every step and a human approving what ships.",
+  },
+  {
+    name: "n8n Workflow Automation",
+    description:
+      "n8n workflows that connect forms, CRMs, email, Slack and LLM steps, so lead handling, content publishing and reporting run without manual copy-paste.",
+  },
+  {
     name: "Admin Portals & Dashboards",
     description:
       "Role-based operations dashboards with real-time data, reporting and workflow automation for internal teams.",
@@ -91,8 +101,9 @@ export const services = [
 export interface CaseStudy {
   category: string;
   title: string;
-  image: string;
+  image?: string;
   link?: string;
+  linkLabel?: string;
   problem: string;
   role: string;
   impact: string[];
@@ -139,6 +150,36 @@ export const caseStudies: CaseStudy[] = [
       "20+ engineering hours saved per week on content updates",
     ],
     stack: ["Next.js", "React", "Tailwind", "Node.js", "SEO"],
+  },
+  {
+    category: "Programmatic SEO",
+    title: "Calculator Porch",
+    link: "https://calculatorporch.com",
+    linkLabel: "Visit site",
+    problem:
+      "A calculator site has to grow to hundreds of pages without thin, duplicate or competing pages that search engines ignore.",
+    role: "Owner and engineer: designed the config-driven calculator engine, the taxonomy and link graph, the SEO rules and the release gates.",
+    impact: [
+      "One engine powers every calculator: a new tool is a validated config, not a new page of code",
+      "Every page within 2 clicks of home, with keyword clusters and cannibalization rules enforced at build",
+      "122 unit tests, 25 end-to-end tests and an axe WCAG 2.2 audit before each release",
+    ],
+    stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind 4", "Zod", "Vitest", "Playwright", "Cloudflare Pages"],
+  },
+  {
+    category: "Backend Architecture",
+    title: "CIP-2026",
+    link: "https://github.com/AhsanKhaan/cip-2026",
+    linkLabel: "View repo",
+    problem:
+      "Gold, silver, crypto and currency prices must refresh every 60 seconds for up to 1M monthly users without calling a paid price API on every page view.",
+    role: "Architected the platform: the ingest worker, job queues, cache layers, MongoDB time-series model and the MFA-protected CMS.",
+    impact: [
+      "BullMQ workers on a Hetzner VPS ingest metals every 60s and crypto over a Binance WebSocket, with a fallback provider",
+      "Read path never touches the price API: Cloudflare CDN, Next.js ISR, Upstash Redis (30s TTL), then MongoDB",
+      "About $25 a month of infrastructure at launch for a 1M MAU design target",
+    ],
+    stack: ["Next.js 16", "TypeScript", "BullMQ", "Redis", "MongoDB", "Hetzner VPS", "Cloudflare", "Clerk MFA"],
   },
 ];
 
