@@ -28,6 +28,10 @@ jobs:
           # Findings go to the job summary and SARIF artifact; the job stays read-only,
           # so it doesn't try (and fail) to write PR comments.
           GITLEAKS_ENABLE_COMMENTS: "false"
+          # The action defaults to gitleaks 8.24.3, which predates the [[allowlists]] format in
+          # .gitleaks.toml. Pin the version the config is verified against.
+          GITLEAKS_VERSION: "8.30.1"
+          GITLEAKS_CONFIG: .gitleaks.toml
 
   audit:
     name: Dependency vulnerabilities
