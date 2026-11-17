@@ -33,6 +33,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "pretypecheck": "npm run brand",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
