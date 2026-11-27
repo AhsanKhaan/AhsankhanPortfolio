@@ -353,6 +353,13 @@ section[id] {
 .code-portrait-backdrop {
   background: radial-gradient(closest-side, var(--color-bg) 55%, transparent);
 }
+/* Cartoon portrait: its near-black backdrop fades into the page, reaching fully transparent
+   at the sides and bottom (the face, hair and glasses stay opaque), so no box edge shows
+   against the code field behind it. */
+.portrait-fade {
+  -webkit-mask-image: radial-gradient(ellipse 50% 60% at 50% 38%, black 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 50% 60% at 50% 38%, black 55%, transparent 100%);
+}
 @keyframes portrait-look {
   0%, 100% { transform: rotateX(0deg) rotateY(0deg); }
   30% { transform: rotateX(3deg) rotateY(-18deg); }

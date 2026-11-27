@@ -6,6 +6,7 @@ import { ContactButton, GhostButton } from "../ui/BrandButtons";
 import CvTriggerLink from "../ui/CvTriggerLink";
 import CodeField from "../ui/CodeField";
 import CodePortrait from "../ui/CodePortrait";
+import TiltPortrait from "../ui/TiltPortrait";
 import { heroAvailability, heroPortrait, profile } from "@/data/profile";
 import { buildCodeSource } from "@/lib/codeField";
 
@@ -47,7 +48,25 @@ const Hero = () => {
           bottom CTA row (z-20), so it never covers any text; a frosted glass halo gives
           it a premium look where the heading passes in front of it. */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 w-[240px] -translate-x-1/2 -translate-y-1/2 sm:w-[300px] md:top-auto md:bottom-0 md:w-[360px] md:translate-y-0 lg:w-[420px]">
-        {heroPortrait === "code" ? (
+        {heroPortrait === "cartoon" ? (
+          // The 3D cartoon, with the code portrait's 3D motion. Its dark backdrop fades into
+          // the page (.portrait-fade), so no box edge shows. It is the hero's largest image,
+          // so it loads first (priority).
+          <div className="rise rise-lcp relative" style={rise(0.6, 30)}>
+            <TiltPortrait className="w-full">
+              <Image
+                src="/assets/Profile-cartoon.webp"
+                alt={`${profile.name}, ${profile.title}, as a 3D cartoon`}
+                width={1136}
+                height={1408}
+                sizes="(min-width: 1024px) 420px, (min-width: 768px) 360px, (min-width: 640px) 300px, 240px"
+                priority
+                fetchPriority="high"
+                className="portrait-fade h-auto w-full select-none"
+              />
+            </TiltPortrait>
+          </div>
+        ) : heroPortrait === "code" ? (
           // The photo drawn in code (CodePortrait). The photo itself is unchanged; set
           // heroPortrait to "photo" in data/profile.ts to show it again.
           <div className="rise relative" style={rise(0.6, 30)}>

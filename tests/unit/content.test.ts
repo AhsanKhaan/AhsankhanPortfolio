@@ -70,3 +70,16 @@ describe("content rules", () => {
     }
   });
 });
+
+describe("hero portrait", () => {
+  it("every portrait the switch can show has its file", async () => {
+    const { heroPortrait } = await import("@/data/profile");
+    const files: Record<string, string> = {
+      cartoon: "public/assets/Profile-cartoon.webp",
+      code: "data/codePortrait.json",
+      photo: "public/assets/Profile-v3.png",
+    };
+    expect(Object.keys(files)).toContain(heroPortrait);
+    for (const f of Object.values(files)) expect(existsSync(join(root, f))).toBe(true);
+  });
+});
