@@ -12,6 +12,10 @@ export const inquiryTypes: { value: InquiryType; label: string }[] = [
   { value: "freelance", label: "Freelance project" },
 ];
 
+// Hero portrait. "code" draws the photo as code glyphs (app/components/ui/CodePortrait.tsx);
+// "photo" shows the original picture, public/assets/Profile-v3.png, which is never modified.
+export const heroPortrait: "code" | "photo" = "code";
+
 export const heroAvailability = [
   { icon: "location", label: "Karachi, Pakistan → Open to relocate" },
   { icon: "world", label: "Remote · Worldwide" },

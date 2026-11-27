@@ -3,18 +3,18 @@ import { Meteors } from "./Meteors";
 
 export function MeteorsCard({children:children,number:number}:{children:React.ReactNode,number:number}) {
   return (
-    <div className="sticky top-0 flex justify-center items-center  height-60-small h-screen ">
+    <div className="flex justify-center items-center py-10 md:sticky md:top-0 md:h-screen md:py-0">
       <div className=" w-full relative max-w-xs">
-        <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl" />
-        <div  className="relative z-100 bg-darkBlue shadow-xl dark:bg-dark-blue border border-gray-800  px-4 py-8 h-full overflow-hidden rounded-2xl flex flex-col justify-end items-start">
-          <div className="h-5 w-5 rounded-full border flex items-center justify-center mb-4 border-gray-500">
+        <div aria-hidden="true" className="absolute inset-0 h-full w-full scale-[0.80] rounded-full bg-brand-accent opacity-60 blur-3xl" />
+        <div className="relative flex h-full flex-col items-start justify-end overflow-hidden rounded-brand-lg border border-brand-border bg-brand-surface px-4 py-8 shadow-xl">
+          <div aria-hidden="true" className="mb-4 flex h-5 w-5 items-center justify-center rounded-full border border-brand-border">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="h-2 w-2 text-gray-300"
+              className="h-2 w-2 text-brand-muted"
             >
               <path
                 strokeLinecap="round"

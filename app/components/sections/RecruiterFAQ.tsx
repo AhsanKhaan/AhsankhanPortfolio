@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { IconChevronDown } from "@tabler/icons-react";
 import FadeIn from "../ui/FadeIn";
+import SectionKicker from "../ui/SectionKicker";
 import { recruiterFaq } from "@/data/profile";
 
 // Native <details>/<summary>: content stays in the DOM (not JS-hidden), so both
@@ -23,6 +24,7 @@ const RecruiterFAQ = () => {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <div className="mx-auto max-w-3xl">
         <FadeIn y={40}>
+          <SectionKicker id="faq" label="FAQ" />
           <h2
             className="hero-heading font-display mb-3 text-center font-black uppercase leading-none tracking-tight"
             style={{ fontSize: "clamp(2.5rem, 8vw, 110px)" }}

@@ -168,12 +168,6 @@ html.render-all .defer-section {
 }
 
 /* Legacy helpers still used by existing components */
-@media only screen and (min-width: 320px) {
-  .height-60-small {
-    height: 60vh;
-  }
-}
-
 @media only screen and (min-width: 480px) {
   .width-100 {
     width: 100% !important;
@@ -183,9 +177,6 @@ html.render-all .defer-section {
 @media only screen and (min-width: 768px) {
   .laptop-fs-extra-large {
     font-size: 2.25rem;
-  }
-  .height-60-small {
-    height: 100vh;
   }
 }
 
@@ -287,4 +278,105 @@ html.render-all .defer-section {
 /* Keep anchored sections clear of the fixed header */
 section[id] {
   scroll-margin-top: 72px;
+}
+
+/* ── Developer details (study of ponytail.dev, rebuilt in the brand's own colours) ── */
+
+::selection {
+  background: var(--color-accent-start);
+  color: var(--color-on-accent);
+}
+
+/* Hero height: the full screen on laptops, but never much taller than the content on
+   tall, narrow screens (phones held upright), so no empty band opens up between the
+   name and the portrait. */
+.hero-height {
+  height: max(600px, min(100svh, 190vw));
+}
+@media (min-width: 640px) {
+  .hero-height {
+    height: max(640px, min(100svh, 132vw)); /* portrait still centred between name and text */
+  }
+}
+@media (min-width: 768px) {
+  .hero-height {
+    height: max(640px, min(100svh, 112vw)); /* portrait stands on the bottom edge */
+  }
+}
+
+/* Code field (app/components/ui/CodeField.tsx). hero: fades out under the header and
+   toward the bottom, and the veil darkens the corners where the hero's text and buttons
+   sit. center: fades at both edges and the veil darkens the middle, behind a centred
+   text column. Either way text keeps its docs/DESIGN.md contrast. */
+.code-field {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 110px, black 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, black 110px, black 55%, transparent 100%);
+}
+.code-field[data-variant="center"] {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 15%, black 85%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, black 15%, black 85%, transparent 100%);
+}
+.code-field-veil {
+  background:
+    radial-gradient(50% 45% at 0% 100%, var(--color-bg) 20%, transparent 80%),
+    radial-gradient(40% 45% at 100% 100%, var(--color-bg) 20%, transparent 80%);
+}
+.code-field[data-variant="center"] .code-field-veil {
+  background: radial-gradient(75% 42% at 50% 50%, var(--color-bg) 45%, transparent 100%);
+}
+@media (min-width: 768px) {
+  .code-field[data-variant="center"] .code-field-veil {
+    background: radial-gradient(42% 46% at 50% 50%, var(--color-bg) 35%, transparent 100%);
+  }
+}
+
+/* Terminal caret after the wordmark: a slim bar in the accent gradient, blinking. */
+.term-cursor {
+  display: inline-block;
+  width: 0.09em;
+  height: 0.78em;
+  border-radius: 1px;
+  background: var(--gradient-accent-vertical);
+}
+
+/* Code portrait (app/components/ui/CodePortrait.tsx): three canvases at different depths
+   inside a 3D stage. The stage turns toward the pointer (--rx/--ry, set from script) or
+   plays one look-around after the decode (data-look). */
+.code-portrait {
+  perspective: 900px;
+}
+.code-portrait-stage {
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.code-portrait-backdrop {
+  background: radial-gradient(closest-side, var(--color-bg) 55%, transparent);
+}
+@keyframes portrait-look {
+  0%, 100% { transform: rotateX(0deg) rotateY(0deg); }
+  30% { transform: rotateX(3deg) rotateY(-18deg); }
+  65% { transform: rotateX(-2deg) rotateY(16deg); }
+}
+
+/* "Open to work" status dot: three soft pings once motion is allowed, then still. */
+.status-dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
+  border-radius: 9999px;
+  background: var(--color-accent-end);
+}
+@keyframes status-ping {
+  from { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent-end) 65%, transparent); }
+  to { box-shadow: 0 0 0 9px transparent; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .term-cursor { animation: caret 1.06s steps(1) infinite; }
+  .motion-ready .status-dot { animation: status-ping 1.8s ease-out 3; }
+  .code-portrait[data-look] .code-portrait-stage { animation: portrait-look 4.2s cubic-bezier(0.45, 0, 0.25, 1) 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .code-portrait-stage { transition: none; }
 }

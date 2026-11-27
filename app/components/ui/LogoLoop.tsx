@@ -35,7 +35,7 @@ export const LogoLoop = ({
   pauseOnHover = true,
   scaleOnHover = true,
   fadeOut = true,
-  fadeOutColor = "#ffffff",
+  fadeOutColor = "black", // mask: only its alpha matters
   ariaLabel = "Logo carousel",
   className,
 }: LogoLoopProps) => {
@@ -45,7 +45,7 @@ export const LogoLoop = ({
 
   const renderLogo = (logo: LogoItem, idx: number, duplicate: boolean) => {
     const content = logo.node ? (
-      <span className="flex h-full w-full items-center justify-center text-white">{logo.node}</span>
+      <span className="flex h-full w-full items-center justify-center text-brand-text">{logo.node}</span>
     ) : logo.src ? (
       <Image src={logo.src} alt={duplicate ? "" : logo.alt || logo.title || ""} className="h-full w-full object-contain" />
     ) : null;

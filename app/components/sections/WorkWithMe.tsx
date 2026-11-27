@@ -1,5 +1,6 @@
 import { IconBuildingSkyscraper, IconWorld, IconCode, IconArrowRight, IconBrandLinkedin } from "@tabler/icons-react";
 import FadeIn from "../ui/FadeIn";
+import SectionKicker from "../ui/SectionKicker";
 import { workModes, profile } from "@/data/profile";
 
 const icons = { fulltime: IconBuildingSkyscraper, remote: IconWorld, freelance: IconCode };
@@ -9,6 +10,7 @@ const WorkWithMe = () => {
     <section id="work-with-me" className="rounded-t-[40px] bg-brand-surface px-5 py-20 sm:rounded-t-[50px] sm:px-8 md:rounded-t-[60px] md:px-10 md:py-28">
       <div className="mx-auto max-w-6xl">
         <FadeIn y={40}>
+          <SectionKicker id="work-with-me" label="Work with me" />
           <h2
             className="hero-heading font-display mb-14 text-center font-black uppercase leading-none tracking-tight"
             style={{ fontSize: "clamp(2.5rem, 9vw, 120px)" }}

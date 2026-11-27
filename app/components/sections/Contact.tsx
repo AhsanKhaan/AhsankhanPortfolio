@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { IconBrandLinkedin, IconBrandGithub, IconMail, IconLoader2, IconCircleCheck } from "@tabler/icons-react";
 import FadeIn from "../ui/FadeIn";
+import SectionKicker from "../ui/SectionKicker";
 import { inquiryTypes, profile, type InquiryType } from "@/data/profile";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -73,6 +74,7 @@ const Contact = () => {
     <section id="contact" ref={sectionRef} className="scroll-mt-20 bg-brand-surface px-5 pb-24 pt-4 sm:px-8 md:px-10">
       <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[2fr_3fr]">
         <FadeIn y={40}>
+          <SectionKicker id="contact" label="Contact" align="start" />
           <h2 className="hero-heading font-display font-black uppercase leading-none tracking-tight" style={{ fontSize: "clamp(2.5rem, 8vw, 110px)" }}>
             Contact
           </h2>

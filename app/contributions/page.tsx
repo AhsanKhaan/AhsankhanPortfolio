@@ -252,7 +252,7 @@ export default function ContributionsPage() {
           </div>
         </section>
 
-        <AgenticAI showLink={false} />
+        <AgenticAI showLink={false} numbered={false} />
 
         {/* Earlier work */}
         <section className="defer-section px-5 pb-20 sm:px-8 md:px-10">

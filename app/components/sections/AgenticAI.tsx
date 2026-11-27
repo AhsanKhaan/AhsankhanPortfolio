@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { IconArrowRight, IconRobot } from "@tabler/icons-react";
 import FadeIn from "../ui/FadeIn";
+import SectionKicker from "../ui/SectionKicker";
 import AgentCore from "../ui/AgentCore";
 import { agenticCapabilities, agentLog, pipelineStages, type CapabilityStatus } from "@/data/contributions";
 
@@ -10,14 +11,16 @@ const statusStyle: Record<CapabilityStatus, string> = {
 };
 
 // Agentic AI section. Rendered on the homepage (with a link to /contributions) and on
-// the contributions page itself (showLink={false}).
-const AgenticAI = ({ showLink = true }: { showLink?: boolean }) => {
+// the contributions page itself (showLink={false}, numbered={false}: its kicker drops the
+// homepage's section number).
+const AgenticAI = ({ showLink = true, numbered = true }: { showLink?: boolean; numbered?: boolean }) => {
   return (
     <section id="ai-lab" className="relative overflow-hidden px-5 py-20 sm:px-8 md:px-10 md:py-28">
       <div className="grid-backdrop pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="aurora pointer-events-none absolute inset-x-0 top-0 h-[520px]" aria-hidden="true" />
       <div className="relative mx-auto max-w-6xl">
         <FadeIn y={40}>
+          <SectionKicker id="ai-lab" label="Agentic AI" align="start" numbered={numbered} />
           <div className="mb-3 flex items-center gap-3">
             <IconRobot className="h-6 w-6 text-brand-accent-end" aria-hidden="true" />
             <span className="rounded-full border border-brand-border px-3 py-1 text-xs uppercase tracking-widest text-brand-muted">

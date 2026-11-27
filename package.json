@@ -25,6 +25,7 @@
   ],
   "scripts": {
     "brand": "node scripts/build-brand.mjs",
+    "portrait": "node scripts/build-code-portrait.mjs",
     "test:recruiter-email": "node scripts/test-recruiter-email.mjs",
     "jobs": "node job-agent/cli.mjs",
     "predev": "npm run brand",

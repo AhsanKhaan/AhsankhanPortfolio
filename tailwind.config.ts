@@ -39,7 +39,7 @@ export default {
       fontFamily: {
         display: ["var(--font-kanit)", "sans-serif"],
         sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
-        mono: ["ui-monospace", "monospace"],
+        mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
       },
       borderRadius: {
         "brand-lg": "var(--radius-lg)",
