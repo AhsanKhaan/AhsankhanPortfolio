@@ -4,7 +4,7 @@ import { SparklesCore } from "./Sparkles";
 
 export function SparklesHeading({heading}: {heading: string}) {
   return (
-    <div className="h-[26rem] w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md mb-0">
+    <div className="h-60 md:h-[26rem] w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md mb-0">
       <h3 className="md:text-7xl text-3xl lg:text-9xl font-bold text-center text-white relative z-20">
         {heading}
       </h3>

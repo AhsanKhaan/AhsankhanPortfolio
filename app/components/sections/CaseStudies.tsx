@@ -84,8 +84,10 @@ const CaseStudies = () => {
 };
 
 function Card({ study, index, ref }: { study: CaseStudy; index: number; ref: Ref<HTMLElement> }) {
+  // Phones: a plain list. From md the cards stack as you scroll (sticky, one 85vh step
+  // each); on a tall phone that step left an empty band below every card.
   return (
-    <div className="sticky top-24 flex min-h-[85vh] items-start md:top-32">
+    <div className="mb-6 flex items-start md:sticky md:top-32 md:mb-0 md:min-h-[85vh]">
       <article
         ref={ref}
         style={{ top: `${index * 28}px` }}

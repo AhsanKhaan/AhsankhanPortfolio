@@ -3,9 +3,8 @@ import { useEffect, useRef } from "react";
 import { decodeState, layoutGlyphs, scrambleGlyph, spotlight } from "@/lib/codeField";
 import { rafThrottle } from "@/lib/rafThrottle";
 
-// Hero background: a faint field of real TypeScript (built from brand/profile.json by
-// buildCodeSource) that decodes once on load and lights up in the brand gradient under
-// the pointer.
+// Section background: a faint field of real TypeScript (built from brand/profile.json by
+// buildCodeSource) that decodes once and lights up in the brand gradient under the pointer.
 //
 // Cost model: the base text is painted once (one fillText per row), and the spotlight
 // canvas redraws only the few hundred glyphs around the pointer, only while it moves.
@@ -13,13 +12,34 @@ import { rafThrottle } from "@/lib/rafThrottle";
 // longer than the ~1.4 s decode, so no pause control is needed.
 // Reduced motion: the text is drawn at rest and the spotlight stays off.
 // Touch screens: the decode plays once; there is no pointer to follow.
+// Contrast: the spotlight never draws behind an element marked [data-code-clear] inside
+// the same section, and the veil keeps the field dim where text sits (docs/DESIGN.md).
 
 const DECODE_MS = 1400;
 const BAND = 10; // scrambling columns ahead of the decoded text
 const BASE_ALPHA = 0.085;
 const SETTLE_MS = 140; // after the pointer stops, glyphs settle back to real code
+const CLEAR_PAD = 10; // px kept free of spotlight glyphs around [data-code-clear] text
 
-export default function CodeField({ source }: { source: string }) {
+interface Rect {
+  x0: number;
+  y0: number;
+  x1: number;
+  y1: number;
+}
+
+export default function CodeField({
+  source,
+  variant = "hero",
+  start = "load",
+}: {
+  source: string;
+  // hero: darkens the bottom corners and fades out under the header; center: darkens the
+  // middle of the section, where a centred text column sits.
+  variant?: "hero" | "center";
+  // load: decode once the page is idle; visible: decode when the section scrolls into view.
+  start?: "load" | "visible";
+}) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const baseRef = useRef<HTMLCanvasElement>(null);
   const lightRef = useRef<HTMLCanvasElement>(null);
@@ -51,7 +71,9 @@ export default function CodeField({ source }: { source: string }) {
     let rows = 0;
     let lines: string[] = [];
     let lag: number[] = [];
+    let clear: Rect[] = [];
     let decodeT = reduce ? 1 : 0;
+    let started = reduce;
     let decodeRaf = 0;
     let idleId = 0;
     let settleTimer = 0;
@@ -79,10 +101,20 @@ export default function CodeField({ source }: { source: string }) {
       rows = Math.ceil(h / lineH) + 1;
       lines = layoutGlyphs(source, cols, rows);
       lag = lines.map(() => Math.floor(Math.random() * 14));
+      clear = Array.from(host.querySelectorAll<HTMLElement>("[data-code-clear]"), (el) => {
+        const r = el.getBoundingClientRect();
+        return {
+          x0: r.left - rect.left - CLEAR_PAD,
+          y0: r.top - rect.top - CLEAR_PAD,
+          x1: r.right - rect.left + CLEAR_PAD,
+          y1: r.bottom - rect.top + CLEAR_PAD,
+        };
+      });
     };
 
     const drawBase = () => {
       bctx.clearRect(0, 0, w, h);
+      if (!started) return;
       bctx.globalAlpha = BASE_ALPHA;
       bctx.fillStyle = ink;
       for (let r = 0; r < rows; r++) {
@@ -111,6 +143,8 @@ export default function CodeField({ source }: { source: string }) {
       bctx.globalAlpha = 1;
     };
 
+    const inClear = (x: number, y: number) => clear.some((r) => x >= r.x0 && x <= r.x1 && y >= r.y0 && y <= r.y1);
+
     const drawLight = (scrambling: boolean) => {
       lctx.clearRect(0, 0, w, h);
       if (Number.isNaN(px) || decodeT < 1) return;
@@ -128,10 +162,11 @@ export default function CodeField({ source }: { source: string }) {
         for (let c = c0; c <= c1; c++) {
           let ch = lines[r][c];
           if (!ch || ch === " ") continue;
-          const k = spotlight(Math.hypot(c * charW + charW / 2 - px, cy - py), radius);
-          if (k < 0.03) continue;
+          const cx = c * charW + charW / 2;
+          const k = spotlight(Math.hypot(cx - px, cy - py), radius);
+          if (k < 0.03 || inClear(cx, cy)) continue;
           if (scrambling && Math.random() < k * 0.12) ch = scrambleGlyph(Math.random());
-          lctx.globalAlpha = 0.12 + k * 0.88;
+          lctx.globalAlpha = 0.1 + k * 0.6;
           lctx.fillText(ch, c * charW, r * lineH);
         }
       }
@@ -139,9 +174,11 @@ export default function CodeField({ source }: { source: string }) {
     };
 
     const runDecode = () => {
-      const start = performance.now();
+      if (started) return;
+      started = true;
+      const begin = performance.now();
       const tick = (now: number) => {
-        decodeT = Math.min(1, (now - start) / DECODE_MS);
+        decodeT = Math.min(1, (now - begin) / DECODE_MS);
         drawBase();
         if (decodeT < 1) decodeRaf = requestAnimationFrame(tick);
       };
@@ -169,7 +206,16 @@ export default function CodeField({ source }: { source: string }) {
       drawBase();
       drawLight(false);
     });
-    const observer = new ResizeObserver(() => onResize());
+    const resizer = new ResizeObserver(() => onResize());
+    const viewer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        viewer.disconnect();
+        setup();
+        runDecode();
+      },
+      { threshold: 0.2 },
+    );
 
     let disposed = false;
     // load() rejects when one face in the stack (e.g. next/font's local() fallback) is
@@ -178,14 +224,17 @@ export default function CodeField({ source }: { source: string }) {
     ready.then(() => {
       if (disposed) return;
       setup();
-      if (reduce) {
-        drawBase();
-      } else {
-        // Start once the page is idle, so the sweep never competes with hydration.
-        const go = () => runDecode();
-        idleId = window.requestIdleCallback ? window.requestIdleCallback(go, { timeout: 1200 }) : window.setTimeout(go, 300);
+      drawBase();
+      if (!reduce) {
+        if (start === "visible") {
+          viewer.observe(wrap);
+        } else {
+          // Start once the page is idle, so the sweep never competes with hydration.
+          const go = () => runDecode();
+          idleId = window.requestIdleCallback ? window.requestIdleCallback(go, { timeout: 1200 }) : window.setTimeout(go, 300);
+        }
       }
-      observer.observe(wrap);
+      resizer.observe(wrap);
       if (!reduce && finePointer) {
         host.addEventListener("pointermove", handleMove, { passive: true });
         host.addEventListener("pointerleave", handleLeave);
@@ -200,14 +249,20 @@ export default function CodeField({ source }: { source: string }) {
       window.clearTimeout(settleTimer);
       onMove.cancel();
       onResize.cancel();
-      observer.disconnect();
+      resizer.disconnect();
+      viewer.disconnect();
       host.removeEventListener("pointermove", handleMove);
       host.removeEventListener("pointerleave", handleLeave);
     };
-  }, [source]);
+  }, [source, start]);
 
   return (
-    <div ref={wrapRef} aria-hidden="true" className="code-field pointer-events-none absolute inset-0 z-0 overflow-hidden font-mono">
+    <div
+      ref={wrapRef}
+      aria-hidden="true"
+      data-variant={variant}
+      className="code-field pointer-events-none absolute inset-0 z-0 overflow-hidden font-mono"
+    >
       <canvas ref={baseRef} className="absolute inset-0 h-full w-full" />
       <canvas ref={lightRef} className="absolute inset-0 h-full w-full" />
       <div className="code-field-veil absolute inset-0" />

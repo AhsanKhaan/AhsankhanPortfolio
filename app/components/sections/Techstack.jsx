@@ -51,7 +51,7 @@ const Techstack = () => {
 
   return (
     <section id="tech-stack">
-      <div className="dark:color-base min-h-screen flex flex-col justify-center items-center px-4 py-16">
+      <div className="dark:color-base flex flex-col justify-center items-center px-4 py-16 md:py-24">
         {/* Title */}
         <div className="text-center mb-8">
           <h2 className="text-6xl dark:bg-gradient-sky text-transparent bg-clip-text dark:font-bold py-4">

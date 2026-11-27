@@ -3,7 +3,11 @@ import FadeIn from "../ui/FadeIn";
 import SectionKicker from "../ui/SectionKicker";
 import AnimatedText from "../ui/AnimatedText";
 import { ContactButton } from "../ui/BrandButtons";
-import { aboutText } from "@/data/profile";
+import CodeField from "../ui/CodeField";
+import { aboutText, profile } from "@/data/profile";
+import { buildCodeSource } from "@/lib/codeField";
+
+const codeSource = buildCodeSource(profile);
 
 const corners = [
   { Icon: IconBrandReact, label: "React", pos: "top-[4%] left-[2%] md:left-[6%]", x: -80, delay: 0.1 },
@@ -15,8 +19,10 @@ const corners = [
 const About = () => {
   return (
     <section id="about" className="relative flex min-h-screen flex-col items-center justify-center gap-16 overflow-x-clip px-5 py-20 sm:gap-20 sm:px-8 md:gap-24 md:px-10">
+      {/* The hero's code field again, dimmed in the middle where the text column sits. */}
+      <CodeField source={codeSource} variant="center" start="visible" />
       {corners.map(({ Icon, label, pos, x, delay }) => (
-        <div key={label} className={`absolute ${pos} hidden sm:block`} aria-hidden="true">
+        <div key={label} className={`absolute ${pos} z-10 hidden sm:block`} aria-hidden="true">
           <FadeIn delay={delay} x={x} y={0} duration={0.9}>
             <div className="flex h-24 w-24 items-center justify-center rounded-brand-lg border border-brand-border bg-brand-surface md:h-32 md:w-32">
               <Icon className="h-12 w-12 text-brand-accent-start md:h-16 md:w-16" stroke={1.25} />
@@ -25,7 +31,7 @@ const About = () => {
         </div>
       ))}
 
-      <div className="flex flex-col items-center gap-10 sm:gap-14 md:gap-16">
+      <div data-code-clear className="relative z-10 flex flex-col items-center gap-10 sm:gap-14 md:gap-16">
         <FadeIn y={40}>
           <SectionKicker id="about" label="About" />
           <h2
@@ -41,7 +47,9 @@ const About = () => {
         />
       </div>
 
-      <ContactButton href="#contact">Let&apos;s talk</ContactButton>
+      <div data-code-clear className="relative z-10">
+        <ContactButton href="#contact">Let&apos;s talk</ContactButton>
+      </div>
     </section>
   );
 };
