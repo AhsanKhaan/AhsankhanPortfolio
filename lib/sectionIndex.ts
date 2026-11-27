@@ -4,6 +4,8 @@ export const HOME_SECTIONS = [
   "about",
   "domain-fit",
   "services",
+  "experience",
+  "tech-stack",
   "case-studies",
   "ai-lab",
   "work-with-me",

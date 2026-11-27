@@ -68,12 +68,9 @@ const Badge = ({
   variant?: "default" | "secondary" | "outline";
 }) => {
   const variants = {
-    default:
-      "bg-slate-900 text-slate-50 hover:bg-slate-900/90 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90",
-    secondary:
-      "bg-slate-100 text-slate-900 hover:bg-slate-100/80 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-800/80",
-    outline:
-      "border border-slate-200 bg-transparent hover:bg-slate-100 dark:border-slate-800 dark:hover:bg-slate-800",
+    default: "bg-brand-text text-brand-bg",
+    secondary: "border border-brand-border bg-brand-surface-raised text-brand-text",
+    outline: "border border-brand-border bg-transparent text-brand-muted",
   };
 
   return (
@@ -195,8 +192,8 @@ const TimelineItemContent = memo(function TimelineItemContent({
             key={`${item.id}-resp-${idx}`}
             className="flex items-start gap-3 group"
           >
-            <div className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-2 flex-shrink-0 group-hover:bg-slate-600 dark:bg-slate-500 dark:group-hover:bg-slate-400 transition-colors duration-200" />
-            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <div aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brand-accent-end" />
+            <p className="text-sm leading-relaxed text-brand-muted">
               {responsibility}
             </p>
           </div>
@@ -204,7 +201,7 @@ const TimelineItemContent = memo(function TimelineItemContent({
       </div>
 
       {/* Skills */}
-      <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+      <div className="flex flex-wrap gap-2 border-t border-brand-border pt-4">
         {item.skills.map((skill, skillIdx) => (
           <Badge key={`${item.id}-skill-${skillIdx}`} variant="secondary">
             {skill}
@@ -235,19 +232,19 @@ const TimelineItem = memo(function TimelineItem({
   return (
     <div className="relative group">
       {/* Connecting line with gradient - now always visible */}
-      <div className="absolute left-6 top-14 bottom-0 w-[2px] bg-gradient-to-b from-black via-gray-500 to-white dark:from-white dark:via-gray-400 dark:to-black" />
+      <div aria-hidden="true" className="absolute bottom-0 left-6 top-14 w-[2px] bg-gradient-to-b from-[var(--color-accent-start)] to-[var(--color-border)]" />
 
       {/* Timeline node */}
-      <div className="absolute left-4 top-6 w-4 h-4 bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-700 rounded-full flex items-center justify-center transform transition-all duration-200 z-10">
-        <div className="w-2 h-2 bg-slate-900 dark:bg-slate-50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+      <div aria-hidden="true" className="absolute left-4 top-6 z-10 flex h-4 w-4 items-center justify-center rounded-full border-2 border-brand-accent-start bg-brand-bg">
+        <div className="h-2 w-2 rounded-full bg-brand-accent-end opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
       </div>
 
       {/* Main content card */}
       <div className="ml-12 mb-8">
         <div
           className={`
-          bg-white dark:bg-slate-950 
-          rounded-lg border border-slate-200 dark:border-slate-800 
+          bg-brand-surface
+          rounded-brand-lg border border-brand-border 
           transition-all duration-200
           ${expanded ? "shadow-sm" : "shadow-none hover:shadow-sm"}
         `}
@@ -255,7 +252,7 @@ const TimelineItem = memo(function TimelineItem({
           {/* Header */}
           <button
             id={headerId}
-            className="w-full text-left p-6 group/button cursor-pointer hover:bg-slate-50/50 dark:hover:bg-slate-900/50 transition-colors duration-200 rounded-t-lg"
+            className="w-full cursor-pointer rounded-t-brand-lg p-6 text-left transition-colors duration-200 hover:bg-brand-surface-raised"
             onClick={() => onToggle(item.id)}
             aria-expanded={expanded}
             aria-controls={contentId}
@@ -263,22 +260,20 @@ const TimelineItem = memo(function TimelineItem({
             <div className="flex items-start justify-between gap-4">
               <div className="space-y-2 flex-1">
                 <div className="flex items-center gap-4">
-                  <div className="p-2 bg-slate-100 dark:bg-slate-900 rounded-md">
-                    <Icon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                  <div aria-hidden="true" className="rounded-md bg-brand-surface-raised p-2">
+                    <Icon className="h-4 w-4 text-brand-accent-start" />
                   </div>
-                  <h2 className="dark:bg-gradient-sky bg-clip-text text-transparent text-lg dark:font-bolder" style={{fontSize:"20px",fontWeight:"bolder"}}>{item.company}</h2>
+                  <h4 className="bg-brand-accent bg-clip-text font-display text-xl font-bold text-transparent">{item.company}</h4>
                 </div>
 
                 <div className="flex items-center gap-3 ml-11">
-                  <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50">
-                    {item.title}
-                  </h3>
+                  <p className="text-base font-semibold text-brand-text">{item.title}</p>
                 </div>
                 <div className="flex items-center gap-3 ml-11">
                   <Badge variant="outline" className="text-xs">
                     {item.type}
                   </Badge>
-                  <span className="text-xs text-slate-500 dark:text-slate-400">
+                  <span className="text-xs text-brand-muted">
                     {item.duration}
                   </span>
                 </div>
@@ -286,7 +281,7 @@ const TimelineItem = memo(function TimelineItem({
 
               <div
                 className={`
-                text-slate-400 dark:text-slate-600 
+                text-brand-muted 
                 transition-transform duration-200
                 ${expanded ? "rotate-180" : ""}
               `}
@@ -302,7 +297,7 @@ const TimelineItem = memo(function TimelineItem({
               id={contentId}
               role="region"
               aria-labelledby={headerId}
-              className="px-6 pb-6 border-t border-slate-100 dark:border-slate-900"
+              className="border-t border-brand-border px-6 pb-6"
             >
               <TimelineItemContent item={item} />
             </div>
@@ -360,12 +355,12 @@ export function ProfessionalTimeline({
 export default function TimelinePage2() {
   return (
     <div className="transition-colors duration-300">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="mx-auto max-w-3xl py-16 sm:px-6 lg:px-8">
         <header className="mb-12 flex flex-col items-start ml-3">
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 mb-3">
-            Professional Experience
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+          <h3 className="mb-3 font-display text-2xl font-medium uppercase text-brand-text md:text-3xl">
+            Professional experience
+          </h3>
+          <p className="text-sm leading-relaxed text-brand-muted">
             A comprehensive overview of my career journey and professional
             achievements.
           </p>

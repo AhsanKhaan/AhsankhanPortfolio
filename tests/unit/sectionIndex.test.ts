@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { HOME_SECTIONS, sectionNumber } from "@/lib/sectionIndex";
@@ -8,6 +8,8 @@ const componentFor: Record<(typeof HOME_SECTIONS)[number], string> = {
   about: "About",
   "domain-fit": "DomainFit",
   services: "Services",
+  experience: "Experience",
+  "tech-stack": "Techstack",
   "case-studies": "CaseStudies",
   "ai-lab": "AgenticAI",
   "work-with-me": "WorkWithMe",
@@ -23,7 +25,7 @@ describe("sectionNumber", () => {
   });
 
   it("returns null for a section that is not numbered", () => {
-    expect(sectionNumber("experience")).toBeNull();
+    expect(sectionNumber("projects")).toBeNull();
     expect(sectionNumber("")).toBeNull();
   });
 });
@@ -39,7 +41,8 @@ describe("HOME_SECTIONS", () => {
 
   it("each numbered section renders a kicker with its own id", () => {
     for (const id of HOME_SECTIONS) {
-      const file = readFileSync(join(process.cwd(), "app/components/sections", `${componentFor[id]}.tsx`), "utf8");
+      const base = join(process.cwd(), "app/components/sections", componentFor[id]);
+      const file = readFileSync(existsSync(`${base}.tsx`) ? `${base}.tsx` : `${base}.jsx`, "utf8");
       expect(file).toContain(`<SectionKicker id="${id}"`);
     }
   });
