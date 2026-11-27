@@ -4,6 +4,7 @@ import { useEffect, useRef, type Ref } from "react";
 import Image from "next/image";
 import { IconExternalLink } from "@tabler/icons-react";
 import FadeIn from "../ui/FadeIn";
+import SectionKicker from "../ui/SectionKicker";
 import ProjectCover from "../ui/ProjectCover";
 import { GhostButton } from "../ui/BrandButtons";
 import { rafThrottle } from "@/lib/rafThrottle";
@@ -55,6 +56,7 @@ const CaseStudies = () => {
   return (
     <section id="case-studies" className="relative bg-brand-bg px-5 pt-20 sm:px-8 md:px-10">
       <FadeIn y={40}>
+        <SectionKicker id="case-studies" label="Case studies" />
         <h2
           className="hero-heading font-display mb-6 text-center font-black uppercase leading-none tracking-tight"
           style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}

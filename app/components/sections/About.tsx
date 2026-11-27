@@ -1,5 +1,6 @@
 import { IconBrandReact, IconBrandNextjs, IconBrandTypescript, IconBrandNodejs } from "@tabler/icons-react";
 import FadeIn from "../ui/FadeIn";
+import SectionKicker from "../ui/SectionKicker";
 import AnimatedText from "../ui/AnimatedText";
 import { ContactButton } from "../ui/BrandButtons";
 import { aboutText } from "@/data/profile";
@@ -26,6 +27,7 @@ const About = () => {
 
       <div className="flex flex-col items-center gap-10 sm:gap-14 md:gap-16">
         <FadeIn y={40}>
+          <SectionKicker id="about" label="About" />
           <h2
             className="hero-heading font-display text-center font-black uppercase leading-none tracking-tight"
             style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}

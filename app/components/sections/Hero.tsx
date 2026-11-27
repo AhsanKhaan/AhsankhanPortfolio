@@ -4,20 +4,39 @@ import { IconMapPin, IconWorld, IconBriefcase, IconBrandLinkedin } from "@tabler
 import Magnet from "../ui/Magnet";
 import { ContactButton, GhostButton } from "../ui/BrandButtons";
 import CvTriggerLink from "../ui/CvTriggerLink";
+import CodeField from "../ui/CodeField";
 import { heroAvailability, profile } from "@/data/profile";
+import { buildCodeSource } from "@/lib/codeField";
 
 const chipIcons = { location: IconMapPin, world: IconWorld, briefcase: IconBriefcase };
+
+const codeSource = buildCodeSource(profile);
+const years = profile.metrics.find((m) => m.label.startsWith("Years"))?.value;
 
 const rise = (delay: number, y: number) => ({ "--rise-delay": `${delay}s`, "--rise-y": `${y}px` }) as CSSProperties;
 
 const Hero = () => {
   return (
     <section id="home" className="relative flex h-screen min-h-[640px] flex-col overflow-x-clip pt-20">
+      {/* Decorative code texture behind everything (z-0); see CodeField for its cost model. */}
+      <CodeField source={codeSource} />
+
+      <p
+        className="rise relative z-30 mt-3 flex items-center justify-center gap-2.5 px-4 font-mono text-xs uppercase tracking-[0.2em] text-brand-muted"
+        style={rise(0.05, 12)}
+      >
+        <span className="status-dot" aria-hidden="true" />
+        <span>Open to work</span>
+        <span className="hidden sm:inline">
+          {years ? `· ${years} yrs in production ` : ""}· {profile.location}
+        </span>
+      </p>
+
       {/* `relative z-30` makes this a positioned element so it actually participates in
           z-index stacking — without it, a plain in-flow box always paints BELOW the
           portrait's `position:absolute` below, no matter what z-index either has. */}
       <div className="rise rise-lcp relative z-30 overflow-hidden px-2" style={rise(0.15, 40)}>
-        <h1 className="hero-heading font-display w-full whitespace-nowrap text-center font-black uppercase leading-none tracking-tight text-[15vw] mt-6 sm:mt-4 md:-mt-2 drop-shadow-[0_6px_28px_rgba(0,0,0,0.55)]">
+        <h1 className="hero-heading font-display w-full whitespace-nowrap text-center font-black uppercase leading-none tracking-tight text-[15vw] mt-2 sm:mt-1 md:-mt-3 drop-shadow-[0_6px_28px_rgba(0,0,0,0.55)]">
           Hi, i&apos;m Ahsan
         </h1>
       </div>

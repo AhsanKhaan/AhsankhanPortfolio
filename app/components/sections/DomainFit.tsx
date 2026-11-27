@@ -1,5 +1,6 @@
 import { IconTruckDelivery, IconBuildingBank, IconCheck } from "@tabler/icons-react";
 import FadeIn from "../ui/FadeIn";
+import SectionKicker from "../ui/SectionKicker";
 import { domainFit } from "@/data/profile";
 
 const icons = [IconTruckDelivery, IconBuildingBank];
@@ -8,6 +9,7 @@ const DomainFit = () => {
   return (
     <section id="domain-fit" className="px-5 py-20 sm:px-8 md:px-10">
       <FadeIn y={40}>
+        <SectionKicker id="domain-fit" label="Domain fit" />
         <h2
           className="hero-heading font-display mb-4 text-center font-black uppercase leading-none tracking-tight"
           style={{ fontSize: "clamp(2.5rem, 8vw, 110px)" }}

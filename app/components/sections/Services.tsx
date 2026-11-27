@@ -1,4 +1,5 @@
 import FadeIn from "../ui/FadeIn";
+import SectionKicker from "../ui/SectionKicker";
 import { services } from "@/data/profile";
 
 const Services = () => {
@@ -8,6 +9,7 @@ const Services = () => {
       className="rounded-t-[40px] bg-brand-surface px-5 py-20 sm:rounded-t-[50px] sm:px-8 sm:py-24 md:rounded-t-[60px] md:px-10 md:py-32"
     >
       <FadeIn y={40}>
+        <SectionKicker id="services" label="Services" />
         <h2
           className="hero-heading font-display mb-16 text-center font-black uppercase leading-none tracking-tight sm:mb-20 md:mb-28"
           style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}

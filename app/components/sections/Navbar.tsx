@@ -45,7 +45,10 @@ const Navbar: React.FC<NavbarProps> = ({ items, socialLinks }) => {
         {/* Brand Name */}
         <Link href="/" aria-label="Ahsan Khan, home">
 
-          <div className="whitespace-nowrap font-display text-2xl md:text-3xl font-extrabold bg-brand-accent bg-clip-text text-transparent">Ahsan Khan</div>
+          <div className="flex items-center gap-1.5 whitespace-nowrap font-mono text-xl font-bold tracking-tight md:text-2xl">
+            <span className="bg-brand-accent bg-clip-text text-transparent">Ahsan Khan</span>
+            <span className="term-cursor" aria-hidden="true" />
+          </div>
         </Link>
 
         {/* Navigation Links */}
