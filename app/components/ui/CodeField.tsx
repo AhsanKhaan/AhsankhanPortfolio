@@ -1,12 +1,14 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { decodeState, layoutGlyphs, scrambleGlyph, spotlight } from "@/lib/codeField";
+import { decodeSpan, decodeState, layoutGlyphs, scrambleGlyph, spotlight } from "@/lib/codeField";
 import { rafThrottle } from "@/lib/rafThrottle";
 
 // Section background: a faint field of real TypeScript (built from brand/profile.json by
 // buildCodeSource) that decodes once and lights up in the brand gradient under the pointer.
 //
-// Cost model: the base text is painted once (one fillText per row), and the spotlight
+// Cost model: the base text is painted once (one fillText per row); during the decode
+// each frame draws only the cells that changed in each row, so no frame is a long task
+// even on a slow phone (CI's Lighthouse budget). The spotlight
 // canvas redraws only the few hundred glyphs around the pointer, only while it moves.
 // Nothing runs on a timer, so an idle page spends no CPU here, and nothing moves for
 // longer than the ~1.4 s decode, so no pause control is needed.
@@ -173,13 +175,48 @@ export default function CodeField({
       lctx.globalAlpha = 1;
     };
 
+    // One decode step per frame, drawing only what changed in each row since the last
+    // step: the newly decoded slice, and the scramble band that moved along.
+    let done: Int32Array = new Int32Array(0); // per row: cells drawn as code
+    let bandEnd: Int32Array = new Int32Array(0); // per row: end of the drawn scramble band
+    const stepDecode = () => {
+      if (done.length !== rows) {
+        done = new Int32Array(rows);
+        bandEnd = new Int32Array(rows);
+      }
+      for (let r = 0; r < rows; r++) {
+        const { resolved, scrambled } = decodeSpan(decodeT, cols, BAND, lag[r]);
+        const from = done[r];
+        const to = Math.max(scrambled, bandEnd[r]);
+        if (to <= from && resolved <= from) continue;
+        const y = r * lineH;
+        bctx.clearRect(from * charW, y, (to - from) * charW + 1, lineH);
+        if (resolved > from) {
+          bctx.globalAlpha = BASE_ALPHA;
+          bctx.fillStyle = ink;
+          bctx.fillText(lines[r].slice(from, resolved), from * charW, y);
+        }
+        if (scrambled > resolved) {
+          let band = "";
+          for (let c = resolved; c < scrambled; c++) band += scrambleGlyph(Math.random());
+          bctx.globalAlpha = BASE_ALPHA * 3;
+          bctx.fillStyle = accentB;
+          bctx.fillText(band, resolved * charW, y);
+        }
+        done[r] = Math.max(from, resolved);
+        bandEnd[r] = scrambled;
+      }
+      bctx.globalAlpha = 1;
+    };
+
     const runDecode = () => {
       if (started) return;
       started = true;
+      bctx.clearRect(0, 0, w, h);
       const begin = performance.now();
       const tick = (now: number) => {
         decodeT = Math.min(1, (now - begin) / DECODE_MS);
-        drawBase();
+        stepDecode();
         if (decodeT < 1) decodeRaf = requestAnimationFrame(tick);
       };
       decodeRaf = requestAnimationFrame(tick);
@@ -204,6 +241,7 @@ export default function CodeField({
     const onResize = rafThrottle(() => {
       setup();
       drawBase();
+      done = new Int32Array(0);
       drawLight(false);
     });
     const resizer = new ResizeObserver(() => onResize());

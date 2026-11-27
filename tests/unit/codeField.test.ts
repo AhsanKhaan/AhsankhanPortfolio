@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   SCRAMBLE_GLYPHS,
   buildCodeSource,
+  decodeSpan,
   decodeState,
   layoutGlyphs,
   scrambleGlyph,
@@ -80,6 +81,26 @@ describe("decodeState", () => {
   it("clamps t outside 0..1", () => {
     expect(decodeState(0, -1, cols, band)).toBe("hidden");
     expect(decodeState(cols - 1, 2, cols, band)).toBe("resolved");
+  });
+});
+
+describe("decodeSpan", () => {
+  it("agrees with decodeState for every cell at every step of the sweep", () => {
+    for (const lag of [0, 7]) {
+      for (let step = 0; step <= 40; step++) {
+        const t = step / 40;
+        const { resolved, scrambled } = decodeSpan(t, 50, 6, lag);
+        for (let c = 0; c < 50; c++) {
+          const expected = c < resolved ? "resolved" : c < scrambled ? "scramble" : "hidden";
+          expect(decodeState(c, t, 50, 6, lag)).toBe(expected);
+        }
+      }
+    }
+  });
+
+  it("covers the whole row at the end and nothing at the start", () => {
+    expect(decodeSpan(0, 30, 5)).toEqual({ resolved: 0, scrambled: 0 });
+    expect(decodeSpan(1, 30, 5)).toEqual({ resolved: 30, scrambled: 30 });
   });
 });
 

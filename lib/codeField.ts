@@ -78,3 +78,12 @@ export function spotlight(distance: number, radius: number): number {
   const x = 1 - Math.max(0, distance) / radius;
   return x * x * (3 - 2 * x);
 }
+
+// The same sweep as decodeState, as two column counts for a whole row: cells before
+// `resolved` show their code, cells from `resolved` up to `scrambled` are scrambling, and
+// the rest are hidden. Lets a canvas draw only the cells that changed since the last frame.
+export function decodeSpan(t: number, cols: number, band: number, lag = 0): { resolved: number; scrambled: number } {
+  const front = Math.max(0, Math.min(1, t)) * (cols + band + lag) - lag;
+  const clampCols = (n: number) => Math.max(0, Math.min(cols, Math.ceil(n)));
+  return { resolved: clampCols(front - band), scrambled: clampCols(front) };
+}

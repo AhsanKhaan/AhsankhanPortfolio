@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import portrait from "@/data/codePortrait.json";
 import { levelRows, levelRuns } from "@/lib/codePortrait";
-import { decodeState, scrambleGlyph } from "@/lib/codeField";
+import { decodeSpan, decodeState, scrambleGlyph } from "@/lib/codeField";
 import { rafThrottle } from "@/lib/rafThrottle";
 
 // The profile photo redrawn as code: data/codePortrait.json (built from the photo by
@@ -103,47 +103,68 @@ export default function CodePortrait({ source, label, className = "" }: { source
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
-    const draw = () => {
-      layers.forEach((ctx) => ctx.clearRect(0, 0, w, h));
+    // Draws one row of every level: as code (dark levels) or lit blocks with the code cut
+    // in (bright levels), or as scrambled glyphs while the decode band passes over it.
+    const drawRow = (r: number, scrambling: boolean) => {
+      const y = r * lineH;
       for (let l = 1; l <= portrait.levels; l++) {
+        const line = byLevel[l - 1][r];
+        if (!line) continue;
         const ctx = layers[layerOf(l)];
-        const lines = byLevel[l - 1];
-        const block = l >= BLOCK_FROM;
-        for (let r = 0; r < portrait.rows; r++) {
-          const line = lines[r];
-          if (!line) continue;
-          const state = decodeState(r, decodeT, portrait.rows, BAND_ROWS);
-          if (state === "hidden") break;
-          const y = r * lineH;
-          if (state === "scramble") {
-            ctx.globalAlpha = 0.6;
-            ctx.fillStyle = accentB;
-            text(ctx, line.replace(/\S/g, () => scrambleGlyph(Math.random())), y);
-            continue;
-          }
-          ctx.globalAlpha = alphaOf(l);
-          ctx.fillStyle = gradient ?? accentA;
-          if (!block) {
-            text(ctx, line, y);
-            continue;
-          }
-          for (const [c0, len] of runs[l - 1][r]) ctx.fillRect(c0 * cellW, y, len * cellW + 0.4, lineH + 0.4);
-          ctx.globalAlpha = 0.5;
-          ctx.fillStyle = ground;
-          text(ctx, line, y);
+        if (scrambling) {
+          ctx.globalAlpha = 0.6;
+          ctx.fillStyle = accentB;
+          text(ctx, line.replace(/\S/g, () => scrambleGlyph(Math.random())), y);
+          continue;
         }
+        ctx.globalAlpha = alphaOf(l);
+        ctx.fillStyle = gradient ?? accentA;
+        if (l < BLOCK_FROM) {
+          text(ctx, line, y);
+          continue;
+        }
+        for (const [c0, len] of runs[l - 1][r]) ctx.fillRect(c0 * cellW, y, len * cellW + 0.4, lineH + 0.4);
+        ctx.globalAlpha = 0.5;
+        ctx.fillStyle = ground;
+        text(ctx, line, y);
       }
+    };
+    const clearRow = (r: number) => layers.forEach((ctx) => ctx.clearRect(0, r * lineH, w, lineH));
+    const finish = () =>
       layers.forEach((ctx) => {
         ctx.globalAlpha = 1;
         for (const r of clear) ctx.clearRect(r.x, r.y, r.w, r.h);
       });
+
+    // Full redraw (first paint, resize, reduced motion).
+    const draw = () => {
+      layers.forEach((ctx) => ctx.clearRect(0, 0, w, h));
+      for (let r = 0; r < portrait.rows; r++) {
+        const state = decodeState(r, decodeT, portrait.rows, BAND_ROWS);
+        if (state === "hidden") break;
+        drawRow(r, state === "scramble");
+      }
+      finish();
     };
 
+    // The decode draws only what changed each frame: rows that just resolved, and the
+    // rows under the moving scramble band, so no frame is a long task on a slow phone.
+    let resolvedRows = 0;
+    let bandRows = 0;
     const decode = () => {
       const begin = performance.now();
+      layers.forEach((ctx) => ctx.clearRect(0, 0, w, h));
       const tick = (now: number) => {
         decodeT = Math.min(1, (now - begin) / DECODE_MS);
-        draw();
+        const { resolved, scrambled } = decodeSpan(decodeT, portrait.rows, BAND_ROWS);
+        for (let r = resolvedRows; r < Math.max(scrambled, bandRows); r++) {
+          clearRow(r);
+          if (r < resolved) drawRow(r, false);
+          else if (r < scrambled) drawRow(r, true);
+        }
+        resolvedRows = resolved;
+        bandRows = scrambled;
+        finish();
         if (decodeT < 1) raf = requestAnimationFrame(tick);
         else root.dataset.look = "";
       };
