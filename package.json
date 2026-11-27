@@ -46,7 +46,7 @@
     "@tabler/icons-react": "^3.52.0",
     "@tsparticles/engine": "^3.8.1",
     "@tsparticles/react": "^3.0.0",
-    "@tsparticles/slim": "^3.8.1",
+    "@tsparticles/slim": "^4.5.3",
     "clsx": "^2.1.1",
     "framer-motion": "^11.17.0",
     "lottie-react": "^2.4.1",
