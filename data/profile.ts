@@ -12,9 +12,10 @@ export const inquiryTypes: { value: InquiryType; label: string }[] = [
   { value: "freelance", label: "Freelance project" },
 ];
 
-// Hero portrait. "code" draws the photo as code glyphs (app/components/ui/CodePortrait.tsx);
-// "photo" shows the original picture, public/assets/Profile-v3.png, which is never modified.
-export const heroPortrait: "code" | "photo" = "code";
+// Hero portrait. "cartoon" shows the 3D cartoon (public/assets/Profile-cartoon.webp, made in
+// Canva from the photo); "code" draws the photo as code glyphs (CodePortrait); "photo" shows
+// the original picture, public/assets/Profile-v3.png, which is never modified.
+export const heroPortrait: "cartoon" | "code" | "photo" = "cartoon";
 
 export const heroAvailability = [
   { icon: "location", label: "Karachi, Pakistan → Open to relocate" },
