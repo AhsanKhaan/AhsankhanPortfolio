@@ -1,0 +1,52 @@
+# Monthly refresh of the GitHub numbers on /contributions (commit and pull-request counts,
+# contributions per quarter). Fetches them from GitHub's GraphQL API with a read-only token,
+# checks the result with the unit tests, and commits data/githubStats.json to master only if
+# it changed; the push redeploys the site on Vercel. Setup: README.md, "GitHub stats".
+name: github-stats
+
+on:
+  schedule:
+    - cron: "17 3 1 * *" # 03:17 UTC on the 1st of every month
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-stats
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: Refresh GitHub stats
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write # commit data/githubStats.json
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: master
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install (lockfile only)
+        run: npm ci
+      - name: Fetch stats from GitHub
+        env:
+          GH_STATS_TOKEN: ${{ secrets.GH_STATS_TOKEN }}
+        run: node scripts/fetch-github-stats.mjs
+      - name: Check the new file
+        run: npx vitest run tests/unit/githubStats.test.ts
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- data/githubStats.json; then
+            echo "No change in GitHub stats."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/githubStats.json
+          git commit -m "Refresh GitHub stats ($(date -u +%Y-%m))"
+          git push origin HEAD:master
