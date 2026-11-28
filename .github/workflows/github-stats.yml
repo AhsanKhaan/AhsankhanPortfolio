@@ -1,7 +1,8 @@
-# Monthly refresh of the GitHub numbers on /contributions (commit and pull-request counts,
-# contributions per quarter). Fetches them from GitHub's GraphQL API with a read-only token,
-# checks the result with the unit tests, and commits data/githubStats.json to master only if
-# it changed; the push redeploys the site on Vercel. Setup: README.md, "GitHub stats".
+# Monthly refresh of the GitHub numbers on /contributions (contributions to the major projects
+# in data/majorProjects.json, pull requests, commits per quarter). Reads each project's git
+# history and GitHub's API with a read-only token, checks the result with the unit tests, and
+# commits data/githubStats.json to master only if it changed; the push redeploys the site on
+# Vercel. Setup: README.md, "GitHub stats".
 name: github-stats
 
 on:
