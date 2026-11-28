@@ -63,6 +63,19 @@ This is a standalone `node` script (`scripts/test-recruiter-email.mjs`), not an 
 
 **CV attachment source:** the script attaches **`private/cv/AhsanKhan_SrSoftwareEngineer.pdf`** directly (read off disk with `readFileSync`, sent via Nodemailer's `attachments` field) — the same file `GET /api/cv/download` streams for the public, gated flow. It's the only place in this codebase that attaches the CV directly rather than gating it, and it's safe specifically because this script is local and manually run for one named recruiter at a time, never a public endpoint. See `brand/brand-guidelines.md` §7 for the full reasoning.
 
+### GitHub stats (refreshed monthly)
+
+The commit and pull-request counts and the "contributions per quarter" chart on `/contributions` come from `data/githubStats.json`. A scheduled workflow (`.github/workflows/github-stats.yml`) refreshes it on the 1st of every month from GitHub's GraphQL API, commits it to `master` if it changed, and the push redeploys the site. No manual export is needed.
+
+The numbers are GitHub **contributions** (default-branch commits, pull requests, issues and reviews) since 2020, not raw commit counts. Private-repository work is only counted when **Include private contributions on my profile** is on in your GitHub profile settings.
+
+One-time setup:
+1. Create a fine-grained token at GitHub → Settings → Developer settings → Fine-grained tokens: resource owner `AhsanKhaan`, repository access **All repositories**, permissions **Metadata: read** and **Contents: read**. It is read-only; give it a 1-year expiry and renew it when GitHub emails you.
+2. Add it to this repository as an Actions secret named **`GH_STATS_TOKEN`** (Settings → Secrets and variables → Actions). Never commit it.
+3. Run the workflow once from the Actions tab (**github-stats → Run workflow**) to replace the seed numbers with live ones.
+
+To refresh by hand: `GH_STATS_TOKEN=… node scripts/fetch-github-stats.mjs`. Offline check against a recorded response: `node scripts/fetch-github-stats.mjs --fixture tests/fixtures/github-contributions.json --out /tmp/stats.json`.
+
 ## Project structure
 
 ```

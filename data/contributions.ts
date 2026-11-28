@@ -1,25 +1,29 @@
 // GitHub contributions and agentic-AI work.
-// Numbers come from the GitHub account export of 2026-11-11 (commit history and pull
-// requests) and from each project's own README. Academic work, course exercises and
-// small practice repositories are deliberately left out.
+// The commit and pull-request counts and the per-quarter chart come from
+// data/githubStats.json, refreshed monthly from GitHub's API by
+// .github/workflows/github-stats.yml (scripts/fetch-github-stats.mjs). Everything else
+// comes from each project's own README. Academic work, course exercises and small
+// practice repositories are deliberately left out.
+import stats from "./githubStats.json";
+import { roundDown } from "@/lib/githubStats";
+
+const sinceYear = stats.since.slice(0, 4);
 
 export const githubStats = [
-  { value: "1,300+", label: "Commits authored across personal repositories" },
-  { value: "50+", label: "Pull requests authored, each through CI checks" },
+  { value: roundDown(stats.commits), label: `Commit contributions since ${sinceYear}` },
+  { value: roundDown(stats.pullRequests), label: `Pull requests since ${sinceYear}, each through CI checks` },
   { value: "21", label: "Claude Code agents in one gated pipeline" },
   { value: "9", label: "CI/CD workflows guarding a single template" },
 ];
 
-// Commits authored per quarter (non-merge), 2020 Q1 to 2026 Q4.
-export const commitActivity: { quarter: string; commits: number }[] = [
-  ["2020-Q1", 113], ["2020-Q2", 172], ["2020-Q3", 310], ["2020-Q4", 130],
-  ["2021-Q1", 0], ["2021-Q2", 16], ["2021-Q3", 24], ["2021-Q4", 6],
-  ["2022-Q1", 50], ["2022-Q2", 28], ["2022-Q3", 6], ["2022-Q4", 0],
-  ["2023-Q1", 0], ["2023-Q2", 0], ["2023-Q3", 0], ["2023-Q4", 0],
-  ["2024-Q1", 27], ["2024-Q2", 6], ["2024-Q3", 0], ["2024-Q4", 56],
-  ["2025-Q1", 20], ["2025-Q2", 7], ["2025-Q3", 32], ["2025-Q4", 37],
-  ["2026-Q1", 0], ["2026-Q2", 15], ["2026-Q3", 9], ["2026-Q4", 122],
-].map(([quarter, commits]) => ({ quarter: quarter as string, commits: commits as number }));
+// GitHub contributions per quarter (commits, pull requests, issues and reviews), oldest first.
+export const contributionActivity: { quarter: string; contributions: number }[] = stats.quarters;
+
+// When the numbers were last refreshed, for the "Updated" line on the page.
+export const statsUpdated = {
+  live: stats.source === "github-graphql",
+  label: new Date(stats.generatedAt).toLocaleDateString("en-GB", { month: "long", year: "numeric", timeZone: "UTC" }),
+};
 
 export const githubAchievements = [
   { name: "Pull Shark", detail: "Opened pull requests that were merged" },

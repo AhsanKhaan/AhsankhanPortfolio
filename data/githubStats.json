@@ -1,0 +1,122 @@
+{
+  "source": "export-2026-11-11",
+  "generatedAt": "2026-11-11T00:00:00.000Z",
+  "since": "2020-01-01",
+  "commits": 1300,
+  "pullRequests": 50,
+  "privateContributions": 0,
+  "quarters": [
+    {
+      "quarter": "2020-Q1",
+      "contributions": 113
+    },
+    {
+      "quarter": "2020-Q2",
+      "contributions": 172
+    },
+    {
+      "quarter": "2020-Q3",
+      "contributions": 310
+    },
+    {
+      "quarter": "2020-Q4",
+      "contributions": 130
+    },
+    {
+      "quarter": "2021-Q1",
+      "contributions": 0
+    },
+    {
+      "quarter": "2021-Q2",
+      "contributions": 16
+    },
+    {
+      "quarter": "2021-Q3",
+      "contributions": 24
+    },
+    {
+      "quarter": "2021-Q4",
+      "contributions": 6
+    },
+    {
+      "quarter": "2022-Q1",
+      "contributions": 50
+    },
+    {
+      "quarter": "2022-Q2",
+      "contributions": 28
+    },
+    {
+      "quarter": "2022-Q3",
+      "contributions": 6
+    },
+    {
+      "quarter": "2022-Q4",
+      "contributions": 0
+    },
+    {
+      "quarter": "2023-Q1",
+      "contributions": 0
+    },
+    {
+      "quarter": "2023-Q2",
+      "contributions": 0
+    },
+    {
+      "quarter": "2023-Q3",
+      "contributions": 0
+    },
+    {
+      "quarter": "2023-Q4",
+      "contributions": 0
+    },
+    {
+      "quarter": "2024-Q1",
+      "contributions": 27
+    },
+    {
+      "quarter": "2024-Q2",
+      "contributions": 6
+    },
+    {
+      "quarter": "2024-Q3",
+      "contributions": 0
+    },
+    {
+      "quarter": "2024-Q4",
+      "contributions": 56
+    },
+    {
+      "quarter": "2025-Q1",
+      "contributions": 20
+    },
+    {
+      "quarter": "2025-Q2",
+      "contributions": 7
+    },
+    {
+      "quarter": "2025-Q3",
+      "contributions": 32
+    },
+    {
+      "quarter": "2025-Q4",
+      "contributions": 37
+    },
+    {
+      "quarter": "2026-Q1",
+      "contributions": 0
+    },
+    {
+      "quarter": "2026-Q2",
+      "contributions": 15
+    },
+    {
+      "quarter": "2026-Q3",
+      "contributions": 9
+    },
+    {
+      "quarter": "2026-Q4",
+      "contributions": 122
+    }
+  ]
+}
