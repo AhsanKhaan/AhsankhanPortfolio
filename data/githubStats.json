@@ -1,22 +1,22 @@
 {
-  "source": "export-2026-11-11",
-  "generatedAt": "2026-11-11T00:00:00.000Z",
+  "source": "github-graphql",
+  "generatedAt": "2026-11-28T17:07:27.150Z",
   "since": "2020-01-01",
-  "commits": 1300,
-  "pullRequests": 50,
-  "privateContributions": 0,
+  "commits": 416,
+  "pullRequests": 32,
+  "privateContributions": 458,
   "quarters": [
     {
       "quarter": "2020-Q1",
-      "contributions": 113
+      "contributions": 71
     },
     {
       "quarter": "2020-Q2",
-      "contributions": 172
+      "contributions": 65
     },
     {
       "quarter": "2020-Q3",
-      "contributions": 310
+      "contributions": 303
     },
     {
       "quarter": "2020-Q4",
@@ -28,7 +28,7 @@
     },
     {
       "quarter": "2021-Q2",
-      "contributions": 16
+      "contributions": 22
     },
     {
       "quarter": "2021-Q3",
@@ -36,7 +36,7 @@
     },
     {
       "quarter": "2021-Q4",
-      "contributions": 6
+      "contributions": 8
     },
     {
       "quarter": "2022-Q1",
@@ -48,7 +48,7 @@
     },
     {
       "quarter": "2022-Q3",
-      "contributions": 6
+      "contributions": 10
     },
     {
       "quarter": "2022-Q4",
@@ -72,35 +72,35 @@
     },
     {
       "quarter": "2024-Q1",
-      "contributions": 27
+      "contributions": 9
     },
     {
       "quarter": "2024-Q2",
-      "contributions": 6
-    },
-    {
-      "quarter": "2024-Q3",
-      "contributions": 0
-    },
-    {
-      "quarter": "2024-Q4",
-      "contributions": 56
-    },
-    {
-      "quarter": "2025-Q1",
-      "contributions": 20
-    },
-    {
-      "quarter": "2025-Q2",
       "contributions": 7
     },
     {
+      "quarter": "2024-Q3",
+      "contributions": 3
+    },
+    {
+      "quarter": "2024-Q4",
+      "contributions": 3
+    },
+    {
+      "quarter": "2025-Q1",
+      "contributions": 1
+    },
+    {
+      "quarter": "2025-Q2",
+      "contributions": 0
+    },
+    {
       "quarter": "2025-Q3",
-      "contributions": 32
+      "contributions": 22
     },
     {
       "quarter": "2025-Q4",
-      "contributions": 37
+      "contributions": 12
     },
     {
       "quarter": "2026-Q1",
@@ -108,15 +108,15 @@
     },
     {
       "quarter": "2026-Q2",
-      "contributions": 15
+      "contributions": 7
     },
     {
       "quarter": "2026-Q3",
-      "contributions": 9
+      "contributions": 0
     },
     {
       "quarter": "2026-Q4",
-      "contributions": 122
+      "contributions": 170
     }
   ]
 }
