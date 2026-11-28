@@ -1,122 +1,122 @@
 {
-  "source": "github-graphql",
-  "generatedAt": "2026-11-28T17:07:27.150Z",
+  "source": "git-history",
+  "generatedAt": "2026-11-28T17:23:21.565Z",
   "since": "2020-01-01",
-  "commits": 416,
+  "repos": 12,
+  "commits": 365,
   "pullRequests": 32,
-  "privateContributions": 458,
   "quarters": [
     {
       "quarter": "2020-Q1",
-      "contributions": 71
+      "commits": 109
     },
     {
       "quarter": "2020-Q2",
-      "contributions": 65
+      "commits": 88
     },
     {
       "quarter": "2020-Q3",
-      "contributions": 303
+      "commits": 35
     },
     {
       "quarter": "2020-Q4",
-      "contributions": 130
+      "commits": 0
     },
     {
       "quarter": "2021-Q1",
-      "contributions": 0
+      "commits": 0
     },
     {
       "quarter": "2021-Q2",
-      "contributions": 22
+      "commits": 0
     },
     {
       "quarter": "2021-Q3",
-      "contributions": 24
+      "commits": 0
     },
     {
       "quarter": "2021-Q4",
-      "contributions": 8
+      "commits": 0
     },
     {
       "quarter": "2022-Q1",
-      "contributions": 50
+      "commits": 0
     },
     {
       "quarter": "2022-Q2",
-      "contributions": 28
+      "commits": 0
     },
     {
       "quarter": "2022-Q3",
-      "contributions": 10
+      "commits": 0
     },
     {
       "quarter": "2022-Q4",
-      "contributions": 0
+      "commits": 0
     },
     {
       "quarter": "2023-Q1",
-      "contributions": 0
+      "commits": 0
     },
     {
       "quarter": "2023-Q2",
-      "contributions": 0
+      "commits": 0
     },
     {
       "quarter": "2023-Q3",
-      "contributions": 0
+      "commits": 0
     },
     {
       "quarter": "2023-Q4",
-      "contributions": 0
+      "commits": 0
     },
     {
       "quarter": "2024-Q1",
-      "contributions": 9
+      "commits": 0
     },
     {
       "quarter": "2024-Q2",
-      "contributions": 7
+      "commits": 0
     },
     {
       "quarter": "2024-Q3",
-      "contributions": 3
+      "commits": 0
     },
     {
       "quarter": "2024-Q4",
-      "contributions": 3
+      "commits": 0
     },
     {
       "quarter": "2025-Q1",
-      "contributions": 1
+      "commits": 20
     },
     {
       "quarter": "2025-Q2",
-      "contributions": 0
+      "commits": 7
     },
     {
       "quarter": "2025-Q3",
-      "contributions": 22
+      "commits": 13
     },
     {
       "quarter": "2025-Q4",
-      "contributions": 12
+      "commits": 15
     },
     {
       "quarter": "2026-Q1",
-      "contributions": 0
+      "commits": 0
     },
     {
       "quarter": "2026-Q2",
-      "contributions": 7
+      "commits": 14
     },
     {
       "quarter": "2026-Q3",
-      "contributions": 0
+      "commits": 9
     },
     {
       "quarter": "2026-Q4",
-      "contributions": 170
+      "commits": 55
     }
   ]
 }

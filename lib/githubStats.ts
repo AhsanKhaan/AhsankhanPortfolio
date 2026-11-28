@@ -1,38 +1,32 @@
-// Pure helpers for the GitHub stats on /contributions. scripts/fetch-github-stats.mjs uses
-// them to turn GitHub's GraphQL contribution data into data/githubStats.json (refreshed
-// monthly by .github/workflows/github-stats.yml), and data/contributions.ts uses them to
-// display it. Tested in tests/unit/githubStats.test.ts.
+// Pure helpers for the GitHub numbers on /contributions. scripts/fetch-github-stats.mjs uses
+// them to turn the git history of the major projects (data/majorProjects.json) and their
+// pull requests into data/githubStats.json, refreshed monthly by
+// .github/workflows/github-stats.yml; data/contributions.ts uses them to display it.
+// Tested in tests/unit/githubStats.test.ts.
 
 export interface QuarterCount {
   quarter: string; // "2026-Q4"
-  contributions: number;
+  commits: number;
 }
 
 export interface GithubStats {
-  source: string; // "github-graphql" for a live refresh, or the export it was seeded from
+  source: string; // "git-history" for a refresh, or what the file was seeded from
   generatedAt: string; // ISO date
   since: string; // ISO date the counts start from
-  commits: number;
-  pullRequests: number;
-  privateContributions: number;
+  repos: number; // major projects counted
+  commits: number; // commits authored (no merges) in those repos since `since`
+  pullRequests: number; // pull requests opened in those repos since `since`
   quarters: QuarterCount[];
 }
 
-export interface YearCollection {
-  totalCommitContributions: number;
-  totalPullRequestContributions: number;
-  restrictedContributionsCount: number;
-  contributionCalendar: { weeks: { contributionDays: { date: string; contributionCount: number }[] }[] };
-}
-
-// "2026-11-27" -> "2026-Q4"
+// "2026-11-27" or "2026-11-27T10:00:00+05:00" -> "2026-Q4"
 export function quarterOf(date: string): string {
-  const [year, month] = date.split("-").map(Number);
+  const [year, month] = date.slice(0, 10).split("-").map(Number);
   return `${year}-Q${Math.floor((month - 1) / 3) + 1}`;
 }
 
-// Every quarter from `from` to `to` inclusive, oldest first, so quarters without any
-// contributions still show as empty bars.
+// Every quarter from `from` to `to` inclusive, oldest first, so quiet quarters still
+// show as empty bars.
 export function quarterRange(from: string, to: string): string[] {
   const [fy, fq] = quarterOf(from).split("-Q").map(Number);
   const [ty, tq] = quarterOf(to).split("-Q").map(Number);
@@ -41,30 +35,22 @@ export function quarterRange(from: string, to: string): string[] {
   return out;
 }
 
-// Sums daily calendar counts into quarters between `from` and `to`. Days outside that
-// range (calendars pad whole weeks) are ignored.
-export function quartersFromDays(days: { date: string; contributionCount: number }[], from: string, to: string): QuarterCount[] {
+// Counts commit dates into quarters between `from` and `to` (dates outside are ignored).
+export function quartersFromDates(dates: string[], from: string, to: string): QuarterCount[] {
   const totals = new Map(quarterRange(from, to).map((q) => [q, 0]));
-  for (const d of days) {
-    if (d.date < from || d.date > to) continue;
-    const q = quarterOf(d.date);
-    if (totals.has(q)) totals.set(q, (totals.get(q) ?? 0) + d.contributionCount);
+  for (const d of dates) {
+    const day = d.slice(0, 10);
+    if (day < from || day > to) continue;
+    const q = quarterOf(day);
+    if (totals.has(q)) totals.set(q, (totals.get(q) ?? 0) + 1);
   }
-  return Array.from(totals, ([quarter, contributions]) => ({ quarter, contributions }));
+  return Array.from(totals, ([quarter, commits]) => ({ quarter, commits }));
 }
 
-// Combines one contributionsCollection per year into the stats file's shape.
-export function combineYears(years: YearCollection[], from: string, to: string, generatedAt: string): GithubStats {
-  const days = years.flatMap((y) => y.contributionCalendar.weeks.flatMap((w) => w.contributionDays));
-  return {
-    source: "github-graphql",
-    generatedAt,
-    since: from,
-    commits: years.reduce((n, y) => n + y.totalCommitContributions, 0),
-    pullRequests: years.reduce((n, y) => n + y.totalPullRequestContributions, 0),
-    privateContributions: years.reduce((n, y) => n + y.restrictedContributionsCount, 0),
-    quarters: quartersFromDays(days, from, to),
-  };
+// True when a commit's author email is one of Ahsan's addresses (case-insensitive).
+export function isOwnCommit(email: string, authorEmails: string[]): boolean {
+  const e = email.trim().toLowerCase();
+  return authorEmails.some((a) => a.toLowerCase() === e);
 }
 
 // Display style used on the page, an "at least" figure: 1342 -> "1,300+", 57 -> "50+",
@@ -85,13 +71,64 @@ export function isGithubStats(v: unknown): v is GithubStats {
     typeof s.generatedAt === "string" &&
     !Number.isNaN(Date.parse(s.generatedAt)) &&
     typeof s.since === "string" &&
+    count(s.repos) &&
     count(s.commits) &&
     count(s.pullRequests) &&
-    count(s.privateContributions) &&
     Array.isArray(s.quarters) &&
     s.quarters.length > 0 &&
-    s.quarters.every(
-      (q) => q && typeof q === "object" && /^\d{4}-Q[1-4]$/.test((q as QuarterCount).quarter) && count((q as QuarterCount).contributions),
-    )
+    s.quarters.every((q) => q && typeof q === "object" && /^\d{4}-Q[1-4]$/.test((q as QuarterCount).quarter) && count((q as QuarterCount).commits))
   );
+}
+
+export interface RawCommit {
+  hash: string;
+  repo: string;
+  email: string;
+  date: string; // ISO author date
+}
+
+export interface RawPullRequest {
+  owner: string;
+  repo: string;
+  createdAt: string;
+}
+
+// Builds the stats file from raw history: only Ahsan's own commits (any of his addresses)
+// and his pull requests, only in the listed repos, only from `since` to `to`. A commit that
+// appears in two repositories (one copied from the other) is counted once.
+export function summarize(input: {
+  commits: RawCommit[];
+  pullRequests: RawPullRequest[];
+  owner: string;
+  repos: string[];
+  reposRead: number;
+  authorEmails: string[];
+  since: string;
+  to: string;
+  generatedAt: string;
+}): GithubStats {
+  const listed = new Set(input.repos.map((r) => r.toLowerCase()));
+  const inRange = (d: string) => d.slice(0, 10) >= input.since && d.slice(0, 10) <= input.to;
+  const seen = new Set<string>();
+  const commits = input.commits.filter((c) => {
+    if (!listed.has(c.repo.toLowerCase()) || !isOwnCommit(c.email, input.authorEmails) || !inRange(c.date) || seen.has(c.hash)) return false;
+    seen.add(c.hash);
+    return true;
+  });
+  const pullRequests = input.pullRequests.filter(
+    (p) => p.owner.toLowerCase() === input.owner.toLowerCase() && listed.has(p.repo.toLowerCase()) && inRange(p.createdAt),
+  );
+  return {
+    source: "git-history",
+    generatedAt: input.generatedAt,
+    since: input.since,
+    repos: input.reposRead,
+    commits: commits.length,
+    pullRequests: pullRequests.length,
+    quarters: quartersFromDates(
+      commits.map((c) => c.date),
+      input.since,
+      input.to,
+    ),
+  };
 }

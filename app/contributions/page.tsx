@@ -75,7 +75,7 @@ const statusStyle: Record<RepoStatus, string> = {
 };
 
 const sectionHeading = "hero-heading font-display font-black uppercase leading-none tracking-tight";
-const peak = Math.max(1, ...contributionActivity.map((q) => q.contributions));
+const peak = Math.max(1, ...contributionActivity.map((q) => q.commits));
 const years = Array.from(new Set(contributionActivity.map((q) => q.quarter.slice(0, 4))));
 
 export default function ContributionsPage() {
@@ -133,23 +133,23 @@ export default function ContributionsPage() {
             <FadeIn className="h-full">
               <div className="glow-card flex h-full flex-col p-6 sm:p-8">
                 <h2 className="font-display text-2xl text-brand-text">
-                  Contributions per quarter, {years[0]} to now
+                  Commits per quarter, {years[0]} to now
                 </h2>
                 <p className="mt-1 text-sm text-brand-muted">
-                  Commits, pull requests, issues and reviews on my GitHub account. Employer work at Nayapay and client work in
-                  company repositories is not counted here.
+                  Commits I authored across my {statsUpdated.repos} major projects. Semester and practice repositories,
+                  employer work at Nayapay and client work in company repositories are not counted here.
                 </p>
                 <div
                   className="mt-8 flex h-44 items-end gap-[3px] sm:gap-1.5"
                   role="img"
-                  aria-label={`Bar chart of GitHub contributions per quarter from ${years[0]} to ${years[years.length - 1]}. Busiest quarter: ${peak} contributions.`}
+                  aria-label={`Bar chart of commits per quarter across major projects from ${years[0]} to ${years[years.length - 1]}. Busiest quarter: ${peak} commits.`}
                 >
                   {contributionActivity.map((q) => (
                     <div
                       key={q.quarter}
-                      title={`${q.quarter.replace("-", " ")}: ${q.contributions} contributions`}
+                      title={`${q.quarter.replace("-", " ")}: ${q.commits} commits`}
                       className="flex-1 rounded-t-sm bg-brand-accent-vertical"
-                      style={{ height: `${Math.max((q.contributions / peak) * 100, 2)}%`, opacity: q.contributions ? 1 : 0.25 }}
+                      style={{ height: `${Math.max((q.commits / peak) * 100, 2)}%`, opacity: q.commits ? 1 : 0.25 }}
                     />
                   ))}
                 </div>
@@ -161,7 +161,7 @@ export default function ContributionsPage() {
                   ))}
                 </div>
                 <p className="mt-4 text-xs text-brand-muted">
-                  {statsUpdated.live ? `Updated ${statsUpdated.label} from GitHub, refreshed monthly.` : `From my GitHub account export, ${statsUpdated.label}.`}
+                  {statsUpdated.live ? `Updated ${statsUpdated.label} from the git history of my major projects, refreshed monthly.` : `From my GitHub account, ${statsUpdated.label}.`}
                 </p>
               </div>
             </FadeIn>

@@ -1,0 +1,29 @@
+{
+  "note": "Repositories whose work counts toward the GitHub numbers on /contributions (scripts/fetch-github-stats.mjs). Semester projects, assignments and practice repos are left out on purpose; add a repo here to count it. authorEmails are every address Ahsan's commits carry, including the old one without a domain that GitHub cannot credit.",
+  "owner": "AhsanKhaan",
+  "authorEmails": [
+    "ahsankhan.ubit",
+    "ahsankhan.ubit@gmail.com",
+    "36338069+AhsanKhaan@users.noreply.github.com"
+  ],
+  "repos": [
+    "aksitekit",
+    "calculatorporch",
+    "cip-2026",
+    "clientkit",
+    "career-ai",
+    "developerstools",
+    "social-media-downloader",
+    "NextDeals",
+    "GoldPrice-v2",
+    "AhsankhanPortfolio",
+    "petshop",
+    "CaRealstatePlugin",
+    "Schef",
+    "VoiceContentSearcher",
+    "VoiceContentSearcher-android",
+    "VoiceContent",
+    "speedtest-next",
+    "Instagram"
+  ]
+}

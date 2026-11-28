@@ -65,16 +65,21 @@ This is a standalone `node` script (`scripts/test-recruiter-email.mjs`), not an 
 
 ### GitHub stats (refreshed monthly)
 
-The commit and pull-request counts and the "contributions per quarter" chart on `/contributions` come from `data/githubStats.json`. A scheduled workflow (`.github/workflows/github-stats.yml`) refreshes it on the 1st of every month from GitHub's GraphQL API, commits it to `master` if it changed, and the push redeploys the site. No manual export is needed.
+The contribution and pull-request counts and the "commits per quarter" chart on `/contributions` come from `data/githubStats.json`. A scheduled workflow (`.github/workflows/github-stats.yml`) refreshes it on the 1st of every month, commits it to `master` if it changed, and the push redeploys the site.
 
-The numbers are GitHub **contributions** (default-branch commits, pull requests, issues and reviews) since 2020, not raw commit counts. Private-repository work is only counted when **Include private contributions on my profile** is on in your GitHub profile settings.
+What counts:
+- **Only the major projects listed in `data/majorProjects.json`.** Semester projects, assignments and practice repos are left out. Add a repository name there to count it.
+- **Commits are read from each repo's own git history** (every branch, no merges, since 2020), matched against every address in `authorEmails`. That includes the old `ahsankhan.ubit` address with no domain, which GitHub's own contribution graph cannot credit. A commit in two repos is counted once.
+- **Pull requests come from GitHub's API:** your PRs on those repos since 2020.
 
 One-time setup:
-1. Create a fine-grained token at GitHub → Settings → Developer settings → Fine-grained tokens: resource owner `AhsanKhaan`, repository access **All repositories**, permissions **Metadata: read** and **Contents: read**. It is read-only; give it a 1-year expiry and renew it when GitHub emails you.
+1. Create a fine-grained token at GitHub → Settings → Developer settings → Fine-grained tokens: resource owner `AhsanKhaan`, repository access **All repositories**, permissions **Metadata: read** and **Contents: read**. It is read-only (Contents lets it read the private repos' history); give it a 1-year expiry and renew it when GitHub emails you.
 2. Add it to this repository as an Actions secret named **`GH_STATS_TOKEN`** (Settings → Secrets and variables → Actions). Never commit it.
-3. Run the workflow once from the Actions tab (**github-stats → Run workflow**) to replace the seed numbers with live ones.
+3. Run the workflow from the Actions tab (**github-stats → Run workflow**) any time you want an update before the 1st.
 
-To refresh by hand: `GH_STATS_TOKEN=… node scripts/fetch-github-stats.mjs`. Offline check against a recorded response: `node scripts/fetch-github-stats.mjs --fixture tests/fixtures/github-contributions.json --out /tmp/stats.json`.
+To refresh by hand: `GH_STATS_TOKEN=… node scripts/fetch-github-stats.mjs`. Without the token it reads only the public repos and keeps the current pull-request count. Offline check against recorded history: `node scripts/fetch-github-stats.mjs --fixture tests/fixtures/github-history.json --out /tmp/stats.json`.
+
+To get your past work credited on your GitHub profile graph too, add `ahsankhan.ubit@gmail.com` under GitHub → Settings → Emails, and set `git config --global user.email "ahsankhan.ubit@gmail.com"` on your computer so future commits carry a valid address.
 
 ## Project structure
 

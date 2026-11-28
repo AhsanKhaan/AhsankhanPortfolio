@@ -1,27 +1,28 @@
 // GitHub contributions and agentic-AI work.
-// The commit and pull-request counts and the per-quarter chart come from
-// data/githubStats.json, refreshed monthly from GitHub's API by
+// The contribution and pull-request counts and the per-quarter chart come from
+// data/githubStats.json: commits read from the git history of the major projects in
+// data/majorProjects.json (semester and practice repos are left out), refreshed monthly by
 // .github/workflows/github-stats.yml (scripts/fetch-github-stats.mjs). Everything else
-// comes from each project's own README. Academic work, course exercises and small
-// practice repositories are deliberately left out.
+// comes from each project's own README.
 import stats from "./githubStats.json";
 import { roundDown } from "@/lib/githubStats";
 
 const sinceYear = stats.since.slice(0, 4);
 
 export const githubStats = [
-  { value: roundDown(stats.commits), label: `Commit contributions since ${sinceYear}` },
+  { value: roundDown(stats.commits + stats.pullRequests), label: `Contributions to major projects since ${sinceYear}` },
   { value: roundDown(stats.pullRequests), label: `Pull requests since ${sinceYear}, each through CI checks` },
   { value: "21", label: "Claude Code agents in one gated pipeline" },
   { value: "9", label: "CI/CD workflows guarding a single template" },
 ];
 
-// GitHub contributions per quarter (commits, pull requests, issues and reviews), oldest first.
-export const contributionActivity: { quarter: string; contributions: number }[] = stats.quarters;
+// Commits per quarter across the major projects, oldest first.
+export const contributionActivity: { quarter: string; commits: number }[] = stats.quarters;
 
 // When the numbers were last refreshed, for the "Updated" line on the page.
 export const statsUpdated = {
-  live: stats.source === "github-graphql",
+  live: stats.source === "git-history",
+  repos: stats.repos,
   label: new Date(stats.generatedAt).toLocaleDateString("en-GB", { month: "long", year: "numeric", timeZone: "UTC" }),
 };
 
